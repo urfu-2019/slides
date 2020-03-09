@@ -1,0 +1,1115 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Просмотр презентаций</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../../@lib/core.css">
+    <link rel="stylesheet" href="../../@lib/theme.css">
+    <link rel="stylesheet" href="index.css">
+</head><body class="white"><div class="reveal"><div class="slides">
+
+<section class="center">
+    <h1><span class="bold">Type</span>Script</h1>
+    <br><br><p class="author right">Старков Дима</p>
+</section>
+
+<section class="center">
+    <h2>Mocha / LiveScript / JavaScript</h2>
+    <img src="images/brendan-eich.jpg" alt="Создатель JS"/>
+</section>
+
+<section>
+    <h2>ECMAScript</h2>
+    <div class="center">
+        <img src="images/ecmascript.png" alt="Эволюция"/>
+        <img src="images/tc39.png" alt="TC39"/>
+    </div>
+</section>
+
+<section class="slide-ecmascript-history">
+    <h2>Эволюция ECMAScript</h2>
+    <ul>
+        <li>ES1, ES2 — первые редакции</li>
+        <li class="fragment">ES3 (1999) — RegExp, try/catch</li>
+        <li class="fragment">ES4 — Темные времена</li>
+        <li class="fragment">
+            ES5 (2009) — строгий режим, геттеры и сеттеры, нативная поддержка JSON, новые методы
+            Array и Object
+        </li>
+    </ul>
+</section>
+
+<section>
+    <h2>Пример кода на ES5</h2>
+    <pre class="js"><code data-trim data-noescape>
+function Student(firstName, lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+}
+    <span class="fragment">
+Object.defineProperty(Student.prototype, 'name', {
+    get: function() {
+        return this.firstName + ' ' + this.lastName;
+    }
+});
+    </span>
+    </code></pre>
+</section>
+
+<section>
+    <h2>ES6</h2>
+</section>
+
+<section>
+    <h2><s>ES6</s> ECMAScript 2015</h2>
+    <ul>
+        <li class="fragment">Классы</li>
+        <li class="fragment">let и const</li>
+        <li class="fragment">Стрелочные функции</li>
+        <li class="fragment">Шаблонные строки</li>
+        <li class="fragment">Деструктуризация</li>
+        <li class="fragment">Promise</li>
+    </ul>
+</section>
+
+<section>
+    <h2>ECMAScript 2016</h2>
+    <ul>
+        <li class="fragment">Оператор ** (возведение в степень)</li>
+        <li class="fragment">Array.prototype.includes</li>
+    </ul>
+</section>
+
+<section>
+    <h2>ECMAScript 2017</h2>
+    <ul>
+        <li class="fragment">async / await</li>
+        <li class="fragment">Object.values</li>
+        <li class="fragment">Object.entries</li>
+        <li class="fragment">String.prototype.pad[Start|End]</li>
+    </ul>
+</section>
+
+<section>
+    <h2>ECMAScript 2018</h2>
+    <ul>
+        <li class="fragment">Rest и Spread оператор массивов</li>
+        <li class="fragment">Rest и Spread оператор объектов</li>
+        <li class="fragment">Promise.prototype.finally</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Дальнейшее развитие ECMAScript</h2>
+    <div class="center">
+        <img src="images/github.png" alt="GitHub logo" />
+    </div>
+    <p><a href="https://github.com/tc39/ecma262">tc39/ecma262</a></p>
+</section>
+
+<section class="center">
+    <h2>Зачем всё это знать?</h2>
+</section>
+
+<section>
+    <h2>Статистика использования браузеров</h2>
+    <div class="center">
+        <img src="images/browsers.png" alt="Браузеры в России по данным Яндекс.Метрики"/>
+        <small>Данные из отчёта «Яндекс.Радара» на 3 декабря 2019</small>
+    </div>
+</section>
+
+<section>
+    <h2>Таблица совместимости</h2>
+    <div class="center">
+        <a href="https://kangax.github.io/compat-table" target="_blank">
+            https://kangax.github.io/compat-table
+        </a>
+        <img alt="Compatible" src="images/compat-table.png"/>
+    </div>
+</section>
+
+<section>
+    <h2>Разный уровень поддержки языка</h2>
+    <div class="center">
+        <img src="images/venn-esnext.png" alt="Venn Diagram" />
+        <div class="fragment">Как решать проблему?</div>
+    </div>
+</section>
+
+<section class="center">
+    <p>Транспиляция — это процесс перевода исходного кода одного языка в другой</p>
+    <div><img src="images/transpilation.png" alt="Transpile"/></div>
+</section>
+
+<section>
+    <p><img src="images/babel-logo.png" alt="Babel logo"/></p>
+    <p><a href="https://babeljs.io/en/repl">Babel Playground</a></p>
+    <div><img src="images/how-babel-works.png" alt="How Babel works" /></div>
+</section>
+
+<section>
+    <h2>Код на ES2015</h2>
+    <pre class="js"><code data-trim>
+class Student {
+    constructor(firstName, lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    set skills(skills = []) {
+        this._skills = skills;
+    }
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Код после транспиляции</h2>
+    <pre style="font-size: .7em"><code data-trim>
+var Student = function () {
+    function Student(firstName, lastName) {
+        _classCallCheck(this, Student);
+
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    _createClass(Student, [{
+        key: 'skills',
+        set: function() {
+            var args = arguments;
+            var skills = args.length > 0 && args[0] !== undefined ? args[0] : [];
+
+            this._skills = skills;
+        }
+    }]);
+
+    return Student;
+}();
+    </code></pre>
+</section>
+
+<section>
+    <h2>Система плагинов</h2>
+    <p><a href="https://babeljs.io/docs/en/plugins">Plugins</a></p>
+    <ul style="margin-top: -20px">
+        <li>arrow-functions</li>
+        <li>classes</li>
+        <li>destructuring</li>
+        <li>duplicate-keys</li>
+        <li>for-of</li>
+        <li>...</li>
+    </ul>
+</section>
+
+<section class="center">
+    <h2>С поддержкой браузерами справились</h2>
+    <h2>Что дальше?</h2>
+</section>
+
+<section>
+    <h2>Что не так?</h2>
+    <pre class="js"><code data-trim data-noescape>
+function sum(a, b) {
+    return a + b;
+}
+
+sum(2, 2); // 4
+    <span class="fragment">
+sum(2, '2'); <span class="fragment">// '22'</span>
+    </span><span class="fragment">
+sum([], []); <span class="fragment">// ''</span>
+    </span><span class="fragment">
+sum([], {}); <span class="fragment">// '[object Object]'</span>
+    </span><span class="fragment">
+sum({}, []); <span class="fragment">// 0</span>
+    </span>
+    </code></pre>
+</section>
+
+<section>
+    <h2>Как исправить?</h2>
+    <pre class="js fragment"><code data-trim>
+function sum(a, b) {
+    if (typeof a !== 'number' || typeof b !== 'number') {
+        throw new Error('a and b must be numbers');
+    }
+
+    return a + b;
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Что в IDE?</h2>
+    <div class="center">
+        <img src="images/code-ide-no-completion.png" alt="no IDE completion"/>
+    </div>
+</section>
+
+<section>
+    <h2>Слабая динамическая типизация</h2>
+    <ul>
+        <li>Неявные преобразования</li>
+        <li>Типы становятся известны в runtime</li>
+    </ul>
+</section>
+
+<section class="center">
+    <div><img src="images/typescript-logo.png" style="width: 40%" alt="TypeScript logo"/></div>
+    <div><img src="images/venn-typescript.png" style="width: 40%" alt="TypeScript venn diagram"/></div>
+    <p><a href="https://www.typescriptlang.org/play/">TypeScript Playground</a></p>
+</section>
+
+<section>
+    <h2>Автор</h2>
+    <div class="center">
+        <img src="images/anders-hejlsberg.jpg" alt="Anders Hejlsberg" style="width: 25%"/>
+        <div><small>Андерс Хейлсберг</small></div>
+        <small>Известен также по Turbo Pascal, Delphi, C#</small>
+    </div>
+</section>
+
+<section>
+    <h2>Возможности</h2>
+    <ul>
+        <li>ES2015-ESNext</li>
+        <li class="fragment">Транспиляция в ES2015, ES5, ES3 ...</li>
+        <li class="fragment">Аннотации типов и их проверка</li>
+        <li class="fragment">Вывод типов</li>
+        <li class="fragment">Дополнительные фичи</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Примитивные типы данных</h2>
+    <pre class="ts fragment"><code data-trim>
+        const isDone: boolean = false;
+    </code></pre>
+    <pre class="ts fragment"><code data-trim>
+        const decimal: number = 6 + 0xf00d + 0b1010;
+    </code></pre>
+    <pre class="ts fragment"><code data-trim>
+        const sentence: string = 'Hello, my name is Alice.';
+    </code></pre>
+    <pre class="ts fragment"><code data-trim>
+        const u: undefined = undefined;
+        const n: null = null;
+    </code></pre>
+</section>
+
+<section>
+    <h2>Массивы (Array)</h2>
+    <pre class="ts"><code data-trim>
+    const list1: number[] = [1, 2, 3];
+
+    const list2: Array&lt;number&gt; = [1, 2, 3];
+    </code></pre>
+</section>
+
+<section>
+    <h2>Кортежи (Tuple)</h2>
+</section>
+
+<section>
+    <h2><s>Кортежи</s> Tuple</h2>
+    <div class="indented-content">
+<pre class="ts size-S"><code data-trim data-noescape>
+    // Объявление кортежа
+    let point: [number, number];
+<span class="fragment">
+    // Некорректная инициализация
+    // <span class="type-error-comment">Type 'string' is not assignable to type 'number'.</span>
+    point = [10, <span class="type-error">'hello'</span>];
+</span><span class="fragment">
+    // Инициализация
+    point = [20, 10]; // OK
+  </span></code></pre>
+    </div>
+</section>
+
+<section>
+    <h2>Перечисления (Enum)</h2>
+<pre class="ts"><code data-trim>
+  enum Color {
+      Red,
+      Green,
+      Blue
+  }
+
+  const c: Color = Color.Green;
+</code></pre>
+</section>
+
+<section>
+    <h2>Перечисления (Enum)</h2>
+
+<pre class="ts"><code data-trim>
+  enum Color {
+      Red = 5,
+      Green = 7,
+      Blue = 9
+  }
+
+  const c: Color = Color.Green;
+</code></pre>
+</section>
+
+<section>
+    <h2>Перечисления (Enum)</h2>
+
+<pre class="ts"><code data-trim>
+  enum Color {
+      Red = '#f00',
+      Green = '#0f0',
+      Blue = '#00f'
+  }
+
+  const c: Color = Color.Green;
+</code></pre>
+</section>
+
+<section>
+    <h2>Объекты (Object)</h2>
+
+    <div class="code-two-columns">
+        <div>
+  <pre class="ts"><code data-trim>
+      const colors: object = {
+          red: '#F00',
+          green: '#0F0',
+          blue: '#00F'
+      };
+    </code></pre>
+        </div>
+        <div>
+  <pre class="ts"><code data-trim>
+      const settings: {
+          color: string;
+          delay: number;
+          retry: boolean;
+      } = {
+          color: '#F00',
+          delay: 2000,
+          retry: false
+      };
+    </code></pre>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>Any</h2>
+
+<pre class="ts"><code data-trim data-noescape>
+  let notSure: any = 4;
+  notSure = "maybe a string instead";
+  notSure = false;
+<span class="fragment">
+  let notSure: any = 4;
+  notSure.foo(); // <span class="type-error-comment">TypeError: notSure.foo is not a function</span>
+  notSure.toFixed(); // OK
+</span><span class="fragment">
+  let prettySure: object = new Number(4);
+  // <span class="type-error-comment">Property 'toFixed' does not exist on type 'object'.</span>
+  prettySure.<span class="type-error">toFixed</span>();
+</span>
+</code></pre>
+</section>
+
+<section>
+    <h2>Void и Never</h2>
+
+    <div class="indented-content">
+<pre class="ts"><code data-trim>
+  function warnUser(): void {
+      console.log("This is my warning message");
+  }
+
+  function error(message: string): never {
+      throw new Error(message);
+  }
+
+  function infiniteLoop(): never {
+      while (true) {}
+  }
+</code></pre>
+    </div>
+</section>
+
+<section>
+    <h2>Приведение типов</h2>
+
+    <div class="indented-content">
+<pre class="ts"><code data-trim>
+  const someValue: any = 'this is a string';
+
+  const strLength1: number = (&#x3C;string&#x3E;someValue).length;
+  const strLength2: number = (someValue as string).length;
+</code></pre>
+    </div>
+</section>
+
+<section>
+    <h2>Функции</h2>
+
+    <div class="indented-content">
+<pre class="ts"><code data-trim>
+  function sum(x: number, y: number): number {
+      return x + y;
+  }
+</code></pre>
+    </div>
+
+    <div class="fragment">
+<pre class="ts"><code data-trim>
+  const sum = (x: number, y: number): number => x + y;
+</code></pre>
+    </div>
+</section>
+
+<section>
+    <h2>Интерфейсы</h2>
+
+        <div class="indented-content">
+  <pre class="ts"><code data-trim>
+    function printLogin(user: { login: string }): void {
+        console.log(user.login);
+    }
+
+    const user = {
+        login: 'maxie'
+    };
+
+    printLogin(user);
+  </code></pre>
+        </div>
+</section>
+
+<section>
+    <h2>Интерфейсы</h2>
+
+        <div class="indented-content">
+  <pre class="ts"><code data-trim>
+    interface IUser {
+        login: string;
+    }
+
+    function printLogin(user: IUser): void {
+        console.log(user.login);
+    }
+
+    const user = {
+        username: 'maxie'
+    };
+
+    printLogin(user);
+  </code></pre>
+        </div>
+</section>
+
+<section>
+        <h3>Опциональные свойства</h3>
+        <pre class="ts" style="font-size: 0.9em"><code data-trim data-noescape>
+  interface IOptions {
+      color?: string;
+  }
+
+  interface ISquare {
+      color: string;
+  }
+
+  function create(options: IOptions): ISquare {
+    const square: ISquare = { color: 'white' };
+
+    // <span class="type-error-comment">Type 'undefined' is not assignable to type 'string'.</span>
+    <span class="type-error">square.color</span> = options.color;
+
+
+    return square;
+  }
+</code></pre>
+</section>
+
+<section>
+    <h3>Опциональные свойства</h3>
+        <pre class="ts" style="font-size: 0.9em"><code data-trim data-noescape>
+  interface IOptions {
+      color?: string;
+  }
+
+  interface ISquare {
+      color: string;
+  }
+
+  function create(options: IOptions): ISquare {
+    const square: ISquare = { color: 'white' };
+
+    if (options.color) {
+        square.color = options.color;
+    }
+
+    return square;
+  }
+</code></pre>
+</section>
+
+<section>
+    <h2>Классы</h2>
+
+  <pre class="ts" style="font-size: 0.75em"><code data-trim>
+    interface IMakesSound {
+        makeSound(): void;
+    }
+
+    class Python implements IMakesSound {
+        private readonly _length: number;
+
+        constructor(length: number) {
+            this._length = length;
+        }
+
+        public get length(): number {
+            return this._length / 100;
+        }
+
+        protected makeSound() {
+            console.log('Ssssss!');
+        }
+    }
+  </code></pre>
+</section>
+
+<section>
+     <h2>Классы</h2>
+  <pre class="ts" style="font-size: 0.75em"><code data-trim>
+    abstract class Snake {
+        private readonly _length: number;
+
+        public get length(): number {
+            return this._length / 100;
+        }
+
+        constructor(length: number) {
+            this._length = length;
+        }
+
+        protected abstract makeSound(): void;
+    }
+  </code></pre>
+</section>
+
+<section>
+     <h2>Классы</h2>
+  <pre class="ts" style="font-size: 0.75em"><code data-trim>
+    class Python extends Snake {
+        private static population = 10000;
+
+        public static incrementPopulation(): void {
+            Python.population++;
+        }
+
+        constructor(length: number) {
+            super(length);
+            Python.incrementPopulation();
+        }
+
+        protected makeSound(): void {
+            console.log('Ssssss!');
+        }
+    }
+  </code></pre>
+    </section>
+
+<section class="center">
+    <h2>Перерыв?</h2>
+</section>
+
+
+<section>
+    <h2>Вывод типов</h2>
+
+    <pre class="typescript"><code data-noescape>
+let n: number = 42
+let s: string = 'Hello, world!'
+let a: number[] = [1, 2, 3, 4]
+    <span class="fragment" data-fragment-index="1">
+let n = 42
+let s = 'Hello, world!'
+let a = [1, 2, 3, 4]</span></code></pre>
+
+    <p class="fragment" data-fragment-index="1">🎉</p>
+</section>
+
+<section>
+    <h2>Наиболее общий тип</h2>
+
+    <pre class="typescript"><code data-noescape>
+let shapes = [new Circle(), new Square()]
+
+
+    <span class="fragment">
+shapes.push(new Triangle())</span></code></pre>
+
+    <p><img src="images/common-type.png" alt="Наиболее общий тип"/></p>
+</section>
+
+<section>
+    <h2>Наиболее общий тип</h2>
+
+    <pre class="typescript"><code data-noescape>
+let shapes = [new Circle(), new Square()]
+    <span class="type-error-comment">
+// Argument of type 'Triangle'
+// is not assignable to parameter of type 'Square | Circle'.</span>
+shapes.push(<span class="type-error">new Triangle()</span>)</code></pre>
+
+    <p><img src="images/common-type.png" alt="Наиболее общий тип"/></p>
+</section>
+
+<section>
+    <h2>Наиболее общий тип</h2>
+
+    <pre class="typescript"><code>
+let shapes = [new Circle(), new Square()]
+
+
+
+shapes.push(new Triangle())</code></pre>
+
+    <p><img src="images/common-type.png" alt="Найболее общий тип"/></p>
+</section>
+
+<section>
+    <h2>Наиболее общий тип</h2>
+
+    <pre class="typescript"><code data-noescape>
+let shapes = [<mark>new Circle()</mark>, new Square()]
+
+
+
+shapes.push(new Triangle())</code></pre>
+
+    <p><img src="images/common-type-1.png" alt="Наиболее общий тип"/></p>
+</section>
+
+<section>
+    <h2>Наиболее общий тип</h2>
+
+    <pre class="typescript"><code data-noescape>
+let shapes = [new Circle(), <mark>new Square()</mark>]
+
+
+
+shapes.push(new Triangle())</code></pre>
+
+    <p><img src="images/common-type-2.png" alt="Наиболее общий тип"/></p>
+</section>
+
+<section>
+    <h2>Наиболее общий тип</h2>
+
+    <pre class="typescript"><code data-noescape>
+let shapes = [new Circle(), new Square()]
+<span class="type-error-comment">
+// Argument of type 'Triangle'
+// is not assignable to parameter of type 'Square | Circle'.</span>
+shapes.push(<span class="type-error">new Triangle()</span>)</code></pre>
+
+    <p><img src="images/common-type-3.png" alt="Наиболее общий тип"/></p>
+</section>
+
+<section>
+    <h2>Наиболее общий тип</h2>
+
+    <pre class="typescript"><code data-noescape>
+let shapes: <mark>Shape[]</mark> = [new Circle(), new Square()]
+
+
+
+shapes.push(new Triangle())</code></pre>
+
+    <p><img src="images/common-type-4.png" alt="Наиболее общий тип"/></p>
+</section>
+
+<section>
+    <h2>Совместимость типов</h2>
+
+    <pre class="typescript"><code data-noescape>
+class Human {
+    name: string
+}
+
+class Robot {
+    name: string
+}
+    <span class="fragment" data-fragment-index="1">
+let human: Human = new Robot()</span></code></pre>
+
+    <p class="fragment" data-fragment-index="1">🤖</p>
+</section>
+
+<section>
+    <h2>Проверка типа в runtime</h2>
+
+    <pre class="typescript"><code>
+function addShape(shapes: Shape[], obj: object) {
+    if (obj instanceof Shape) {
+        shapes.push(obj as Shape)
+    }
+
+    throw new TypeError('Argument is not instanceof Shape')
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Проверка типа в runtime</h2>
+
+    <pre class="typescript"><code data-noescape>
+function addShape(shapes: <mark>Shape[]</mark>, obj: <mark>object</mark>) {
+    if (obj instanceof Shape) {
+        shapes.push(obj as Shape)
+    }
+
+    throw new TypeError('Argument is not instanceof Shape')
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Проверка типа в runtime</h2>
+
+    <pre class="typescript"><code data-noescape>
+function addShape(shapes: Shape[], obj: object) {
+    if (<mark>obj instanceof Shape</mark>) {
+        shapes.push(obj as Shape)
+    }
+
+    throw new TypeError('Argument is not instanceof Shape')
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Проверка типа в runtime</h2>
+
+    <pre class="typescript"><code data-noescape>
+function addShape(shapes: Shape[], obj: object) {
+    if (obj instanceof Shape) {
+        shapes.push(<mark>obj as Shape</mark>)
+    }
+
+    throw new TypeError('Argument is not instanceof Shape')
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Проверка типа в runtime</h2>
+
+    <pre class="typescript"><code data-noescape>
+function addShape(shapes: Shape[], obj: object) {
+    if (obj instanceof Shape) {
+        shapes.push(obj as Shape)
+    }
+
+    throw new <mark>TypeError('Argument is not instanceof Shape')</mark>
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Type Guard</h2>
+
+    <pre class="typescript"><code data-noescape>
+function addShape(shapes: Shape[], obj: object) {
+    if (obj instanceof Shape) {
+        shapes.push(<mark>obj</mark>)
+    }
+
+    throw new TypeError('Argument is not instanceof Shape')
+}
+    </code></pre>
+</section>
+
+<section class="center">
+    <h2>
+        Нужно уметь обрабатывать значения разных типов
+        идентичным образом
+    </h2>
+    <p class="fragment"><strong>Кажется нам нужен...</strong></p>
+</section>
+
+<section class="center" data-background-image="images/polymorphism-meme.jpg" data-background-size></section>
+
+<section>
+    <h2>Обобщенные типы</h2>
+
+    <pre class="typescript code-block"><code>
+function identity(arg: any): any {
+    return arg;
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Обобщенные типы</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+function identity<mark>&lt;T&gt;</mark>(arg: <mark>T</mark>): <mark>T</mark> {
+    return arg;
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Обобщенные функции</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+function identity&lt;T&gt;(arg: T): T {
+    return arg;
+}
+
+<span>identity('string') // T is string</span>
+<span class="fragment">identity(12131415) // T is number</span>
+<span class="fragment">identity([4, 8, 15, 16, 23, 42]) // T is number[]</span>
+    </code></pre>
+</section>
+
+<section>
+    <h2>Встроенные обобщенные типы</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+const fib: Array&lt;number&gt; = [1, 1, 2, 3, 5]
+    <span class="fragment"><span class="type-error-comment">
+// Argument of type 'string'
+// is not assignable to parameter of type 'number'.</span>
+fib.push(<span class="type-error">'1'</span>)</span>
+
+<span class="fragment">const map: Map&lt;number, string&gt; = new Map()</span>
+    <span class="fragment"><span class="type-error-comment">
+// Argument of type 'number'
+// is not assignable to parameter of type 'string'.</span>
+map.set(1, <span class="type-error">1</span>)
+    </span>
+    </code></pre>
+</section>
+
+<section>
+    <h2>Обобщенные интерфейсы</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+interface IStack&lt;TItem&gt; {
+    push(item: TItem)
+    pop(): TItem
+}
+    <span class="fragment">
+let numStack: IStack&lt;number&gt; = [1, 2, 3]
+    </span>
+    </code></pre>
+</section>
+
+<section>
+    <h2>Обобщенные интерфейсы</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+interface IStack&lt;<mark>number</mark>&gt; {
+    push(item: <mark>number</mark>)
+    pop(): <mark>number</mark>
+}
+
+let numStack: IStack&lt;number&gt; = [1, 2, 3]
+    </code></pre>
+</section>
+
+<section>
+    <h2>Обобщенные типы</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+type AsyncResult&lt;TResult&gt; = Promise&lt;TResult&gt; | TResult
+    <span class="fragment">
+let result: AsyncResult&lt;string&gt; = Promise.resolve('200')
+let result: AsyncResult&lt;string&gt; = '200'
+    </span>
+    </code></pre>
+</section>
+
+<section>
+    <h2>Обобщенные типы</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+type AsyncResult&lt;<mark>string</mark>&gt; = Promise&lt;<mark>string</mark>&gt; | <mark>string</mark>
+
+let result: AsyncResult&lt;string&gt; = Promise.resolve('200')
+let result: AsyncResult&lt;string&gt; = '200'
+    </code></pre>
+</section>
+
+<section>
+    <h2>Обобщенные классы</h2>
+
+    <pre class="typescript code-block"><code data-noescape>class Stack&lt;TItem&gt; implements IStack&lt;TItem&gt; {
+    private state: TItem[]
+
+    constructor() {
+        this.state = []
+    }
+
+    push(item: TItem) {
+        this.state.push(item)
+    }
+
+    pop(): TItem {
+        return this.state.pop()
+    }
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Обобщенные классы</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+class Stack&lt;TItem&gt; implements IStack&lt;TItem&gt; {
+    <mark>private state: TItem[] = []</mark>
+
+    push(item: TItem) {
+        this.state.push(item)
+    }
+
+    pop(): TItem {
+        return this.state.pop()
+    }
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Обобщенные типы</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+interface ISwim {
+    swim()
+}
+    <span class="fragment">
+class Dog implements ISwim {
+    swim() { ... }
+}
+    </span><span class="fragment">
+class Duck implements ISwim {
+    swim() { ... }
+}
+    </span>
+    </code></pre>
+</section>
+
+<section>
+    <h2>Ограничения на обобщенные типы</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+function swimTogether&lt;
+    T1 implements ISwim,
+    T2 implements ISwim
+&gt;(firstPal: T1, secondPal: T2) {
+    firstPal.swim()
+    secondPal.swim()
+}
+    </code></pre>
+</section>
+
+<section data-background-image="images/swim-meme.gif"></section>
+
+<section>
+    <h2>Обобщенные типы</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+type TypeName&lt;T&gt; =
+    T extends string ? 'string' :
+    T extends number ? 'number' :
+    T extends boolean ? 'boolean' :
+    T extends undefined ? 'undefined' :
+    T extends Function ? 'function' :
+    'object'
+    </code></pre>
+</section>
+
+<section>
+    <h2>Обобщенные типы</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+type TypeName&lt;<mark>string</mark>&gt; =
+    <mark>string</mark> extends string ? <mark>'string'</mark> :
+    T extends number ? 'number' :
+    T extends boolean ? 'boolean' :
+    T extends undefined ? 'undefined' :
+    T extends Function ? 'function' :
+    'object'
+    </code></pre>
+</section>
+
+<section>
+    <h2>Обобщенные типы</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+type TypeName&lt;<mark>number</mark>&gt; =
+    <mark>number extends string</mark> ? 'string' :
+    <mark>number extends number</mark> ? <mark>'number'</mark> :
+    T extends boolean ? 'boolean' :
+    T extends undefined ? 'undefined' :
+    T extends Function ? 'function' :
+    'object'
+    </code></pre>
+</section>
+
+<section class="center">
+    <pre class="js" style="text-align: left; font-size: 1.25em"><code data-noescape>
+        // TODO:
+        // Рассказать больше о <span class="bold">Type</span>Script<span class="fragment">
+        // Увидимся в следующей части
+    </span>
+    </code></pre>
+</section>
+
+<section>
+    <h2>Ссылки</h2>
+    <ul style="font-size: .8em">
+        <li>
+            <a href="http://www.typescriptlang.org/play/">
+                <span class="bold">Type</span>Script Playground
+            </a>
+        </li>
+        <li>
+            <a href="https://www.typescriptlang.org/docs/handbook/basic-types.html">
+                 <span class="bold">Type</span>Script Handbook
+            </a>
+        </li>
+        <li>
+            <a href="https://basarat.gitbooks.io/typescript/docs/getting-started.html">
+                 <span class="bold">Type</span>Script Deep Dive
+            </a>
+        </li>
+        <li>
+            <a href="https://www.youtube.com/watch?v=tybjhHPj3io">
+                Андрей Морозов (Яндекс) — Типизация
+            </a>
+        </li>
+        <li>
+            <a href="https://www.youtube.com/watch?v=srqqwuqzYMM">
+                Андрей Старовойт (JetBrains) — Эволюция  <span class="bold">Type</span>Script
+            </a>
+        </li>
+    </ul>
+</section>
+
+<section class="center">
+    <h2>Спасибо!</h2>
+</section>
+
+<section class="center">
+    <h2>Вопросы?</h2>
+</section>
+
+</div></div><script src="../../@lib/core.js"></script></body></html>

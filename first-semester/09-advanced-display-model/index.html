@@ -1,0 +1,1483 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Модель отображения II</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../../@lib/core.css">
+    <link rel="stylesheet" href="../../@lib/theme.css">
+    <link rel="stylesheet" href="./css/index.css">
+</head><body class="white"><div class="reveal"><div class="slides">
+
+<section class="center">
+    <h2>Модель отображения</h2>
+    <h2 class="grey" style="font-size: 35px;">Часть II</h2>
+</section>
+
+<section class="center">
+    <h2>Сегодня в программе</h2>
+    <div style="display: flex; justify-content: center; font-size: 40px">
+        <ol>
+            <li>Позиционирование элементов</li>
+            <li>Наложение элементов</li>
+            <li>Плавающие элементы</li>
+        </ol>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Позиционирование элементов</h2>
+</section>
+
+<section class="center">
+    <p>Свойство <strong>position</strong> устанавливает способ позиционирования элемента относительно окна браузера или других объектов на веб-странице</p>
+</section>
+
+<section class="center">
+    <h2>Значения</h2>
+    <div style="display: flex; justify-content: center;">
+        <pre style="font-size: 60px;"><code>
+            div {
+                position: static; /* Значение по умолчанию */
+                position: relative;
+                position: absolute;
+                position: fixed;
+                position: sticky;
+            }
+        </code></pre>
+    </div>
+</section>
+
+<section class="center">
+    <div class="centered code-large">
+        <pre><code>position: relative;</code></pre>
+    </div>
+    <p>Положение бокса вычисляется <strong>относительно</strong> позиции, которую он занимал бы в нормальном потоке</p>
+    <p class="fragment">Смещение задается свойствами: <br> <strong>top, right, bottom, left</strong></p>
+</section>
+
+<section class="center">
+    <h2>Относительное позиционирование</h2>
+    <pre style="font-size: 70px;"><code>
+    div {
+        position: relative;
+        top: 20px;
+        left: 20px;
+    }
+    </code></pre>
+</section>
+
+<section class="center">
+    <h2>Относительное позиционирование</h2>
+    <div class="p-example">
+        <div class="p-box-wrapper"><div class="p-box">top</div></div>
+        <div class="p-box-wrapper"><div class="p-box">right</div></div>
+        <div class="p-box-wrapper"><div class="p-box">bottom</div></div>
+        <div class="p-box-wrapper"><div class="p-box">left</div></div>
+        <div class="p-box-wrapper"><div class="p-box">top left</div></div>
+        <div class="p-box-wrapper"><div class="p-box">bottom right</div></div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Относительное позиционирование</h2>
+    <div class="p-example">
+        <div class="p-box-wrapper">
+            <div class="p-box" style="top: 20px;">top</div>
+        </div>
+        <div class="p-box-wrapper">
+            <div class="p-box" style="right: 20px;">right</div>
+        </div>
+        <div class="p-box-wrapper">
+            <div class="p-box" style="bottom: 20px;">bottom</div>
+        </div>
+        <div class="p-box-wrapper">
+            <div class="p-box" style="left: 20px;">left</div>
+        </div>
+        <div class="p-box-wrapper">
+            <div class="p-box" style="top: 20px; left: 20px;">top left</div>
+        </div>
+        <div class="p-box-wrapper">
+            <div class="p-box" style="bottom: 20px; right: 20px;">bottom right</div>
+        </div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Относительное позиционирование</h2>
+    <pre><code>        .box1 {                 .box2 {
+            top: 20px;              top: -20px;
+            bottom: 20px;           bottom: -20px;
+        }                       }</code></pre>
+    <div class="p-example">
+        <div class="p-box-wrapper">
+            <div class="p-box">box1</div>
+        </div>
+        <div class="p-box-wrapper">
+            <div class="p-box"">box2</div>
+        </div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Относительное позиционирование</h2>
+    <pre><code>        .box1 {                 .box2 {
+            top: 20px;              top: -20px;
+            bottom: 20px;           bottom: -20px;
+        }                       }</code></pre>
+    <div class="p-example">
+        <div class="p-box-wrapper">
+            <div class="p-box" style="top: 20px; bottom: 20px;">box1</div>
+        </div>
+        <div class="p-box-wrapper">
+            <div class="p-box" style="top: -20px; bottom: -20px;">box2</div>
+        </div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Относительное позиционирование</h2>
+    <pre><code data-trim>
+        div {
+            left: 20px;
+            right: 20px;
+        }
+    </code></pre>
+    <pre class="fragment"><code data-trim>
+        .parent {
+            dir: rtl; /* ltr */
+        }
+    </code></pre>
+    <div class="fragment p-example">
+        <div class="p-box-wrapper">
+            <div class="p-box" style="left: 20px; right: 20px;">left to right</div>
+        </div>
+        <div class="p-box-wrapper" style="direction: rtl;">
+            <div class="p-box" style="left: 20px; right: 20px;">يمين إلى يسار</div>
+        </div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Относительное позиционирование</h2>
+    <pre><code>    .parent {                        .box {
+        width: 200px;                    top: 50%;
+        height: 200px;                   left: 50%;
+    }                                }</code></pre>
+    <div class="p-example">
+        <div style="width: 200px; height: 200px; border: 1px dashed #000; margin-bottom: 60px;">
+            <div class="p-box-wrapper">
+                <div class="p-box">box</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Относительное позиционирование</h2>
+    <pre><code>    .parent {                        .box {
+        width: 200px;                    top: 50%;
+        height: 200px;                   left: 50%;
+    }                                }</code></pre>
+    <div class="p-example">
+        <div style="width: 200px; height: 200px; border: 1px dashed #000;">
+            <div class="p-box-wrapper">
+                <div class="p-box" style="top: 100px; left: 100px;">box</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Как считаются размеры?</h2>
+    <table style="font-size: 30px;">
+        <tr>
+            <td><pre style="font-size: 50px; margin: 0"><code data-trim>width: auto;</code></pre></td>
+            <td>Все пространство</td>
+        </tr>
+        <tr>
+            <td><pre style="font-size: 50px; margin: 0"><code data-trim>width: 50%;</code></pre></td>
+            <td>От ширины родителя</td>
+        </tr>
+        <tr>
+            <td><pre style="font-size: 50px; margin: 0"><code data-trim>height: auto;</code></pre></td>
+            <td>По содержимому</td>
+        </tr>
+        <tr>
+            <td><pre style="font-size: 50px; margin: 0"><code data-trim>height: 50%;</code></pre></td>
+            <td>От высоты родителя, если его высота отлична от auto</td>
+        </tr>
+        <tr>
+            <td><pre style="font-size: 50px; margin: 0"><code data-trim>margin: 50%;</code></pre></td>
+            <td>От ширины родителя</td>
+        </tr>
+        <tr>
+            <td><pre style="font-size: 50px; margin: 0"><code data-trim>padding: 50%;</code></pre></td>
+            <td>От ширины родителя</td>
+        </tr>
+    </table>
+</section>
+
+<section class="center">
+    <h2>Содержащий блок</h2>
+    <p>Прямоугольник, относительно которого считается позиция и размеры элемента</p>
+</section>
+
+<section class="center">
+    <h2>Содержащий блок</h2>
+    <div style="display: flex; justify-content: center;">
+        <ol style="font-size: 40px;">
+            <li>Для корневых элементов - прямоугольник размерами с вьюпорт</li>
+            <li>Для элементов с position: relative/static - границы контента ближайшего родителя блочного уровня</li>
+            <li>Относительно спозиционированный блок создает новый содержащий блок</li>
+        </ol>
+    </div>
+</section>
+
+<section class="center">
+    <div class="centered code-large">
+        <pre><code>position: absolute;</code></pre>
+    </div>
+    <p>При таком позиционировании блок выводится из потока, при этом сам блок образует новый содержащий блок</p>
+</section>
+
+<section class="center">
+    <div class="centered code-large">
+            <pre><code>position: absolute;</code></pre>
+    </div>
+    <p>Содержащим блоком является <strong>ближайший&nbsp;родитель</strong> с <br> position ≠ static</p>
+</section>
+
+<section class="center">
+    <div class="centered code-large">
+        <pre><code>position: absolute;</code></pre>
+    </div>
+    <p>Все абсолютно позиционированные элементы имеют свойство <br> <strong>display</strong> в значении <strong>block</strong></p>
+</section>
+
+<section class="center">
+    <div class="centered code-large">
+        <pre><code>position: absolute;</code></pre>
+    </div>
+    <p>У абсолютно спозиционированных элементов <strong>не схлапываются</strong> внешние отступы</p>
+</section>
+
+<section class="center">
+    <h2>Абсолютное позиционирование</h2>
+    <pre style="font-size: 45px;"><code data-trim>
+        <div class="parent">
+            parent
+            <div class="box">box</div>
+        </div>
+    </code></pre>
+    <pre style="opacity: 0; font-size: 45px;"><code data-trim>
+        .box {
+            position: absolute;
+        }
+    </code></pre>
+    <div style="background: rgba(198, 51, 51, .7); padding: 10px; line-height: 1.5;">
+        parent
+        <div style="background: rgba(61, 133, 198, .8);">box</div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Абсолютное позиционирование</h2>
+    <pre style="font-size: 45px;"><code data-trim>
+        <div class="parent">
+            parent
+            <div class="box">box</div>
+        </div>
+    </code></pre>
+    <pre style="font-size: 45px;"><code data-trim>
+        .box {
+            position: absolute;
+        }
+    </code></pre>
+    <div style="background: rgba(198, 51, 51, .7); padding: 10px; line-height: 1.5;">
+        parent
+        <div style="position: absolute; background: rgba(61, 133, 198, .8);">box</div>
+    </div>
+    <div style="opacity: 0; line-height: 1.5;">box</div>
+</section>
+
+<section class="center">
+    <h2>Абсолютное позиционирование</h2>
+    <pre style="font-size: 45px;"><code data-trim>
+        <div class="parent">
+            parent
+            <div class="box">box</div>
+        </div>
+    </code></pre>
+    <pre style="font-size: 45px;"><code data-trim>
+        .box {                      .parent {
+            position: absolute;         position: relative;
+            top: 0;                 }
+            left: 20px;
+        }
+    </code></pre>
+    <div style="position: relative; background: rgba(198, 51, 51, .7); padding: 10px; line-height: 1.5;">
+        parent
+        <div style="position: absolute; background: rgba(61, 133, 198, .8); top: 0; left: 20px;">box</div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Абсолютное позиционирование</h2>
+    <pre style="font-size: 45px;"><code data-trim>
+        .box1 {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .box2 {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+        }
+    </code></pre>
+    <div style="position: relative; background: rgba(198, 51, 51, .7); padding: 10px; line-height: 1.5;">
+        parent
+        <div style="position: absolute; background: rgba(61, 133, 198, .8); top: 0; left: 0;">box1</div>
+        <div style="position: absolute; background: rgba(61, 133, 198, .8); bottom: 0; right: 0;">box2</div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Абсолютное позиционирование</h2>
+    <pre style="font-size: 45px;"><code>
+
+.box {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    bottom: 10px;
+    left: 10px;
+}</code></pre>
+    <div style="position: relative; background: rgba(198, 51, 51, .7); padding: 10px; line-height: 1.5;">
+        parent
+        <div style="position: absolute; background: rgba(61, 133, 198, .8); top: 10px; left: 10px; bottom: 10px; right: 10px;">box</div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Абсолютное позиционирование</h2>
+    <pre style="font-size: 45px;"><code data-trim>
+        .box {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            bottom: 10px;
+            left: 10px;
+
+            height: 100px;
+        }
+    </code></pre>
+    <div style="position: relative; background: rgba(198, 51, 51, .7); padding: 10px; line-height: 1.5;">
+        parent
+        <div style="position: absolute; background: rgba(61, 133, 198, .8); top: 10px; left: 10px; bottom: 10px; right: 10px; height: 100px;">box</div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Абсолютное позиционирование</h2>
+    <pre style="font-size: 45px;"><code data-trim>
+        .box {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            bottom: 10px;
+            left: 10px;
+
+            width: 100px;
+        }
+    </code></pre>
+    <div style="position: relative; background: rgba(198, 51, 51, .7); padding: 10px; line-height: 1.5;">
+        parent
+        <div style="position: absolute; background: rgba(61, 133, 198, .8); top: 10px; left: 10px; bottom: 10px; right: 10px; width: 100px;">box</div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Абсолютное позиционирование</h2>
+    <pre style="font-size: 45px;"><code data-trim>
+        .box {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            bottom: 10px;
+            left: 10px;
+
+            margin: 15px;
+        }
+    </code></pre>
+    <div style="position: relative; background: rgba(198, 51, 51, .7); padding: 10px; line-height: 1.5;">
+        parent
+        <div style="position: absolute; background: rgba(61, 133, 198, .8); top: 10px; left: 10px; bottom: 10px; right: 10px; margin: 15px;">box</div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Абсолютное позиционирование</h2>
+    <p>Значения можно задавать в %. Тогда они будут рассчитаны относительно размеров содержащего блока</p>
+</section>
+
+<section class="center">
+    <h2>Абсолютное позиционирование</h2>
+    <pre style="font-size: 45px;"><code data-trim>
+        .box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+    </code></pre>
+    <div style="position: relative; background: rgba(198, 51, 51, .7); padding: 10px; line-height: 1.5;">
+        parent
+        <div style="position: absolute; background: rgba(61, 133, 198, .8); top: 50%; left: 50%;">box</div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Абсолютное позиционирование</h2>
+    <pre style="font-size: 45px;"><code data-trim>
+        .box {
+            position: absolute;
+            right: 0;
+            bottom: 100%;
+        }
+    </code></pre>
+    <div style="position: relative; background: rgba(198, 51, 51, .7); padding: 10px; line-height: 1.5;">
+        parent
+        <div style="position: absolute; background: rgba(61, 133, 198, .8); bottom: 100%; right: 0;">box</div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Как считаются размеры?</h2>
+    <table style="font-size: 30px;">
+        <tr>
+            <td><pre style="font-size: 50px; margin: 0"><code data-trim>
+                width: auto;
+                height: auto;
+            </code></pre></td>
+            <td>По содержимому или координатам</td>
+        </tr>
+        <tr>
+            <td><pre style="font-size: 50px; margin: 0"><code data-trim>
+                width: 50%;
+                height: 50%;
+            </code></pre></td>
+            <td>От ширины/высоты содержащего блока</td>
+        </tr>
+        <tr>
+            <td><pre style="font-size: 50px; margin: 0"><code data-trim>margin: 50%;</code></pre></td>
+            <td>От ширины содержащего блока</td>
+        </tr>
+        <tr>
+            <td><pre style="font-size: 50px; margin: 0"><code data-trim>padding: 50%;</code></pre></td>
+            <td>От ширины содержащего блока</td>
+        </tr>
+    </table>
+</section>
+
+<section class="center">
+    <div class="centered code-large">
+        <pre><code>position: fixed;</code></pre>
+    </div>
+    <p>Содержащий блок у fixed элементов &mdash; это всегда вьюпорт. <strong class="fragment">Всегда</strong></p>
+</section>
+
+<section class="center">
+    <h2>Фиксированное позиционирование</h2>
+    <pre><code data-trim>
+        <div class="parent">
+            parent
+            <div class="box">fixed</div>
+        </div>
+    </code></pre>
+    <pre><code data-trim>
+        .box {
+            position: fixed;
+            width: 50%;
+            top: 100px;
+            left: 100px;
+        }
+    </code></pre>
+    <div style="text-align: center;"><a href="https://codepen.io/anon/pen/MaqEeN?editors=110">Пример</a></div>
+</section>
+
+<section data-background-video="./images/fixed.mp4" data-background-size="contain" data-background-video-loop></section>
+
+<section class="center">
+    <div class="centered code-large">
+        <pre><code>position: sticky;</code></pre>
+    </div>
+    <p>Элемент отображается как относительно спозиционированный до тех пор, пока не пересечёт специальную границу и тогда он ведёт себя как fixed</p>
+</section>
+
+<section class="center">
+    <h2>«Липкое» позиционирование</h2>
+    <pre style="font-size: 40px;"><code data-trim>
+        <dl>
+            <dt>A</dt>
+            <dd>Andrew W.K.</dd>
+            <dd>Apparat</dd>
+        </dl>
+        <dl>
+            <dt>B</dt>
+            <dd>Battle</dd>
+            <dd>...</dd>
+        </dl>
+    </code></pre>
+    <pre style="font-size: 40px;"><code data-trim>
+        dt {
+            position: sticky;
+            top: 0;
+        }
+    </code></pre>
+    <div style="text-align: center;">
+        <a href="http://jsbin.com/qewesajudi/1/edit">Пример</a>
+    </div>
+</section>
+
+<section data-background-video="./images/sticky.mp4" data-background-size="contain" data-background-video-loop></section>
+
+<section class="center">
+    <h2>Наложение элементов</h2>
+</section>
+
+<section class="center">
+    <p>Если элементы находятся в равных условиях, то элемент, который находится ниже в потоке, будет <strong>выше</strong> по z-оси</p>
+    <pre class="centered code-medium"><code data-trim>
+        <div class="box1">box1</div>
+        <div class="box2">box2</div>
+        <div class="box3">box3</div>
+    </code></pre>
+</section>
+
+<section class="center">
+    <div class="z-example fragment">
+        <div class="z-group">
+            <div class="z-viewport">viewport</div>
+            <div class="z-element z-element-1">box1</div>
+            <div class="z-element z-element-2">box2</div>
+            <div class="z-element z-element-3">box3</div>
+        </div>
+    </div>
+</section>
+
+<section class="center">
+    <div class="centered">
+        <div>
+            <pre class="code-medium"><code data-trim>
+                <div class="box1">box1</div>
+                <div class="box2">box2</div>
+                <div class="box3">box3</div>
+            </code></pre>
+            <pre class="code-medium"><code data-trim>
+                .box2, .box3 {
+                    margin-top: -50px;
+                }
+            </code></pre>
+        </div>
+    </div>
+</section>
+
+<section class="center">
+    <div class="z-example fragment">
+        <div class="z-group">
+            <div class="z-viewport">viewport</div>
+            <div class="z-element z-element-1">box1</div>
+            <div class="z-element z-element-2" style="margin-top: -50px">box2</div>
+            <div class="z-element z-element-3" style="margin-top: -100px">box3</div>
+        </div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>z-index</h2>
+    <p>Благодаря этому свойству каждый элемент может находиться как ниже, так и выше других элементов</p>
+    <pre class="centered"><code data-trim>
+        .box {
+            position: relative; /* absolute | fixed */
+            /*z-index: n; где n ∈ Z | auto*/
+            z-index: 1;
+        }
+    </code></pre>
+</section>
+
+<section class="center">
+    <h2>Контекст наложения</h2>
+    <p>Элементы с общим родителями, перемещающиеся на передний или задний план вместе</p>
+</section>
+
+<section class="center">
+    <h2>Условия создания контекста наложения</h2>
+    <div class="centered">
+        <ol style="font-size: 40px;">
+            <li>Если элемент &mdash; корневой элемент документа (html)</li>
+            <li>Если элемент имеет свойства <br> position ≠ static и z-index ≠ auto</li>
+            <li>Если элемент имеет свойство opacity < 1</li>
+        </ol>
+    </div>
+</section>
+
+<section class="center">
+    <p>Нельзя расположить элемент из одного контекста наложения между элементами другого контекста</p>
+</section>
+
+<section class="center">
+    <h2>Порядок наложения</h2>
+    <div class="centered">
+        <ol reversed style="font-size: 30px;">
+            <li class="fragment" data-fragment-index="7">Позиционированные элементы (и их потомки) с z-index > 0</li>
+            <li class="fragment" data-fragment-index="6">Позиционированные элементы (и их потомки) с z-index = 0 или auto, opacity < 1</li>
+            <li class="fragment" data-fragment-index="5">Элементы inline уровня</li>
+            <li class="fragment" data-fragment-index="4">Плавающие элементы</li>
+            <li class="fragment" data-fragment-index="3">Элементы блочного уровня в нормальном потоке</li>
+            <li class="fragment" data-fragment-index="2">Позиционированные элементы (и их потомки) с z-index < 0</li>
+            <li class="fragment" data-fragment-index="1">Background и border элемента</li>
+        </ol>
+    </div>
+    <div style="border-top: 2px solid #000; text-align: center;">viewport</div>
+</section>
+
+<section class="center">
+    <div class="centered">
+        <div>
+            <pre class="code-medium"><code data-trim>
+                <div class="box1">box1</div>
+                <div class="box2">box2</div>
+                <div class="box3">box3</div>
+            </code></pre>
+        </div>
+    </div>
+</section>
+
+<section class="center">
+    <div class="z-example fragment">
+        <div class="z-group">
+            <div class="z-viewport">viewport</div>
+            <div class="z-element z-element-1">box1</div>
+            <div class="z-element z-element-2" style="margin-top: -50px">box2</div>
+            <div class="z-element z-element-3" style="margin-top: -100px">box3</div>
+        </div>
+    </div>
+</section>
+
+<section class="center">
+    <div class="centered">
+        <div>
+            <pre class="code-medium"><code data-trim>
+                <div class="box1">box1</div>
+                <div class="box2">box2</div>
+                <div class="box3">box3</div>
+            </code></pre>
+            <pre class="code-medium"><code data-trim>
+                .box1 {
+                    position: relative;
+                }
+            </code></pre>
+        </div>
+    </div>
+</section>
+
+<section class="center">
+    <div class="z-example fragment">
+        <div class="z-group">
+            <div class="z-viewport">viewport</div>
+            <div class="z-element z-element-1 z-index-3" style="z-index: 1">box1</div>
+            <div class="z-element z-element-2 z-index-1" style="margin-top: -50px">box2</div>
+            <div class="z-element z-element-3 z-index-2" style="margin-top: -100px">box3</div>
+        </div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Порядок наложения</h2>
+    <div class="centered">
+        <ol reversed style="font-size: 30px;">
+            <li>Позиционированные элементы (и их потомки) с z-index > 0</li>
+            <li>
+                <div class="mark-1-1"></div>
+                Позиционированные элементы (и их потомки) с z-index = 0 или auto, opacity < 1
+            </li>
+            <li>Элементы inline уровня</li>
+            <li>Плавающие элементы</li>
+            <li>
+                <div class="mark-2-1"></div>
+                <div class="mark-3-2"></div>
+                Элементы блочного уровня в нормальном потоке
+            </li>
+            <li>Позиционированные элементы (и их потомки) с z-index < 0</li></0>
+            <li>Background и border элемента</li>
+        </ol>
+    </div>
+    <div style="border-top: 2px solid #000; text-align: center;">viewport</div>
+</section>
+
+<section class="center">
+    <div class="centered">
+        <div>
+            <pre class="code-medium"><code data-trim>
+                <div class="box1">box1</div>
+                <div class="box2">box2</div>
+                <div class="box3">box3</div>
+            </code></pre>
+            <pre class="code-medium"><code data-trim>
+                .box1 {
+                    opacity: .99;
+                }
+            </code></pre>
+        </div>
+    </div>
+</section>
+
+<section class="center">
+    <div class="z-example fragment">
+        <div class="z-group">
+            <div class="z-viewport">viewport</div>
+            <div class="z-element z-element-1 z-index-3" style="z-index: 1">box1</div>
+            <div class="z-element z-element-2 z-index-1" style="margin-top: -50px">box2</div>
+            <div class="z-element z-element-3 z-index-2" style="margin-top: -100px">box3</div>
+        </div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Порядок наложения</h2>
+    <div class="centered">
+        <ol reversed style="font-size: 30px;">
+            <li>Позиционированные элементы (и их потомки) с z-index > 0</li>
+            <li>
+                <div class="mark-1-1"></div>
+                Позиционированные элементы (и их потомки) с z-index = 0 или auto, opacity < 1
+            </li>
+            <li>Элементы inline уровня</li>
+            <li>Плавающие элементы</li>
+            <li>
+                <div class="mark-2-1"></div>
+                <div class="mark-3-2"></div>
+                Элементы блочного уровня в нормальном потоке
+            </li>
+            <li>Позиционированные элементы (и их потомки) с z-index < 0</li></0>
+            <li>Background и border элемента</li>
+        </ol>
+    </div>
+    <div style="border-top: 2px solid #000; text-align: center;">viewport</div>
+</section>
+
+<section class="center">
+    <div class="centered">
+        <div>
+            <pre class="code-medium"><code data-trim>
+                <div class="box1">box1</div>
+                <div class="box2">box2</div>
+                <div class="box3">box3</div>
+            </code></pre>
+            <pre class="code-medium"><code data-trim>
+                .box1 {
+                    position: relative;
+                    z-index: 0;
+                }
+                .box2 {
+                    position: relative;
+                    z-index: 1;
+                }
+            </code></pre>
+        </div>
+    </div>
+</section>
+
+<section class="center">
+    <div class="z-example fragment">
+        <div class="z-group">
+            <div class="z-viewport">viewport</div>
+            <div class="z-element z-element-1 z-index-2" style="z-index: 1">box1</div>
+            <div class="z-element z-element-2 z-index-3" style="margin-top: -50px">box2</div>
+            <div class="z-element z-element-3 z-index-1" style="margin-top: -100px">box3</div>
+        </div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Порядок наложения</h2>
+    <div class="centered">
+        <ol reversed style="font-size: 30px;">
+            <li>
+                <div class="mark-2-1"></div>
+                Позиционированные элементы (и их потомки) с z-index > 0
+            </li>
+            <li>
+                <div class="mark-1-1"></div>
+                Позиционированные элементы (и их потомки) с z-index = 0 или auto, opacity < 1
+            </li>
+            <li>Элементы inline уровня</li>
+            <li>Плавающие элементы</li>
+            <li>
+                <div class="mark-3-1"></div>
+                Элементы блочного уровня в нормальном потоке
+            </li>
+            <li>Позиционированные элементы (и их потомки) с z-index < 0</li></0>
+            <li>Background и border элемента</li>
+        </ol>
+    </div>
+    <div style="border-top: 2px solid #000; text-align: center;">viewport</div>
+</section>
+
+<section class="center">
+    <div class="centered">
+        <div>
+            <pre class="code-medium"><code data-trim>
+                <div class="box1">box1</div>
+                <div class="box2">box2</div>
+                <div class="box3">box3</div>
+            </code></pre>
+            <pre class="code-medium"><code data-trim>
+                .box1 {
+                    position: relative;
+                    z-index: 0;
+                }
+                .box2 {
+                    position: relative;
+                    z-index: -1;
+                }
+            </code></pre>
+        </div>
+    </div>
+</section>
+
+<section class="center">
+    <div class="z-example fragment">
+        <div class="z-group">
+            <div class="z-viewport">viewport</div>
+            <div class="z-element z-element-1 z-index-3" style="z-index: 1">box1</div>
+            <div class="z-element z-element-2 z-index-1" style="margin-top: -50px">box2</div>
+            <div class="z-element z-element-3 z-index-2" style="margin-top: -100px">box3</div>
+        </div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Порядок наложения</h2>
+    <div class="centered">
+        <ol reversed style="font-size: 30px;">
+            <li>
+                <div class="mark-1-1"></div>
+                Позиционированные элементы (и их потомки) с z-index > 0
+            </li>
+            <li>Позиционированные элементы (и их потомки) с z-index = 0 или auto, opacity < 1</li>
+            <li>Элементы inline уровня</li>
+            <li>Плавающие элементы</li>
+            <li>
+                <div class="mark-3-1"></div>
+                Элементы блочного уровня в нормальном потоке
+            </li>
+            <li>
+                <div class="mark-2-1"></div>
+                Позиционированные элементы (и их потомки) с z-index < 0
+            </li>
+            <li>Background и border элемента</li>
+        </ol>
+    </div>
+    <div style="border-top: 2px solid #000; text-align: center;">viewport</div>
+</section>
+
+<section class="center">
+    <div class="centered">
+        <div>
+            <pre style="font-size: 50px;" class="html code-medium"><code data-trim>
+                <div class="wrap">
+                    <div class="box1">box1</div>
+                </div>
+                <div class="box2">box2</div>
+                <div class="box3">box3</div>
+            </code></pre>
+            <pre style="font-size: 50px;" class="code-medium"><code data-trim>
+                .wrap {
+                    opacity: .99;
+                }
+                .box1 {
+                    position: relative;
+                    z-index: 9999;
+                }
+                .box2 {
+                    position: relative;
+                    z-index: 0;
+                }
+            </code></pre>
+        </div>
+    </div>
+</section>
+
+<section class="center">
+    <div class="z-example fragment">
+        <div class="z-group">
+            <div class="z-viewport">viewport</div>
+            <div class="z-element z-element-1 z-index-2" style="z-index: 1">box1</div>
+            <div class="z-element z-element-2 z-index-3" style="margin-top: -50px">box2</div>
+            <div class="z-element z-element-3 z-index-1" style="margin-top: -100px">box3</div>
+        </div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Порядок наложения</h2>
+    <div class="centered">
+        <ol reversed style="font-size: 30px;">
+            <li>
+                Позиционированные элементы (и их потомки) с z-index > 0
+            </li>
+            <li>
+                <div class="mark-1-2"></div>
+                <div class="mark-2-1"></div>
+                Позиционированные элементы (и их потомки) с z-index = 0 или auto, opacity < 1
+            </li>
+            <li>Элементы inline уровня</li>
+            <li>Плавающие элементы</li>
+            <li>
+                <div class="mark-3-1"></div>
+                Элементы блочного уровня в нормальном потоке
+            </li>
+            <li>Позиционированные элементы (и их потомки) с z-index < 0</li>
+            <li>Background и border элемента</li>
+        </ol>
+    </div>
+    <div style="border-top: 2px solid #000; text-align: center;">viewport</div>
+</section>
+
+<section data-background-image="./images/z-index-hell.png" data-background-size="50%"></section>
+
+<section class="center" data-background-size="cover" data-background-image="./images/hell.png">
+    <h1 style="font-weight: bold; color: #fff;">z-index hell</h1>
+</section>
+
+<section class="center">
+    <h2>Группировка z-index</h2>
+    <div class="centered">
+        <ol style="font-size: 35px;">
+            <li>0000 - 1999: Основной контент</li>
+            <li>2000 - 2999: Выпадающие списки</li>
+            <li>3000 - 3999: Навигация</li>
+            <li>4000 - 4999: Шапка / Подвал</li>
+            <li>...</li>
+            <li>8000 - 8999: Модальные окна</li>
+            <li>9000 - 9999: Уведомления</li>
+        </ol>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Плавающие элементы</h2>
+</section>
+
+<section>
+    <h2>Свойство float</h2>
+    <pre class="code-medium"><code data-trim>
+        .box {
+            float: left; /* right */
+        }
+    </code></pre>
+    <p>Элемент вынимается из потока и сдвигается влево (для left) или вправо (для right) до того как коснется либо границы родителя, либо другого элемента с float</p>
+</section>
+
+<section>
+    <h2>Свойство float</h2>
+    <pre class="code-medium"><code data-trim>
+        .box {
+            float: left; /* right */
+        }
+    </code></pre>
+    <p>inline элементы «знают» о float и обтекают элемент по сторонам</p>
+</section>
+
+<section>
+    <h2>Свойство float</h2>
+    <pre class="code-medium"><code data-trim>
+        .box {
+            float: left; /* right */
+        }
+    </code></pre>
+    <p>Ширина float блока определяется по содержимому</p>
+</section>
+
+<section>
+    <h2>Свойство float</h2>
+    <pre class="code-medium"><code data-trim>
+        .box {
+            float: left; /* right */
+        }
+    </code></pre>
+    <p>Создают новый блочный контекст форматирования</p>
+</section>
+
+<section>
+    <h2>Свойство float</h2>
+    <pre class="code-medium"><code data-trim>
+        .box {
+            float: left; /* right */
+        }
+    </code></pre>
+    <p>Отступы float элементов не схлапываются с отступами соседей</p>
+</section>
+
+<section class="center">
+    <h2>inline элементы обтекают float'ы</h2>
+    <div class="centered">
+        <div>
+            <pre class="html"><code data-trim>
+                <div class="box">
+                    <div class="left">Left</div>
+                    Дренаж, вследствие пространственной неоднородности
+                    почвенного покрова, упруго дает агрегат.
+                    <div class="right">Right</div>
+                </div>
+            </code></pre>
+            <pre><code data-trim>
+                .left {
+                    float: left;
+                }
+                .right {
+                    float: right;
+                }
+            </code></pre>
+        </div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>inline элементы обтекают float'ы</h2>
+    <div class="f-example">
+        <div class="f-element-left">Left</div>
+        Дренаж, вследствие пространственной неоднородности <br>
+        почвенного покрова, упруго дает агрегат.
+        <div class="f-element-right">Right</div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Где 4-ый будет?</h2>
+    <div class="f-example f-example-game clearfix" style="height: 400px;">
+        <div class="f-element-left f-element-ingame" style="height: 200px;">1</div>
+        <div class="f-element-left f-element-ingame" style="height: 150px;">2</div>
+        <div class="f-element-left f-element-ingame" style="height: 100px;">3</div>
+        <div class="f-element-left f-element-ingame f-element-ingame-next" style="height: 200px; width: 100px">4</div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Где 4-ый будет?</h2>
+    <div class="f-example f-example-game clearfix" style="height: 400px;">
+        <div class="f-element-left f-element-ingame" style="height: 200px;">1</div>
+        <div class="f-element-left f-element-ingame" style="height: 150px;">2</div>
+        <div class="f-element-left f-element-ingame" style="height: 100px;">3</div>
+        <div class="f-element-left f-element-ingame" style="height: 200px; width: 100px">4</div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Где 4-ый будет?</h2>
+    <div class="f-example f-example-game clearfix" style="height: 400px;">
+        <div class="f-element-left f-element-ingame" style="height: 200px;">1</div>
+        <div class="f-element-left f-element-ingame" style="height: 150px;">2</div>
+        <div class="f-element-left f-element-ingame" style="height: 100px;">3</div>
+        <div class="f-element-left f-element-ingame f-element-ingame-next" style="height: 200px;">4</div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Где 4-ый будет?</h2>
+    <div class="f-example f-example-game clearfix" style="height: 400px;">
+        <div class="f-element-left f-element-ingame" style="height: 200px;">1</div>
+        <div class="f-element-left f-element-ingame" style="height: 150px;">2</div>
+        <div class="f-element-left f-element-ingame" style="height: 100px;">3</div>
+        <div class="f-element-left f-element-ingame" style="height: 200px;">4</div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Где 4-ый будет?</h2>
+    <div class="f-example f-example-game clearfix" style="height: 400px;">
+        <div class="f-element-left f-element-ingame" style="height: 200px;">1</div>
+        <div class="f-element-left f-element-ingame" style="height: 250px;">2</div>
+        <div class="f-element-left f-element-ingame" style="height: 200px;">3</div>
+        <div class="f-element-left f-element-ingame f-element-ingame-next" style="height: 200px;">4</div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Где 4-ый будет?</h2>
+    <div class="f-example f-example-game clearfix" style="height: 400px;">
+        <div class="f-element-left f-element-ingame" style="height: 200px;">1</div>
+        <div class="f-element-left f-element-ingame" style="height: 250px;">2</div>
+        <div class="f-element-left f-element-ingame" style="height: 200px;">3</div>
+        <div class="f-element-left f-element-ingame" style="height: 200px;">4</div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Где 4-ый будет?</h2>
+    <div class="f-example f-example-game clearfix" style="height: 400px;">
+        <div class="f-element-left f-element-ingame" style="height: 200px;">1</div>
+        <div class="f-element-left f-element-ingame" style="height: 150px;">2</div>
+        <div class="f-element-left f-element-ingame" style="height: 200px;">3</div>
+        <div class="f-element-left f-element-ingame f-element-ingame-next" style="height: 200px;">4</div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Где 4-ый будет?</h2>
+    <div class="f-example f-example-game clearfix" style="height: 400px;">
+        <div class="f-element-left f-element-ingame" style="height: 200px;">1</div>
+        <div class="f-element-left f-element-ingame" style="height: 150px;">2</div>
+        <div class="f-element-left f-element-ingame" style="height: 200px;">3</div>
+        <div class="f-element-left f-element-ingame" style="height: 200px;">4</div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Где 4-ый будет?</h2>
+    <div class="f-example f-example-game clearfix" style="height: 400px;">
+        <div class="f-element-left f-element-ingame" style="height: 100px;">1</div>
+        <div class="f-element-left f-element-ingame" style="height: 150px;">2</div>
+        <div class="f-element-left f-element-ingame" style="height: 200px;">3</div>
+        <div class="f-element-left f-element-ingame f-element-ingame-next" style="height: 200px;">4</div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Где 4-ый будет?</h2>
+    <div class="f-example f-example-game clearfix" style="height: 400px;">
+        <div class="f-element-left f-element-ingame" style="height: 100px;">1</div>
+        <div class="f-element-left f-element-ingame" style="height: 150px;">2</div>
+        <div class="f-element-left f-element-ingame" style="height: 200px;">3</div>
+        <div class="f-element-left f-element-ingame" style="height: 200px;">4</div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Свойство clear</h2>
+    <pre><code data-trim>
+        .box {
+            clear: left; /* right | both */
+        }
+    </code></pre>
+    <p>Применение этого свойства сдвигает элемент вниз до тех пор, пока не закончатся float'ы слева/справа/с обеих сторон.</p>
+</section>
+
+<section>
+    <pre class="code-medium"><code data-trim>
+        .box2 {
+            clear: left;
+        }
+    </code></pre>
+    <div class="f-example f-example-container clearfix" style="margin: 0;">
+        <div class="f-example-wrapper">
+            <div class="f-element-left" style="height: 250px; margin: 15px;">Left</div>
+            <div class="f-element-right" style="height: 200px; margin: 15px;">Right</div>
+            Box1
+        </div>
+        <div class="f-example-wrapper">Box2</div>
+    </div>
+</section>
+
+<section>
+    <pre class="code-medium"><code data-trim>
+        .box2 {
+            clear: left;
+        }
+    </code></pre>
+    <div class="f-example f-example-container clearfix" style="margin: 0;">
+        <div class="f-example-wrapper">
+            <div class="f-element-left" style="height: 250px; margin: 15px;">Left</div>
+            <div class="f-element-right" style="height: 200px; margin: 15px;">Right</div>
+            Box1
+        </div>
+        <div class="f-example-wrapper" style="clear: left;">Box2</div>
+    </div>
+</section>
+
+<section>
+    <pre class="code-medium"><code data-trim>
+        .box2 {
+            clear: right;
+        }
+    </code></pre>
+    <div class="f-example f-example-container clearfix" style="margin: 0;">
+        <div class="f-example-wrapper">
+            <div class="f-element-left" style="height: 250px; margin: 15px;">Left</div>
+            <div class="f-element-right" style="height: 200px; margin: 15px;">Right</div>
+            Box1
+        </div>
+        <div class="f-example-wrapper">Box2</div>
+    </div>
+</section>
+
+<section>
+    <pre class="code-medium"><code data-trim>
+        .box2 {
+            clear: right;
+        }
+    </code></pre>
+    <div class="f-example f-example-container clearfix" style="margin: 0;">
+        <div class="f-example-wrapper">
+            <div class="f-element-left" style="height: 250px; margin: 15px;">Left</div>
+            <div class="f-element-right" style="height: 200px; margin: 15px;">Right</div>
+            Box1
+        </div>
+        <div class="f-example-wrapper" style="clear: right;">Box2</div>
+    </div>
+</section>
+
+<section>
+    <pre class="code-medium"><code data-trim>
+        .box2 {
+            clear: both;
+        }
+    </code></pre>
+    <div class="f-example f-example-container clearfix" style="margin: 0;">
+        <div class="f-example-wrapper">
+            <div class="f-element-left" style="height: 250px; margin: 15px;">Left</div>
+            <div class="f-element-right" style="height: 200px; margin: 15px;">Right</div>
+            Box1
+        </div>
+        <div class="f-example-wrapper">Box2</div>
+    </div>
+</section>
+
+<section>
+    <pre class="code-medium"><code data-trim>
+        .box2 {
+            clear: both;
+        }
+    </code></pre>
+    <div class="f-example f-example-container clearfix" style="margin: 0;">
+        <div class="f-example-wrapper">
+            <div class="f-element-left" style="height: 250px; margin: 15px;">Left</div>
+            <div class="f-element-right" style="height: 200px; margin: 15px;">Right</div>
+            Box1
+        </div>
+        <div class="f-example-wrapper" style="clear: both;">Box2</div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>clearfix</h2>
+    <div class="f-example-wrapper">
+        <div class="f-element-left" style="height: 250px; margin: 15px;">Box1</div>
+        <div class="f-element-left" style="height: 200px; margin: 15px;">Box2</div>
+    </div>
+</section>
+
+<section class="center">
+    <pre class="centered code-large"><code data-trim>
+        .clearfix::after {
+            content: '';
+            display: table;
+            clear: both;
+        }
+    </code></pre>
+</section>
+
+<section class="center">
+    <h2>clearfix</h2>
+    <div class="f-example-wrapper clearfix">
+        <div class="f-element-left" style="height: 250px; margin: 15px;">Box1</div>
+        <div class="f-element-left" style="height: 200px; margin: 15px;">Box2</div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>clearfix</h2>
+    <div class="f-example-wrapper clearfix-visible">
+        <div class="f-element-left" style="height: 250px; margin: 15px;">Box1</div>
+        <div class="f-element-left" style="height: 200px; margin: 15px;">Box2</div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Блочный контекст форматирования</h2>
+    <p>Регион страницы, в котором блоки размещаются в привычном для блоков&nbsp;порядке. <br><br> Элементы из разных блочных контекстов форматирования никак не могут повлиять на положение друг друга на странице</p>
+</section>
+
+<section class="center">
+    <h2>Способы создания нового блочного контекста форматирования</h2>
+    <div class="centered">
+        <ol style="font-size: 35px;">
+            <li>float элементы</li>
+            <li>position: absolute | fixed</li>
+            <li>display: inline, table... (не block)</li>
+            <li>блочные элементы с overflow: hidden | auto</li>
+        </ol>
+    </div>
+    <div style="text-align: center">
+        <a href="https://www.w3.org/TR/CSS21/visuren.html#block-formatting">Block formatting contexts</a>
+    </div>
+</section>
+
+<section>
+    <pre class="code-medium"><code data-trim>
+        .box1 {
+            overflow: hidden;
+        }
+    </code></pre>
+    <div class="f-example f-example-container clearfix" style="margin: 0;">
+        <div class="f-example-wrapper">
+            <div class="f-element-left" style="height: 250px; margin: 15px;">Left</div>
+            <div class="f-element-right" style="height: 200px; margin: 15px;">Right</div>
+            Box1
+        </div>
+        <div class="f-example-wrapper">Box2</div>
+    </div>
+</section>
+
+<section>
+    <pre class="code-medium"><code data-trim>
+        .box1 {
+            overflow: hidden;
+        }
+    </code></pre>
+    <div class="f-example f-example-container clearfix" style="margin: 0;">
+        <div class="f-example-wrapper" style="overflow: hidden; height: auto">
+            <div class="f-element-left" style="height: 250px; margin: 15px;">Left</div>
+            <div class="f-element-right" style="height: 200px; margin: 15px;">Right</div>
+            Box1
+        </div>
+        <div class="f-example-wrapper">Box2</div>
+    </div>
+</section>
+
+<section>
+    <pre class="code-medium"><code data-trim>
+        .box2 {
+            overflow: hidden;
+        }
+    </code></pre>
+    <div class="f-example f-example-container clearfix" style="margin: 0;">
+        <div class="f-example-wrapper">
+            <div class="f-element-left" style="height: 250px; margin: 15px;">Left</div>
+            <div class="f-element-right" style="height: 200px; margin: 15px;">Right</div>
+            Box1
+        </div>
+        <div class="f-example-wrapper">Box2</div>
+    </div>
+</section>
+
+<section>
+    <pre class="code-medium"><code data-trim>
+        .box2 {
+            overflow: hidden;
+        }
+    </code></pre>
+    <div class="f-example f-example-container clearfix" style="margin: 0;">
+        <div class="f-example-wrapper">
+            <div class="f-element-left" style="height: 250px; margin: 15px;">Left</div>
+            <div class="f-element-right" style="height: 200px; margin: 15px;">Right</div>
+            Box1
+        </div>
+        <div class="f-example-wrapper" style="overflow: hidden;">Box2</div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Трехколоночный макет</h2>
+    <pre style="font-size: 40px;"><code data-trim>
+        <div class="left">Left</div>
+        <div class="right">Right</div>
+        <div class="center">Center</div>
+    </code></pre>
+    <div class="f-example clearfix">
+        <div class="f-element">Left</div>
+        <div class="f-element">Right</div>
+        <div class="f-element" style="height: 200px;">Center</div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Трехколоночный макет</h2>
+    <pre style="font-size: 40px;"><code data-trim>
+        <div class="left">Left</div>
+        <div class="right">Right</div>
+        <div class="center">Center</div>
+    </code></pre>
+    <pre style="font-size: 40px;"><code data-trim>
+        .left { float: left; }
+    </code></pre>
+    <div class="f-example clearfix">
+        <div class="f-element f-element-left">Left</div>
+        <div class="f-element">Right</div>
+        <div class="f-element" style="height: 200px;">Center</div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Трехколоночный макет</h2>
+    <pre style="font-size: 40px;"><code data-trim>
+        <div class="left">Left</div>
+        <div class="right">Right</div>
+        <div class="center">Center</div>
+    </code></pre>
+    <pre style="font-size: 40px;"><code data-trim>
+        .left { float: left; }
+        .right { float: right; }
+    </code></pre>
+    <div class="f-example clearfix">
+        <div class="f-element f-element-left">Left</div>
+        <div class="f-element f-element-right">Right</div>
+        <div class="f-element" style="height: 200px;">Center</div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Трехколоночный макет</h2>
+    <pre style="font-size: 40px;"><code data-trim>
+        <div class="left">Left</div>
+        <div class="right">Right</div>
+        <div class="center">Center</div>
+    </code></pre>
+    <pre style="font-size: 40px;"><code data-trim>
+        .left { float: left; }
+        .right { float: right; }
+        .center { overflow: hidden; }
+    </code></pre>
+    <div class="f-example clearfix">
+        <div class="f-element f-element-left">Left</div>
+        <div class="f-element f-element-right">Right</div>
+        <div class="f-element" style="overflow: hidden; height: 200px;">Center</div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Трехколоночный макет</h2>
+    <pre style="font-size: 40px;"><code data-trim>
+        <div class="left">Left</div>
+        <div class="right">Right</div>
+        <div class="center">Center</div>
+    </code></pre>
+    <pre style="font-size: 40px;"><code data-trim>
+        .left { float: left; }
+        .right { float: right; }
+        .center { overflow: hidden; }
+        body { width: 50%; }
+    </code></pre>
+    <div class="centered">
+        <div class="f-example clearfix" style="width: 600px;">
+            <div class="f-element f-element-left">Left</div>
+            <div class="f-element f-element-right">Right</div>
+            <div class="f-element" style="overflow: hidden; height: 200px;">Center</div>
+        </div>
+    </div>
+</section>
+
+<section class="center">
+    <h2>Ссылки</h2>
+    <div class="centered">
+        <div><a href="https://www.w3.org/TR/CSS2/visudet.html">Про содержащий блок</a></div>
+        <div><a href="https://www.w3.org/TR/CSS21/visuren.html#block-formatting">Про блочный контекст форматирования</a></div>
+        <div><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index">Про z-index</a></div>
+        <div><a href="https://css-tricks.com/all-about-floats/">Про float</a></div>
+    </div>
+</section>
+
+</div></div><script src="../../@lib/core.js"></script></body></html>

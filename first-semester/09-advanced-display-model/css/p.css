@@ -1,0 +1,54 @@
+.p-example
+{
+    display: flex;
+
+    padding: 20px;
+
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.p-box
+{
+    font-size: 40px;
+
+    position: relative;
+
+    display: flex;
+
+    box-sizing: border-box;
+    width: 150px;
+    height: 150px;
+    padding: 20px;
+
+    text-align: center;
+
+    color: #fff;
+    background-color: #374785;
+    opacity: .9;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.p-box-wrapper
+{
+    width: 150px;
+    height: 150px;
+    margin: 30px;
+
+    background: #c2cad0;
+}
+
+.p-box-wrapper:only-child
+{
+    margin: 0;
+}
+
+.p-parent {
+    background-color: #f76c6c;
+    line-height: 1.5;
+    padding: 10px;
+}
+

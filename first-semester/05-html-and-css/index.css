@@ -1,0 +1,122 @@
+.reveal blockquote
+{
+    margin: 50px auto;
+
+    width: 700px;
+}
+
+.reveal h3
+{
+    font-weight: normal;
+
+    margin: 0;
+
+    text-align: center;
+}
+
+.reveal mark
+{
+    background-color: #acf2bd;
+}
+
+.reveal strong
+{
+    font-weight: normal;
+}
+
+.reveal .advantage
+{
+    color: #2cbe4e;
+}
+
+.reveal .author:first-letter
+{
+    color: red;
+}
+
+.reveal .bold
+{
+    font-weight: 600;
+}
+
+.reveal .center
+{
+    text-align: center;
+}
+
+.reveal .code
+{
+    font-family: monospace;
+    margin-bottom: -4px;
+}
+
+.reveal .disadvantage
+{
+    color: #d36363;
+}
+
+.reveal .explanation
+{
+    font-size: 40px;
+
+    margin-left: 10px;
+    margin-top: -10px;
+
+    text-align: left;
+}
+
+.reveal .right
+{
+    text-align: right;
+}
+
+.reveal .pre
+{
+    white-space: pre;
+}
+
+.reveal .with-subheading
+{
+    line-height: .8
+}
+
+.reveal li
+{
+    padding: 0 0 15px;
+}
+
+
+
+.visible-fragment mark.fragment
+{
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.visible-fragment mark.fragment
+{
+    background: unset !important;
+    color: unset !important;
+}
+
+.visible-fragment mark.fragment.visible
+{
+    background: #acf2bd !important;
+    color: black !important;
+}
+
+.visible-fragment mark.fragment.visible *
+{
+    color: black !important;
+}
+
+code mark.black-code,
+code mark.black-code *
+{
+    color: black !important;
+}
+
+.visible-fragment mark.fragment.visible.blue-2
+{
+    background-color: #fdb !important;
+}

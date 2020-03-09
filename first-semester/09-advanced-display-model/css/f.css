@@ -1,0 +1,109 @@
+.f-example
+{
+    line-height: 60px;
+
+    position: relative;
+
+    margin-top: 50px;
+    padding: 20px;
+
+    background: #f76c6c;
+}
+
+.f-element
+{
+    font-weight: bold;
+    line-height: 98px;
+
+    box-sizing: border-box;
+    margin-top: 2px;
+    padding: 10px 30px;
+
+    color: #fff;
+    border: 2px solid #fff;
+    background: #374785;
+}
+
+.f-element-left,
+.f-element-right
+{
+    font-weight: bold;
+    line-height: 98px;
+
+    box-sizing: border-box;
+    height: 116px;
+    margin: 2px;
+    padding: 10px 30px;
+
+    color: #fff;
+    background: #374785;
+}
+
+.f-element-left
+{
+    float: left;
+}
+
+.f-element-right
+{
+    float: right;
+}
+
+.f-example-game
+{
+    height: 450px;
+}
+
+.f-element-ingame
+{
+    width: 250px;
+    margin: 2px;
+
+    border: 1px solid #fff;
+}
+
+.f-element-ingame-next
+{
+    position: absolute;
+    top: -100px;
+    right: -100px;
+}
+
+.f-example-container
+{
+    background: none;
+}
+
+.f-example-wrapper
+{
+    height: 150px;
+    margin: 10px;
+
+    background: #f76c6c;
+}
+
+.clearfix::after
+{
+    display: table;
+    clear: both;
+
+    content: '';
+}
+
+.clearfix {
+    height: auto;
+}
+
+.clearfix-visible {
+    height: auto;
+}
+
+.clearfix-visible::after
+{
+    display: block;
+    clear: both;
+
+    content: '';
+    background: green;
+    height: 20px;
+}

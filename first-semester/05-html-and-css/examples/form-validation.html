@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>form validation</title>
+        <meta charset="utf-8">
+    </head>
+<body>
+<form method="post" autocomplete="off">
+    <input type="text" required="" placeholder="Как вас зовут?">
+
+    <input type="email" placeholder="email" required="">
+
+    <input type="url" placeholder="url" required="">
+
+    <input type="tel" pattern="2-[0-9]{3}-[0-9]{3}"
+        placeholder="2-123-312" required>
+
+    <button>Отправить</button>
+    <button type="reset">Очистить</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,220 @@
+.z-group
+{
+    width: 400px;
+    height: 600px;
+    margin: 0 auto !important;
+
+    transition: transform .3s ease;
+    transform: rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+
+    transform-style: preserve-3d;
+}
+
+.z-viewport
+{
+    font-size: 50px !important;
+    font-weight: bold;
+
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+
+    display: flex;
+
+    transition: all .3s ease;
+    transform: translateZ(0);
+    text-align: center;
+
+    opacity: .5;
+    color: #000;
+    border: 2px solid #000;
+    background: #a8d0e6;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.fragment.z-example
+{
+    visibility: visible !important;
+
+    opacity: 1 !important;
+}
+
+.z-example.visible .z-viewport
+{
+    transform: translateZ(-90px);
+}
+
+.z-example.visible .z-group
+{
+    transform: translateY(-100px) rotateX(51deg) rotateY(34deg) rotateZ(-46deg);
+}
+
+.z-example.visible .z-element.z-element-1
+{
+    transform: translateZ(5px);
+}
+
+.z-example.visible .z-element.z-element-2
+{
+    transform: translateZ(60px);
+}
+
+.z-example.visible .z-element.z-element-3
+{
+    transform: translateZ(100px);
+}
+
+.z-element
+{
+    font-weight: bold;
+
+    position: absolute;
+    left: 0;
+
+    display: flex;
+
+    box-sizing: border-box;
+    width: 100%;
+    height: 33.33%;
+
+    transition: all .4s ease .3s;
+
+    color: #000;
+    border: 2px solid #000;
+
+    align-items: center;
+    justify-content: center;
+}
+
+.z-element-1
+{
+    top: 0;
+
+    transform: translateZ(0);
+
+    opacity: .7;
+    background: #f8eda1;
+}
+
+.z-element-2
+{
+    top: 33.33%;
+
+    transition-delay: .3s;
+    transform: translateZ(0);
+
+    opacity: .7;
+    background: #f76c6c;
+}
+
+.z-element-3
+{
+    top: 66.66%;
+
+    transition-delay: .2s;
+    transform: translateZ(0);
+
+    opacity: .7;
+    background: #374785;
+}
+
+.z-index-1
+{
+    transform: translateZ(0);
+}
+
+.z-index-2
+{
+    transform: translateZ(1px);
+}
+
+.z-index-3
+{
+    transform: translateZ(2px);
+}
+
+.z-example.visible .z-element.z-index-1
+{
+    transform: translateZ(5px);
+}
+
+.z-example.visible .z-element.z-index-2
+{
+    transform: translateZ(60px);
+}
+
+.z-example.visible .z-element.z-index-3
+{
+    transform: translateZ(100px);
+}
+
+li
+{
+    position: relative;
+}
+
+.mark-1-1,
+.mark-1-2,
+.mark-1-3,
+.mark-2-1,
+.mark-2-2,
+.mark-2-3,
+.mark-3-1,
+.mark-3-2,
+.mark-3-3
+{
+    position: absolute;
+
+    display: block;
+
+    width: 10px;
+    height: 40px;
+
+    content: '';
+}
+
+.mark-1-1,
+.mark-1-2,
+.mark-1-3
+{
+    background: #f8eda1;
+}
+
+.mark-2-1,
+.mark-2-2,
+.mark-2-3
+{
+    background: #f76c6c;
+}
+
+.mark-3-1,
+.mark-3-2,
+.mark-3-3
+{
+    background: #374785;
+}
+
+.mark-1-1,
+.mark-2-1,
+.mark-3-1
+{
+    left: -50px;
+}
+
+.mark-1-2,
+.mark-2-2,
+.mark-3-2
+{
+    left: -60px;
+}
+
+.mark-1-3,
+.mark-2-3,
+.mark-3-3
+{
+    left: -70px;
+}

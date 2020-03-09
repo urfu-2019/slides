@@ -1,0 +1,1681 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Просмотр презентаций</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../../@lib/core.css">
+    <link rel="stylesheet" href="../../@lib/theme.css">
+    <link rel="stylesheet" href="index.css">
+</head><body class="white"><div class="reveal"><div class="slides">
+
+<section class="center">
+    <h1><span class="bold">Type</span>Script</h1>
+    <p>Часть II</p>
+    <p>&nbsp;</p>
+    <h3 class="author right">Старков Дима</h3>
+</section>
+
+<section>
+    <h2><span class="bold">Type</span>Script?</h2>
+    <ul>
+        <li class="fragment">Спасет от выстрелов себе в ногу</li>
+        <li class="fragment">ESNext прямо сейчас</li>
+        <li class="fragment">Средство против <strong>TypeError</strong></li>
+        <li class="fragment">Пишет код за вас</li>
+        <li class="fragment">Документация к коду</li>
+        <li class="center fragment"><strong>Но...</strong></li>
+    </ul>
+</section>
+
+<section class="center">
+    <h2>Много дополнительного кода?</h2>
+    <p class="fragment"><strong>Нас спасет вывод типов!</strong></p>
+</section>
+
+<section class="center">
+    <h2>
+        <span class="bold">Type</span>Script крут.<br>
+        Но можем ли мы описать весь JavaScript?
+    </h2>
+</section>
+
+<section>
+    <h2>Вспомним <span class="bold">Type</span>Script 1.0</h2>
+    <ul>
+        <li>Интерфейсы</li>
+        <li>Классы</li>
+        <li>Обобщенные типы</li>
+        <li>Перегрузки функций</li>
+    </ul>
+    <p class="fragment"><strong>Чего еще желать?</strong></p>
+</section>
+
+<section>
+    <pre class="typescript"><code data-noescape>
+// String.split
+split(separator: <mark>?</mark>, limit: number): string[]
+    </code></pre>
+</section>
+
+<section>
+    <pre class="typescript"><code data-noescape>
+// String.split
+split(separator: <mark>string | RegExp</mark>, limit: number): string[]
+    </code></pre>
+</section>
+
+<section>
+    <pre class="typescript"><code data-noescape>
+// String.split
+split(separator: string | RegExp, limit: number): string[]
+    </code></pre>
+    <p>&nbsp;</p>
+    <h2><strong>Решение: Union Types</strong></h2>
+</section>
+
+<section>
+    <h2>Intersection Types</h2>
+
+    <div class="two-columns">
+        <pre class="typescript"><code data-noescape><span class="fragment" data-fragment-index="0">
+type Cat = {
+    purr()
+}
+        </span>
+        </code></pre>
+        <div class="diagrams">
+            <img class="fragment" data-fragment-index="0" src="images/catdog.png" alt="Cat">
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>Intersection Types</h2>
+
+    <div class="two-columns">
+        <pre class="typescript"><code>
+type Cat = {
+    purr()
+}
+
+type Dog = {
+    woof()
+}
+        </code></pre>
+        <div class="diagrams">
+            <img src="images/catdog-1.png" alt="Dog">
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>Intersection Types</h2>
+
+    <div class="two-columns">
+        <pre class="typescript"><code>
+type Cat = {
+    purr()
+}
+
+type Dog = {
+    woof()
+}
+
+type CatDog = Cat & Dog
+        </code></pre>
+        <div class="diagrams">
+            <img src="images/catdog-2.png" alt="Cat & Dog">
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>Type Alias</h2>
+
+    <pre class="typescript"><code>
+
+
+// String.split
+split(separator: string | RegExp, limit: number): string[]
+    </code></pre>
+</section>
+
+<section>
+    <h2>Type Alias</h2>
+    <pre class="typescript"><code data-noescape>
+type StringOrRegExp = string | RegExp
+
+// String.split
+split(separator: <mark>StringOrRegExp</mark>, limit: number): string[]
+    </code></pre>
+</section>
+
+<section>
+    <h2>Type vs Interface</h2>
+
+    <div class="code-two-columns">
+        <pre class="typescript"><code>
+type Point = {
+    x: number
+    y: number
+}
+        </code></pre>
+        <pre class="typescript"><code>
+interface Point {
+    x: number
+    y: number
+}
+        </code></pre>
+    </div>
+    <ul>
+        <li class="fragment">implements <span class="bold">interface</span></li>
+        <li class="fragment"><span class="bold">Type1</span> | <span class="bold">Type2</span><span class="fragment"> – не интерфейс!</span></li>
+    </ul>
+</section>
+
+<section>
+    <h2>Тип ≡ Множество</h2>
+    <ul>
+        <li>Можем объединять типы <strong>|</strong></li>
+        <li>Можем пересекать типы <strong>&</strong></li>
+        <li>Можем вычитать из одного типа другой</li>
+    </ul>
+    <p class="fragment"><strong>Фух, теперь точно всё...</strong></p>
+</section>
+
+<section>
+    <h2>А вот и нет!</h2>
+
+    <pre class="javascript code-block"><code>
+function get(obj, keyName) {
+    return obj[keyName]
+}</code></pre>
+</section>
+
+<section>
+    <h2>А вот и нет!</h2>
+    <pre class="typescript code-block"><code data-noescape>
+function get(obj: any, keyName: string): any {
+    return obj[keyName]
+}
+    <span class="fragment"><span class="type-error-comment">
+// TypeError: Cannot read property 'prototype' of null</span>
+get(null, 'prototype')</span>
+    </code></pre>
+    <p class="fragment"><strong>Что делать?</strong></p>
+</section>
+
+<section>
+    <h2>А вот и нет!</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+function get(<mark>obj: any</mark>, keyName: string): any {
+    return obj[keyName]
+}
+    <span class="type-error-comment">
+// TypeError: Cannot read property 'prototype' of null</span>
+get(null, 'prototype')
+    </code></pre>
+    <p>Может быть любым <strong class="fragment">– Generics?</strong></p>
+</section>
+
+<section>
+    <h2>А вот и нет!</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+function get(obj: any, <mark>keyName: string</mark>): any {
+    return obj[keyName]
+}
+    <span class="type-error-comment">
+// TypeError: Cannot read property 'prototype' of null</span>
+get(null, 'prototype')
+    </code></pre>
+    <p><code>keyName ∈ Object.keys(obj)</code> <strong class="fragment">– ?</strong></p>
+</section>
+
+<section>
+    <h2>А вот и нет!</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+function get(obj: any, keyName: string): <mark>any</mark> {
+    return obj[keyName]
+}
+    <span class="type-error-comment">
+// TypeError: Cannot read property 'prototype' of null</span>
+get(null, 'prototype')
+    </code></pre>
+    <p><code>obj[keyName]</code> <strong class="fragment">– ?</strong></p>
+</section>
+
+<section class="center">
+    <h2>
+        Хотим знать список полей объекта<br>
+        и типы значений на этапе компиляции
+    </h2>
+    <p class="fragment"><strong>Решение: Lookup Types и keyof</strong></p>
+</section>
+
+<section>
+    <h2>Lookup типы</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+interface IUser {
+    login: string
+    age: number
+    gender: 'male' | 'female'
+}
+
+<span class="fragment" data-fragment-index="1">let login: IUser['login']</span>
+<span class="fragment" data-fragment-index="1">let login: string</span>
+
+<span class="fragment" data-fragment-index="2">let loginOrAge: IUser['login' | 'age']</span>
+<span class="fragment" data-fragment-index="2">let loginOrAge: string | number</span>
+    </code></pre>
+</section>
+
+<section>
+    <h2>keyof</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+interface IUser {
+    login: string
+    age: number
+    gender: 'male' | 'female'
+}
+
+<span class="fragment" data-fragment-index="1">let key: keyof IUser</span>
+<span class="fragment" data-fragment-index="1">let key: 'login' | 'age' | 'gender'</span>
+    </code></pre>
+</section>
+
+<section>
+    <h2>Наша простая функция</h2>
+
+    <pre class="javascript code-block"><code>
+function get(obj, keyName) {
+    return obj[keyName]
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Наша <s>простая</s> функция</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+function get<mark>&lt;T&gt;</mark>(obj: <mark>T</mark>, keyName: <mark>keyof T</mark>): <mark>T[keyof T]</mark> {
+    return obj[keyName]
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Наша <s>простая</s> функция</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+function get&lt;T&gt;(obj: T, keyName: keyof T): T[keyof T] {
+    return obj[keyName]
+}
+
+let a: number = get({ a: 1 }, 'a')
+    </code></pre>
+</section>
+
+<section>
+    <h2>Наша <s>простая</s> функция</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+function get&lt;<mark>{ a: 1 }</mark>&gt;(obj: T, keyName: keyof T): T[keyof T] {
+    return obj[keyName]
+}
+
+let a: number = get({ a: 1 }, 'a')
+    </code></pre>
+</section>
+
+<section>
+    <h2>Наша <s>простая</s> функция</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+function get&lt;{ a: 1 }&gt;(obj: T, keyName: <mark>'a'</mark>): T[<mark>'a'</mark>] {
+    return obj[keyName]
+}
+
+let a: number = get({ a: 1 }, 'a')
+    </code></pre>
+</section>
+
+<section>
+    <h2>Наша <s>простая</s> функция</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+function get&lt;{ a: 1 }&gt;(obj: T, keyName: 'a'): <mark>number</mark> {
+    return obj[keyName]
+}
+
+let a: number = get({ a: 1 }, 'a')
+    </code></pre>
+</section>
+
+<section>
+    <h2>Наша <s>простая</s> функция</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+function get&lt;T&gt;(obj: T, keyName: keyof T): T[keyof T] {
+    return obj[keyName]
+}
+
+let a: number = get({ a: 1 }, 'a')
+    <span class="fragment"><span class="type-error-comment">
+// Argument of type '"c"'
+// is not assignable to parameter of type '"a" | "b"'.</span>
+let c: undefined = get({ a: 1, b: 2 }, <span class="type-error">'c'</span>)
+    </span>
+    </code></pre>
+</section>
+
+<section>
+    <h2>Наша <s>простая</s> функция</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+function get&lt;T, <mark>K extends keyof T</mark>&gt;(obj: T, keyName: <mark>K</mark>): T[<mark>K</mark>] {
+    return obj[keyName]
+}
+
+let a: number = get({ a: 1 }, 'a')
+
+
+
+let c: undefined = get({ a: 1, b: 2 }, 'c')
+    </code></pre>
+</section>
+
+<section>
+    <h2>А что там в es5?</h2>
+    <pre class="typescript fragment code-block"><code data-noescape>
+interface IUser {
+    login: string
+    age: number
+    gender: 'male' | 'female'
+}
+
+const user = { login: 'dimastark', age: 22, gender: 'male' }<span class="fragment">
+const readonlyUser: <mark>?</mark> = Object.freeze(user)
+    </span>
+    </code></pre>
+</section>
+
+<section>
+    <h2>А что там в es5?</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+interface I<mark>Frozen</mark>User {
+    <mark>readonly</mark> login: string
+    <mark>readonly</mark> age: number
+    <mark>readonly</mark> gender: 'male' | 'female'
+}
+
+const user = { login: 'dimastark', age: 22, gender: 'male' }
+const readonlyUser: <mark>IFrozenUser</mark> = Object.freeze(user)
+    </code></pre>
+
+    <p class="fragment"><strong>Решение: Mapped Types</strong></p>
+</section>
+
+<section data-background-size="fill" data-background-image="images/what-if-i-say-meme.jpg"></section>
+
+<section>
+    <h2>Mapped Types</h2>
+
+    <pre class="typescript code-block"><code data-noescape>interface IUser {
+    login: string
+    age: number
+    gender: 'male' | 'female'
+}
+    <mark class="fragment" data-fragment-index="1">
+type Readonly&lt;T&gt; = {
+    readonly [P in 'login' | 'age' | 'gender']: T[P];
+};</mark>
+
+const user = { login: 'dimastark', age: 22, gender: 'male' }
+const readonlyUser: <mark class="fragment" data-fragment-index="1">Readonly&lt;IUser&gt;</mark> = Object.freeze(user)
+    </code></pre>
+</section>
+
+<section>
+    <h2>Mapped Types + keyof</h2>
+
+    <pre class="typescript code-block"><code data-noescape>interface IUser {
+    login: string
+    age: number
+    gender: 'male' | 'female'
+}
+
+type Readonly&lt;T&gt; = {
+    readonly [P in <mark>keyof T</mark>]: T[P];
+};
+
+const user = { login: 'dimastark', age: 22, gender: 'male' }
+const readonlyUser: Readonly&lt;IUser&gt; = Object.freeze(user)
+    </code></pre>
+</section>
+
+<section>
+    <h2>infer</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+type ValueOf&lt;T&gt; = T extends {
+    [key: string]: infer U
+} ? U : never;
+    <span class="fragment">
+ValueOf<{ a: string, b: string }>  // string</span><span class="fragment">
+ValueOf<{ a: string, b: number }>  // string | number</span>
+    </code></pre>
+</section>
+
+<section>
+    <h2>infer</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+type ReturnType&lt;T&gt; = T extends (
+    (...args: any) => infer R
+) ? R : never;
+    <span class="fragment">
+ReturnType<(a: number) => string>  // string</span><span class="fragment">
+ReturnType<(s: string) => number>  // number</span><span class="fragment">
+ReturnType<{ a: number }>          // never</span>
+    </code></pre>
+</section>
+
+<section>
+    <h2>Mapped Types</h2>
+
+    <pre class="typescript code-block"><code data-noescape>interface IUser {
+    login: string
+    birthDate: {
+        year: number
+        month: number
+        day: number
+    }
+    gender: 'male' | 'female'
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Mapped Types</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+type DeepReadonly&lt;T&gt; = {
+    readonly [P in keyof T]:
+        T[P] extends (infer U)[] ? DeepReadonly&lt;U&gt;[] :
+        T[P] extends object ? DeepReadonly&lt;T[P]&gt; :
+        T[P];
+};
+<span class="fragment">
+DeepReadonly<{
+    array: { s: string }[]
+}>
+</span>
+    </code></pre>
+</section>
+
+<section>
+    <h2>Mapped Types</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+type DeepReadonly&lt;<mark>T</mark>&gt; = {
+    readonly [P in keyof T]:
+        T[P] extends (infer U)[] ? DeepReadonly&lt;U&gt;[] :
+        T[P] extends object ? DeepReadonly&lt;T[P]&gt; :
+        T[P];
+};
+
+DeepReadonly<<mark>{
+    array: { s: string }[]
+}</mark>>
+    </code></pre>
+</section>
+
+<section>
+    <h2>Mapped Types</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+type DeepReadonly&lt;T&gt; = {
+    <mark>readonly [P in keyof T]</mark>:
+        T[P] extends (infer U)[] ? DeepReadonly&lt;U&gt;[] :
+        T[P] extends object ? DeepReadonly&lt;T[P]&gt; :
+        T[P];
+};
+
+DeepReadonly<{
+    <mark>readonly array</mark>: { s: string }[]
+}>
+    </code></pre>
+</section>
+
+<section>
+    <h2>Mapped Types</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+type DeepReadonly&lt;T&gt; = {
+    readonly [P in keyof T]:
+        <mark>T[P]</mark> extends (infer U)[] ? DeepReadonly&lt;U&gt;[] :
+        T[P] extends object ? DeepReadonly&lt;T[P]&gt; :
+        T[P];
+};
+
+DeepReadonly<{
+    readonly array: <mark>{ s: string }[]</mark>
+}>
+    </code></pre>
+</section>
+
+<section>
+    <h2>Mapped Types</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+type DeepReadonly&lt;T&gt; = {
+    readonly [P in keyof T]:
+        T[P] extends <mark>(infer U)[]</mark> ? DeepReadonly&lt;U&gt;[] :
+        T[P] extends object ? DeepReadonly&lt;T[P]&gt; :
+        T[P];
+};
+
+DeepReadonly<{
+    readonly array: <mark>{ s: string }[]</mark>
+}>
+    </code></pre>
+</section>
+
+<section>
+    <h2>Mapped Types</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+type DeepReadonly&lt;T&gt; = {
+    readonly [P in keyof T]:
+        T[P] extends (<mark>infer U</mark>)[] ? DeepReadonly&lt;U&gt;[] :
+        T[P] extends object ? DeepReadonly&lt;T[P]&gt; :
+        T[P];
+};
+
+DeepReadonly<{
+    readonly array: <mark>{ s: string }</mark>[]
+}>
+    </code></pre>
+</section>
+
+<section>
+    <h2>Mapped Types</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+type DeepReadonly&lt;T&gt; = {
+    readonly [P in keyof T]:
+        T[P] extends (infer U)[] ? <mark>DeepReadonly&lt;U&gt;[]</mark> :
+        T[P] extends object ? DeepReadonly&lt;T[P]&gt; :
+        T[P];
+};
+
+DeepReadonly<{
+    readonly array: <mark>DeepReadonly<{ s: string }>[]</mark>
+}>
+    </code></pre>
+</section>
+
+<section>
+    <h2>Mapped Types</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+type DeepReadonly&lt;<mark>T</mark>&gt; = {
+    readonly [P in keyof T]:
+        T[P] extends (infer U)[] ? DeepReadonly&lt;U&gt;[] :
+        T[P] extends object ? DeepReadonly&lt;T[P]&gt; :
+        T[P];
+};
+
+DeepReadonly<{
+    readonly array: DeepReadonly<<mark>{ s: string }</mark>>[]
+}>
+    </code></pre>
+</section>
+
+<section>
+    <h2>Mapped Types</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+type DeepReadonly&lt;T&gt; = {
+    <mark>readonly [P in keyof T]</mark>:
+        T[P] extends (infer U)[] ? DeepReadonly&lt;U&gt;[] :
+        T[P] extends object ? DeepReadonly&lt;T[P]&gt; :
+        T[P];
+};
+
+DeepReadonly<{
+    readonly array: DeepReadonly<{ <mark>readonly s</mark>: string }>[]
+}>
+    </code></pre>
+</section>
+
+<section>
+    <h2>Mapped Types</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+type DeepReadonly&lt;T&gt; = {
+    readonly [P in keyof T]:
+        <mark>T[P] extends (infer U)[]</mark> ? DeepReadonly&lt;U&gt;[] :
+        T[P] extends object ? DeepReadonly&lt;T[P]&gt; :
+        T[P];
+};
+
+DeepReadonly<{
+    readonly array: DeepReadonly<{ readonly s: <mark>string</mark> }>[]
+}>
+    </code></pre>
+</section>
+
+<section>
+    <h2>Mapped Types</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+type DeepReadonly&lt;T&gt; = {
+    readonly [P in keyof T]:
+        T[P] extends (infer U)[] ? DeepReadonly&lt;U&gt;[] :
+        <mark>T[P] extends object</mark> ? DeepReadonly&lt;T[P]&gt; :
+        T[P];
+};
+
+DeepReadonly<{
+    readonly array: DeepReadonly<{ readonly s: <mark>string</mark> }>[]
+}>
+    </code></pre>
+</section>
+
+<section>
+    <h2>Mapped Types</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+type DeepReadonly&lt;T&gt; = {
+    readonly [P in keyof T]:
+        T[P] extends (infer U)[] ? DeepReadonly&lt;U&gt;[] :
+        T[P] extends object ? DeepReadonly&lt;T[P]&gt; :
+        <mark>T[P]</mark>;
+};
+
+DeepReadonly<{
+    readonly array: DeepReadonly<{ readonly s: <mark>string</mark> }>[]
+}>
+    </code></pre>
+</section>
+
+<section>
+    <h2>Mapped Types</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+type DeepReadonly&lt;T&gt; = {
+    readonly [<mark>P in keyof T</mark>]:
+        T[P] extends (infer U)[] ? DeepReadonly&lt;U&gt;[] :
+        T[P] extends object ? DeepReadonly&lt;T[P]&gt; :
+        T[P];
+};
+
+DeepReadonly<{
+    readonly array: DeepReadonly<{ readonly <mark>s</mark>: string }>[]
+}>
+    </code></pre>
+</section>
+
+<section>
+    <h2>Mapped Types</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+type DeepReadonly&lt;T&gt; = {
+    readonly [P in keyof T]:
+        T[P] extends (infer U)[] ? DeepReadonly&lt;U&gt;[] :
+        T[P] extends object ? DeepReadonly&lt;T[P]&gt; :
+        T[P];
+};
+
+DeepReadonly<{
+    readonly array: { readonly s: string }[]
+}>
+    </code></pre>
+</section>
+
+<section>
+    <h2>Mapped Types</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+type DeepReadonly&lt;T&gt; = {
+    readonly [<mark>P in keyof T</mark>]:
+        T[P] extends (infer U)[] ? DeepReadonly&lt;U&gt;[] :
+        T[P] extends object ? DeepReadonly&lt;T[P]&gt; :
+        T[P];
+};
+
+DeepReadonly<{
+    readonly <mark>array</mark>: { readonly s: string }[]
+}>
+    </code></pre>
+</section>
+
+<section>
+    <h2>Mapped Types</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+type DeepReadonly&lt;T&gt; = {
+    readonly [P in keyof T]:
+        T[P] extends (infer U)[] ? DeepReadonly&lt;U&gt;[] :
+        T[P] extends object ? DeepReadonly&lt;T[P]&gt; :
+        T[P];
+};
+
+{
+    readonly array: { readonly s: string }[]
+}
+    </code></pre>
+</section>
+
+<section class="center">
+    <h2>Перерыв</h2>
+</section>
+
+<section>
+    <h2>Utility Types</h2>
+    <div class="fragment">
+        <p>Pick – выбираем поля объекта</p>
+        <div class="code-two-columns">
+            <pre class="typescript"><code data-noescape>
+    Pick<{
+        a: string;
+        b: number;
+        c: boolean;
+    }, 'a' | 'b' | 'd'>
+            </code></pre>
+            <pre class="typescript"><code data-noescape>
+    {
+        a: string;
+
+        c: boolean;
+    }
+            </code></pre>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>Utility Types</h2>
+    <p>Omit – исключаем поля объекта</p>
+    <div class="code-two-columns">
+        <pre class="typescript"><code data-noescape>
+    Omit<{
+        a: string;
+        b: number;
+        c: boolean;
+    }, 'a' | 'b' | 'd'>
+        </code></pre>
+        <pre class="typescript"><code data-noescape>
+    {
+
+
+        c: boolean;
+    }
+        </code></pre>
+    </div>
+</section>
+
+<section>
+    <h2>Utility Types</h2>
+    <p>Partial – делаем все поля опциональными</p>
+    <div class="code-two-columns">
+        <pre class="typescript"><code data-noescape>
+    Partial<{
+        a: string | undefined;
+        b: number;
+        c?: boolean;
+    }>
+        </code></pre>
+        <pre class="typescript"><code data-noescape>
+    {
+        a?: string | undefined;
+        b?: number;
+        c?: boolean;
+    }
+        </code></pre>
+    </div>
+</section>
+
+<section>
+    <h2>Utility Types</h2>
+    <p>Required – делаем все поля обязательными</p>
+    <div class="code-two-columns">
+        <pre class="typescript"><code data-noescape>
+    Required<{
+        a: string;
+        b?: number | undefined;
+        c?: boolean;
+    }>
+        </code></pre>
+        <pre class="typescript"><code data-noescape>
+    {
+        a: string;
+        b: number | undefined;
+        c: boolean;
+    }
+        </code></pre>
+    </div>
+</section>
+
+<section>
+    <h2>Utility Types</h2>
+    <p>Readonly – делаем все поля readonly</p>
+    <div class="code-two-columns">
+        <pre class="typescript"><code data-noescape>
+    Readonly<{
+        a: string;
+        b: number;
+        c?: boolean;
+    }>
+        </code></pre>
+        <pre class="typescript"><code data-noescape>
+    {
+        readonly a: string;
+        readonly b: number;
+        readonly c?: boolean;
+    }
+        </code></pre>
+    </div>
+</section>
+
+<section>
+    <h2>Utility Types</h2>
+    <p>ReturnType – тип возвращаемого значения</p>
+    <div class="code-two-columns">
+        <pre class="typescript"><code data-noescape>
+    ReturnType<() => number>
+    ReturnType<() => string>
+    ReturnType<() => boolean>
+        </code></pre>
+        <pre class="typescript"><code data-noescape>
+    number
+    string
+    boolean
+        </code></pre>
+    </div>
+</section>
+
+<section>
+    <h2>Utility Types</h2>
+    <p>Parameters – тип аргументов функции</p>
+    <div class="code-two-columns">
+        <pre class="typescript"><code data-noescape>
+Parameters<(s: string | RegExp) => void>
+Parameters<(a: number, b: number) => void>
+Parameters<(...nums: number[]) => void>
+Parameters<(...args: any[]) => void>
+        </code></pre>
+        <pre class="typescript"><code data-noescape>
+[string | RegExp]
+[number, number]
+number[]
+any[]
+        </code></pre>
+    </div>
+</section>
+
+<section>
+    <h2>Type Guards</h2>
+    <br>
+    <blockquote class="fragment">
+        Условие, дающее гарантию о безопасном сужении типа
+    </blockquote>
+</section>
+
+<section>
+    <h2>Union Type Guard</h2>
+
+    <pre class="typescript code-block"><code>
+function negate(n: string | number | boolean) {
+    if (typeof n === 'string') {
+        return '-'.concat(n);
+    } else if (typeof n === 'number') {
+        return -n;
+    } else {
+        return !n;
+    }
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Union Type Guard</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+function negate(n: <mark>string | number | boolean</mark>) {
+    if (typeof n === 'string') {
+        return '-'.concat(n);
+    } else if (typeof n === 'number') {
+        return -n;
+    } else {
+        return !n;
+    }
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Union Type Guard</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+function negate(n: string | number | boolean) {
+    if (typeof n === 'string') {
+        return '-'.concat(n);  // n is string
+    } else if (typeof n === 'number') {
+        return -n;
+    } else {
+        return !n;
+    }
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Union Type Guard</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+function negate(n: string | number | boolean) {
+    if (typeof n === 'string') {
+        return '-'.concat(n);
+    } else if (typeof n === 'number') {
+        return -n;  // n is number
+    } else {
+        return !n;
+    }
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Union Type Guard</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+function negate(n: string | number | boolean) {
+    if (typeof n === 'string') {
+        return '-'.concat(n);
+    } else if (typeof n === 'number') {
+        return -n;
+    } else {
+        return !n;  // n is boolean
+    }
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Union Type Guard</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+function negate(n: string | number | boolean) {
+    if (typeof n === 'string') {
+        return '-'.concat(n);
+    } else if (typeof n === 'number') {
+        return -n;
+    }
+
+    return !n;  // n is boolean
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>instanceof Type Guard</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+function addShape(shapes: Shape[], obj: object) {
+    if (obj instanceof Shape) {
+        shapes.push(obj)
+    }
+
+    throw new TypeError('Argument is not instanceof Shape')
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>instanceof Type Guard</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+function addShape(shapes: Shape[], obj: object) {
+    if (<mark>obj instanceof Shape</mark>) {
+        shapes.push(obj)
+    }
+
+    throw new TypeError('Argument is not instanceof Shape')
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>instanceof Type Guard</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+function addShape(shapes: Shape[], obj: object) {
+    if (obj instanceof Shape) {
+        shapes.push(<mark>obj</mark>)
+    }
+
+    throw new TypeError('Argument is not instanceof Shape')
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>in Type Guard</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+function checkProp(obj: object, name: string): boolean {
+    if (name in obj) {
+
+        return true;
+    }
+
+    throw new TypeError(`"${name}" property is missing!`)
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>in Type Guard</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+function checkProp(obj: object, name: string): boolean {
+    if (<mark>name in obj</mark>) {
+
+        return true;
+    }
+
+    throw new TypeError(`"${name}" property is missing!`)
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>in Type Guard</h2>
+
+    <pre class="typescript code-block"><code data-noescape>
+function checkProp(obj: object, name: string): boolean {
+    if (name in obj) {
+        console.log(obj[name]);
+        return true;
+    }
+
+    throw new TypeError(`"${name}" property is missing!`)
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>User Defined Type Guard</h2>
+</section>
+
+<section>
+    <h2>User Defined Type Guard</h2>
+
+    <pre class="typescript code-block"><code data-noescape data-trim style="font-size: 20px">
+type Circle = { r: number };
+type Square = { a: number };
+<span class="fragment">
+function area(o: Circle | Square): number {
+    return 'r' in o
+        ? Math.PI * o.r * o.r
+        : o.a * o.a;
+}</span>
+    </code></pre>
+</section>
+
+<section>
+    <h2>User Defined Type Guard</h2>
+
+    <pre class="typescript code-block"><code data-noescape data-trim style="font-size: 20px">
+type Circle = { r: number };
+type Square = { a: number };
+
+function area(o: Circle | Square): number {
+    return <mark>'r' in o</mark>
+        ? Math.PI * o.r * o.r
+        : o.a * o.a;
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>User Defined Type Guard</h2>
+
+    <pre class="typescript code-block"><code data-noescape data-trim style="font-size: 20px">
+type Circle = { r: number };
+type Square = { a: number };
+
+function area(o: Circle | Square): number {
+    return 'a' in o
+        ? o.a * o.a
+        : Math.PI * o.r * o.r;
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>User Defined Type Guard</h2>
+
+    <pre class="typescript code-block"><code data-noescape data-trim style="font-size: 20px">
+type Circle = { r: number };
+type Square = { a: number };
+
+function area(o: Circle | Square): number {
+    return 'a' in o
+        ? o.a * o.a
+        : Math.PI * o.r * o.r;
+}
+
+function isCircle(o: any): o is Circle {
+    return 'r' in o && typeof o.r === 'number';
+}
+
+function isSquare(o: any): o is Square {
+    return 'a' in o && typeof o.a === 'number';
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>User Defined Type Guard</h2>
+
+    <pre class="typescript code-block"><code data-noescape data-trim style="font-size: 20px">
+type Circle = { r: number };
+type Square = { a: number };
+
+function area(o: Circle | Square): number {
+    return 'a' in o
+        ? o.a * o.a
+        : Math.PI * o.r * o.r;
+}
+
+function isCircle(o: any): <mark>o is Circle</mark> {
+    return 'r' in o && typeof o.r === 'number';
+}
+
+function isSquare(o: any): <mark>o is Square</mark> {
+    return 'a' in o && typeof o.a === 'number';
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>User Defined Type Guard</h2>
+
+    <pre class="typescript code-block"><code data-noescape data-trim style="font-size: 20px">
+type Circle = { r: number };
+type Square = { a: number };
+
+function area(o: Circle | Square): number {
+    return <mark>isSquare(o)</mark>
+        ? o.a * o.a
+        : Math.PI * o.r * o.r;
+}
+
+function isCircle(o: any): o is Circle {
+    return 'r' in o && typeof o.r === 'number';
+}
+
+function isSquare(o: any): o is Square {
+    return 'a' in o && typeof o.a === 'number';
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>User Defined Type Guard</h2>
+
+    <pre class="typescript code-block"><code data-noescape data-trim style="font-size: 20px">
+type Circle = { r: number };
+type Square = { a: number };
+
+function area(o: Circle | Square): number {
+    return isCircle(o)
+        ? Math.PI * o.r * o.r
+        : o.a * o.a;
+}
+
+function isCircle(o: any): o is Circle {
+    return 'r' in o && typeof o.r === 'number';
+}
+
+function isSquare(o: any): o is Square {
+    return 'a' in o && typeof o.a === 'number';
+}
+    </code></pre>
+</section>
+
+<section class="center">
+    <h2>ES Next 🚆</h2>
+</section>
+
+<section>
+    <h2>Декораторы классов</h2>
+
+    <pre class="fragment typescript code-block"><code data-noescape data-trim style="font-size: 20px">
+type Class = {
+    new(...args: any[]): any
+};
+
+function decorator&lt;T extends Class&gt;(C: T) {
+    return class extends C {
+        oldProperty = 'override';
+        newProperty = 'new property';
+    }
+}
+
+@decorator
+class SomeClass {
+    oldProperty = 'old property';
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Декораторы классов</h2>
+
+    <pre class="typescript code-block"><code data-noescape data-trim style="font-size: 20px">
+type Class = {
+    new(...args: any[]): any
+};
+
+function decorator&lt;T extends Class&gt;(C: T) {
+    return class extends C {
+        oldProperty = 'override';
+        newProperty = 'new property';
+    }
+}
+
+<mark>@decorator</mark>
+class SomeClass {
+    oldProperty = 'old property';
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Декораторы классов</h2>
+
+    <pre class="typescript code-block"><code data-noescape data-trim style="font-size: 20px">
+type Class = {
+    new(...args: any[]): any
+};
+
+function decorator&lt;T extends Class&gt;(<mark>C: T</mark>) {
+    return class extends C {
+        oldProperty = 'override';
+        newProperty = 'new property';
+    }
+}
+
+@decorator
+<mark>class SomeClass</mark> {
+    oldProperty = 'old property';
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Декораторы классов</h2>
+
+    <pre class="typescript code-block"><code data-noescape data-trim style="font-size: 20px">
+type Class = {
+    new(...args: any[]): any
+};
+
+function decorator&lt;T extends Class&gt;(<mark>C: T</mark>) {
+    return class extends C {
+        <mark>oldProperty = 'override'</mark>;
+        newProperty = 'new property';
+    }
+}
+
+@decorator
+class SomeClass {
+    <mark>oldProperty = 'old property'</mark>;
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Декораторы классов</h2>
+
+    <pre class="typescript code-block"><code data-noescape data-trim style="font-size: 20px">
+type Class = {
+    new(...args: any[]): any
+};
+
+function decorator&lt;T extends Class&gt;(<mark>C: T</mark>) {
+    return class extends C {
+        oldProperty = 'override';
+        <mark>newProperty = 'new property'</mark>;
+    }
+}
+
+@decorator
+class SomeClass {
+    oldProperty = 'old property';
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Декораторы методов и свойств класса</h2>
+
+    <pre class="fragment typescript code-block"><code data-noescape data-trim style="font-size: 20px">
+function hidden(
+    target: any,
+    key: string,
+    descriptor: PropertyDescriptor
+) {
+    descriptor.enumerable = false;
+}
+
+class SomeClass {
+    get prop() {
+        return 'prop!';
+    }
+}
+<span class="fragment">
+Object.keys(new SomeClass());  // ['prop']
+</span>
+    </code></pre>
+</section>
+
+<section>
+    <h2>Декораторы методов и свойств класса</h2>
+
+    <pre class="typescript code-block"><code data-noescape data-trim style="font-size: 20px">
+function hidden(
+    target: any,
+    key: string,
+    descriptor: PropertyDescriptor
+) {
+    descriptor.enumerable = false;
+}
+
+class SomeClass {
+    <mark>@hidden</mark> get prop() {
+        return 'prop!';
+    }
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Декораторы методов и свойств класса</h2>
+
+    <pre class="typescript code-block"><code data-noescape data-trim style="font-size: 20px">
+function hidden(
+    <mark>target: any</mark>,
+    key: string,
+    descriptor: PropertyDescriptor
+) {
+    descriptor.enumerable = false;
+}
+
+<mark>class SomeClass</mark> {
+    @hidden get prop() {
+        return 'prop!';
+    }
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Декораторы методов и свойств класса</h2>
+
+    <pre class="typescript code-block"><code data-noescape data-trim style="font-size: 20px">
+function hidden(
+    target: any,
+    <mark>key: string</mark>,
+    descriptor: PropertyDescriptor
+) {
+    descriptor.enumerable = false;
+}
+
+class SomeClass {
+    @hidden get <mark>prop</mark>() {
+        return 'prop!';
+    }
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Декораторы методов и свойств класса</h2>
+
+    <pre class="typescript code-block"><code data-noescape data-trim style="font-size: 20px">
+function hidden(
+    target: any,
+    key: string,
+    <mark>descriptor: PropertyDescriptor</mark>
+) {
+    descriptor.enumerable = false;
+}
+
+class SomeClass {
+    @hidden get prop() {
+        return 'prop!';
+    }
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Декораторы методов и свойств класса</h2>
+
+    <pre class="typescript code-block"><code data-noescape data-trim style="font-size: 20px">
+function hidden(
+    target: any,
+    key: string,
+    descriptor: PropertyDescriptor
+) {
+    <mark>descriptor.enumerable = false</mark>;
+}
+
+class SomeClass {
+    @hidden get prop() {
+        return 'prop!';
+    }
+}
+<span class="fragment">
+Object.keys(new SomeClass());  // []
+</span>
+    </code></pre>
+</section>
+
+<section>
+    <h2>Декораторы методов и свойств класса</h2>
+
+    <pre class="typescript code-block"><code data-noescape data-trim style="font-size: 20px">
+function greet(target: any, key: string, descriptor: PropertyDescriptor) {
+    const method = descriptor.value;
+
+    descriptor.value = function () {
+        return 'Hello from ' + method.apply(this);
+    };
+}
+
+class SomeClass {
+    private prop = 'prop!';
+
+    @greet getProp() {
+        return this.prop;
+    }
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Декораторы методов и свойств класса</h2>
+
+    <pre class="typescript code-block"><code data-noescape data-trim style="font-size: 20px">
+function greet(target: any, key: string, descriptor: PropertyDescriptor) {
+    const method = descriptor.value;
+
+    descriptor.value = function () {
+        return 'Hello from ' + method.apply(this);
+    };
+}
+
+class SomeClass {
+    private prop = 'prop!';
+
+    <mark>@greet</mark> getProp() {
+        return this.prop;
+    }
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Декораторы методов и свойств класса</h2>
+
+    <pre class="typescript code-block"><code data-noescape data-trim style="font-size: 20px">
+function greet(target: any, key: string, descriptor: PropertyDescriptor) {
+    <mark>const method = descriptor.value;</mark>
+
+    descriptor.value = function () {
+        return 'Hello from ' + method.apply(this);
+    };
+}
+
+class SomeClass {
+    private prop = 'prop!';
+
+    getProp() {
+        return this.prop;
+    }
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Декораторы методов и свойств класса</h2>
+
+    <pre class="typescript code-block"><code data-noescape data-trim style="font-size: 20px">
+function greet(target: any, key: string, descriptor: PropertyDescriptor) {
+    const method = descriptor.value;
+
+    <mark>descriptor.value = </mark>function () {
+        return 'Hello from ' + method.apply(this);
+    };
+}
+
+class SomeClass {
+    private prop = 'prop!';
+
+    getProp() {
+        return this.prop;
+    }
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Декораторы методов и свойств класса</h2>
+
+    <pre class="typescript code-block"><code data-noescape data-trim style="font-size: 20px">
+function greet(target: any, key: string, descriptor: PropertyDescriptor) {
+    const method = descriptor.value;
+
+    descriptor.value = function () {
+        return 'Hello from ' + <mark>method.apply(this)</mark>;
+    };
+}
+
+class SomeClass {
+    private prop = 'prop!';
+
+    getProp() {
+        return this.prop;
+    }
+}
+    </code></pre>
+</section>
+
+<section>
+    <h2>Optional Chaining</h2>
+
+    <pre class="fragment typescript code-block"><code data-noescape data-trim>
+        let s;
+
+        s = (  <span class="fragment">// 👎</span>
+            object
+            && object.nested
+            && object.nested.array
+            && object.nested.array[0]
+            && object.nested.array[0].toString
+            && object.nested.array[0].toString()
+        );
+        <span class="fragment">
+        s = object?.nested?.array?.[0]?.toString?.();  <span class="fragment">// 👍</span>
+        </span>
+    </code></pre>
+</section>
+
+<section>
+    <h2>Nullish Coalescing</h2>
+
+    <pre class="fragment typescript code-block"><code data-noescape data-trim>
+        let value = options.value || 'default';
+
+        <span class="fragment"><span class="fragment">// 👎</span>
+        value = 0 || 'default';
+        value = '' || 'default';
+        value = false || 'default';
+        </span>
+        <span class="fragment"><span class="fragment">// 👍</span>
+        value = 0 ?? 'default';
+        value = '' ?? 'default';
+        value = false ?? 'default';
+        </span>
+    </code></pre>
+</section>
+
+<section>
+    <h2>Ссылочки</h2>
+
+    <ul>
+        <li>
+            <a href="https://www.typescriptlang.org/docs/handbook/advanced-types.html">
+                <span class="bold">Type</span>Script Handbook
+            </a>
+        </li>
+        <li>
+            <a href="https://basarat.gitbooks.io/typescript/docs/types/type-system.html">
+                <span class="bold">Type</span>Script Deep Dive
+            </a>
+        </li>
+        <li>
+            <a href="http://www.typescriptlang.org/play/">
+                <span class="bold">Type</span>Script Playground
+            </a>
+        </li>
+        <li>
+            <a href="https://github.com/microsoft/TypeScript/issues/14833">
+                <span class="bold">Type</span>Script – Тьюринг полная система типов
+            </a>
+        </li>
+    </ul>
+</section>
+
+<section class="center">
+    <h2>Вопросы?</h2>
+</section>
+
+<section class="center">
+    <h2>Спасибо!</h2>
+</section>
+
+</div></div><script src="../../@lib/core.js"></script></body></html>

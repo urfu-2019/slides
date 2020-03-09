@@ -1,0 +1,926 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>Просмотр презентаций</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../../@lib/core.css">
+    <link rel="stylesheet" href="../../@lib/theme.css">
+    <link rel="stylesheet" href="index.css">
+</head><body class="white"><div class="reveal"><div class="slides">
+
+<section class="center">
+    <h1>Введение<br>в <span class="bold">Java</span>Script</h1>
+    <br><p class="author right">Старков Дима</p>
+</section>
+
+<section class="center">
+    <h2>Какие языки вы знаете?</h2>
+</section>
+
+<section>
+    <h3>Один язык чтобы править всеми</h3>
+    <ul style="font-size: 45px">
+        <li class="fragment pre">Веб-страницы&#9;&#9;&#9;&#9;&#9;<img alt="JS" width="44px" src="images/js.svg"/>  Front-End</li>
+        <li class="fragment pre">Серверные приложения&#9;&#9;<img alt="Node.JS" width="44px" src="images/node.svg"/>  Back-End</li>
+        <li class="fragment pre">Настольные приложения&#9;&#9;<img alt="Electron" width="44px" src="images/electron.svg"/>  Desktop</li>
+        <li class="fragment pre">Мобильные приложения&#9;&#9;<img alt="React Native" width="44px" src="images/react.svg"/>  Mobile</li>
+        <li class="fragment pre">Интернет вещей&#9;&#9;&#9;&#9;<img alt="EspruinoJS" width="44px" src="images/espruino.svg"/>  IoT</li>
+        <li class="fragment pre">Машинное обучение&#9;&#9;&#9;<img alt="TensorFlowJS" width="44px" src="images/tensorflow.svg"/>  ML</li>
+    </ul>
+</section>
+
+<section class="center">
+    <img alt="Good Parts" src="images/good-parts.jpg"/>
+    <h3 class="fragment">Почему так произошло?</h3>
+</section>
+
+<section class="center">
+    <h2>История JavaScript</h2>
+</section>
+
+<section class="center">
+    <img alt="Netscape" src="images/netscape.svg" height="120px"/>
+    <q style="display: block; margin-top: 20px">Веб должен стать более динамичным</q>
+    <p class="fragment">Нужен легкий скриптовый язык</p>
+</section>
+
+<section>
+    <h3>Кандидаты</h3>
+    <ul>
+        <li class="fragment">
+            Oak
+            <img alt="Java" height="50px" src="images/java.svg" style="opacity: 0"/>
+        </li>
+    </ul>
+</section>
+
+<section>
+    <h3>Кандидаты</h3>
+    <ul>
+        <li class="pre"><s>Oak</s> Java&#9;<img alt="Java" height="50px" src="images/java.svg"/></li>
+        <li class="fragment pre">Python&#9;&#9;<img alt="Python" height="50px" src="images/python.svg"/></li>
+        <li class="fragment pre">Tcl&#9;&#9;&#9; <img alt="TCL" height="50px" src="images/tcl.svg"/></li>
+        <li class="fragment pre">Scheme&#9;<img alt="Scheme" height="50px" src="images/scheme.svg"/></li>
+    </ul>
+</section>
+
+<section>
+    <h3 class="with-subheading">
+        Брендон Айк<br>
+        <small>Отец JavaScript</small>
+    </h3>
+    <br>
+    <div class="center">
+        <img alt="Brendan Eich" src="images/eich.jpg"/>
+    </div>
+</section>
+
+<section>
+    <h3 class="with-subheading">
+        Брендон Айк<br>
+        <small>Отец JavaScript</small>
+    </h3><br>
+    <blockquote>
+        ... он должен был быть написан за 10 дней,
+        а иначе мы бы имели что-то похуже JavaScript ...
+    </blockquote>
+</section>
+
+<section>
+    <h3 class="with-subheading">
+        Брендон Айк<br>
+        <small>Отец JavaScript</small>
+    </h3><br>
+    <blockquote>
+        ... мы должны были двигаться очень быстро,
+        так как знали, что Microsoft идет за нами ...
+    </blockquote>
+</section>
+
+<section>
+    <h3 class="with-subheading">
+        Брендон Айк<br>
+        <small>Отец JavaScript</small>
+    </h3><br>
+    <blockquote>
+        ... JavaScript должен «выглядеть как Java»,
+        только поменьше, быть братом-простаком Java ...
+    </blockquote>
+</section>
+
+<section>
+    <h3>Кандидаты</h3>
+    <ul>
+        <li class="pre"><s>Oak</s> Java&#9;<img alt="Java" height="50px" src="images/java.svg"/></li>
+        <li class="pre">Python&#9;&#9;<img alt="Python" height="50px" src="images/python.svg"/></li>
+        <li class="pre">Tcl&#9;&#9;&#9; <img alt="TCL" height="50px" src="images/tcl.svg"/></li>
+        <li class="pre">Scheme&#9;<img alt="Scheme" height="50px" src="images/scheme.svg"/></li>
+        <li class="fragment">
+            Mocha
+            <span class="fragment">– LiveScript</span>
+            <span class="fragment">– JavaScript</span>
+        </li>
+    </ul>
+</section>
+
+<section>
+    <h3>Почему JavaScript?</h3>
+    <ul>
+        <li class="fragment">Простота и гибкость</li>
+        <li class="fragment">Разработан с учетом требований</li>
+        <li class="fragment">Сделка с Sun MicroSystems</li>
+    </ul>
+</section>
+
+<section>
+    <h3>Что в итоге?</h3>
+    <ul>
+        <li class="fragment">Язык, созданный за 10 дней</li>
+        <li class="fragment">Наследие и баги из Java</li>
+        <li class="fragment">Свои реализации в других браузерах</li>
+    </ul>
+</section>
+
+<section>
+    <h3>Движки JavaScript</h3>
+    <ul>
+        <li class="fragment pre">SpiderMonkey&#9;–&#9;<img alt="FireFox" height="50px" src="images/firefox.svg"> FireFox</li>
+        <li class="fragment pre">Chakra&#9;&#9;&#9;–&#9;<img alt="Internet Explorer" height="50px" src="images/ie.svg"> Internet Explorer</li>
+        <li class="fragment pre">V8&#9;&#9;&#9;&#9;–&#9;<img alt="Chromium" height="50px" src="images/chromium.svg"> Chromium</li>
+    </ul>
+    <p class="fragment">
+        <strong>Node.JS – платформа на основе V8</strong>
+    </p>
+</section>
+
+<section>
+    <h3>Установка Node.JS</h3>
+    <ul>
+        <li class="pre">Windows и macOS&#9;– <a href="https://clck.ru/JQFV5">https://clck.ru/JQFV5</a></li>
+        <li class="pre">Linux и другие&#9;&#9;– <a href="https://clck.ru/JQFVR">https://clck.ru/JQFVR</a></li>
+    </ul>
+    <pre><code class="bash" data-noescape data-trim style="margin-top: -50px">
+&nbsp; # Запускаем интерактивную оболочку (REPL)
+&nbsp;&nbsp;node
+
+&nbsp;&nbsp;# Запускаем файл с JS кодом
+&nbsp;&nbsp;node index.js
+    </code></pre>
+    <p class="fragment">
+        Перерыв?
+    </p>
+</section>
+
+<section>
+    <h3>Первая программа</h3>
+    <pre class="fragment"><code class="javascript">
+console.log('Hello, Web!');
+    </code></pre>
+</section>
+
+<section>
+    <h3>Первая программа</h3>
+    <pre><code class="javascript" data-noescape>
+<mark>console</mark>.log('Hello, Web!');
+    </code></pre>
+    <p class="explanation">
+        Глобальный объект.<br>
+        Содержит функции вывода и отладки.
+    </p>
+</section>
+
+<section>
+    <h3>Первая программа</h3>
+    <pre><code class="javascript" data-noescape>
+console.<mark>log</mark>('Hello, Web!');
+    </code></pre>
+    <p class="explanation">
+        Метод объекта <strong>console</strong>.<br>
+        Выводит данные на консоль.
+    </p>
+</section>
+
+<section>
+    <h3>Первая программа</h3>
+    <pre><code class="javascript" data-noescape>
+console.log(<mark>'Hello, Web!'</mark>);
+    </code></pre>
+    <p class="explanation">
+        Строковый литерал.
+    </p>
+</section>
+
+<section>
+    <h3>Первая программа</h3>
+    <pre><code class="javascript" data-noescape>
+console.log(<mark>'こんにちは、ウェブ!'</mark>);
+    </code></pre>
+    <p class="explanation">
+        Строковый литерал.<br>
+        Может содержать любые символы Юникода.
+    </p>
+</section>
+
+<section>
+    <h3>Переменные</h3>
+    <pre><code class="javascript" data-noescape>
+const year = 2019;
+
+year = 2020;
+    </code></pre>
+</section>
+
+<section>
+    <h3>Переменные</h3>
+    <pre><code class="javascript" data-noescape>
+<mark>const</mark> year = 2019;
+
+year = 2020;  // TypeError: Assignment to constant variable.
+    </code></pre>
+    <p class="explanation">
+        Константая переменная.<br>
+        Перезапись невозможна.
+    </p>
+</section>
+
+<section>
+    <h3>Переменные</h3>
+    <pre><code class="javascript" data-noescape>
+<mark>let</mark> year = 2019;
+
+year = 2020;  // OK
+    </code></pre>
+    <p class="explanation">
+        Обычная переменная.<br>
+        Переменная может быть переприсвоена.
+    </p>
+</section>
+
+<section>
+    <h3>Переменные</h3>
+    <pre><code class="javascript" data-noescape>
+let <mark>year</mark> = 2019;
+
+<mark>year</mark> = 2020;
+    </code></pre>
+    <p class="explanation">
+        Имя переменной.<br>
+        Имя состоит из букв, цифр, <strong>_</strong> или <strong>$</strong><br>
+        Идентификатор не должен начинаться с цифры.
+    </p>
+</section>
+
+<section>
+    <h3>Переменные</h3>
+    <pre><code class="javascript" data-noescape>
+let <mark>camelCase</mark>;
+
+
+    </code></pre>
+    <p class="explanation">
+        В JavaScript принято использовать <strong>camelCase</strong>.<br>
+        Слова пишутся слитно, без пробелов.<br>
+        Первое – с маленькой буквы, следующие – с прописных.
+    </p>
+</section>
+
+<section>
+    <h3>Переменные</h3>
+    <pre><code class="javascript" data-noescape>
+let camelCase;  // Декларация
+<span class="fragment">
+camelCase = 'Hello, Web!';  // Присваивание
+</span>
+    </code></pre>
+    <p class="explanation fragment">
+Задекларированные, но не присвоенные переменные установлены в <strong>undefined</strong>.
+    </p>
+</section>
+
+<section>
+    <h3>Функции</h3>
+    <pre><code class="javascript" data-noescape>
+function sum(a, b) {
+    return a + b;
+}
+
+console.log(sum(42, 13));
+    </code></pre>
+</section>
+
+<section>
+    <h3>Функции</h3>
+    <pre><code class="javascript" data-noescape>
+<mark>function</mark> sum(a, b) {
+    return a + b;
+}
+
+console.log(sum(42, 13));
+    </code></pre>
+    <p class="explanation">
+        Ключевое слово.<br>
+        За ним должно следовать описание функции.
+    </p>
+</section>
+
+<section>
+    <h3>Функции</h3>
+    <pre><code class="javascript" data-noescape>
+function <mark>sum</mark>(a, b) {
+    return a + b;
+}
+
+console.log(sum(42, 13));
+    </code></pre>
+    <p class="explanation">
+        Имя функции.<br>
+        Может быть любым правильным идентификатором.
+    </p>
+</section>
+
+<section>
+    <h3>Функции</h3>
+    <pre><code class="javascript" data-noescape>
+function sum<mark>(a, b)</mark> {
+    return a + b;
+}
+
+console.log(sum(42, 13));
+    </code></pre>
+    <p class="explanation">
+        Аргументы функции.<br>
+        JavaScript – динамически-типизированный язык, поэтому типы аргументов не указываются.
+    </p>
+</section>
+
+<section>
+    <h3>Функции</h3>
+    <pre><code class="javascript" data-noescape>
+function sum(a, b) {
+    return a + b;
+}
+
+console.log(sum(42, 13));  // ?
+    </code></pre>
+</section>
+
+<section>
+    <h3>Функции</h3>
+    <pre><code class="javascript" data-noescape>
+function sum(a, b) {
+    return a + b;
+}
+
+console.log(sum(42, 13));  // 55
+    </code></pre>
+</section>
+
+<section>
+    <h3>Основные типы данных</h3>
+    <pre><code class="javascript" data-noescape>
+<span class="fragment">const integer = 1024;   // Целые числа</span>
+<span class="fragment">const float = 3.1415;   // Дробные числа</span>
+<span class="fragment">const boolean = true;   // Логический тип</span>
+<span class="fragment">const string = 'JS!';   // Строки</span>
+<span class="fragment">const array = [1, 2];   // Массивы</span>
+<span class="fragment">const object = {a: 1};  // Объекты</span>
+    </code></pre>
+</section>
+
+<section>
+    <h3>Циклы</h3>
+    <pre><code class="javascript" data-noescape>
+let result = 0;
+
+for (let i = 1; i < 10; i++) {
+    result = result + i;
+}
+
+console.log(result);
+    </code></pre>
+</section>
+
+<section>
+    <h3>Циклы</h3>
+    <pre><code class="javascript" data-noescape>
+let result = 0;
+
+for (<mark>let i = 1</mark>; i < 10; i++) {
+    result = result + i;
+}
+
+console.log(result);
+    </code></pre>
+    <p class="explanation">
+        Блок инициализации.<br>
+        Выполняется перед первой итерацией.
+    </p>
+</section>
+
+<section>
+    <h3>Циклы</h3>
+    <pre><code class="javascript" data-noescape>
+let result = 0;
+
+for (let i = 1; <mark>i < 10</mark>; i++) {
+    result = result + i;
+}
+
+console.log(result);
+    </code></pre>
+    <p class="explanation">
+        Условный блок.<br>
+        Выполняется перед каждой итерацией.
+    </p>
+</section>
+
+<section>
+    <h3>Циклы</h3>
+    <pre><code class="javascript" data-noescape>
+let result = 0;
+
+for (let i = 1; i < 10; <mark>i++</mark>) {
+    result = result + i;
+}
+
+console.log(result);
+    </code></pre>
+    <p class="explanation">
+        Завершающий блок.<br>
+        Выполняется в конце каждой итерации.
+    </p>
+</section>
+
+<section>
+    <h3>Циклы</h3>
+    <pre><code class="javascript" data-noescape>
+let result = 0;
+
+for (let i = 1; i < 10; i++) {
+    result = result + i;
+}
+
+console.log(result);  // ?
+    </code></pre>
+</section>
+
+<section>
+    <h3>Циклы</h3>
+    <pre><code class="javascript" data-noescape>
+let result = 0;
+
+for (let i = 1; i < 10; i++) {
+    result = result + i;
+}
+
+console.log(result);  // 45
+    </code></pre>
+</section>
+
+<section>
+    <h3>Циклы</h3>
+    <pre><code class="javascript" data-noescape>
+let result = 2;
+
+for (let i <mark>of</mark> [1, 2, 3]) {
+    result = result ** i;
+}
+
+console.log(result);
+    </code></pre>
+    <p class="explanation">
+        Цикл по итерируемому объекту.
+    </p>
+</section>
+
+<section>
+    <h3>Циклы</h3>
+    <pre><code class="javascript" data-noescape>
+let result = 2;
+
+for (let i of [1, 2, 3]) {
+    result = result ** i;  // Возведение в степень
+}
+
+console.log(result);  // ?
+    </code></pre>
+</section>
+
+<section>
+    <h3>Циклы</h3>
+    <pre><code class="javascript" data-noescape>
+let result = 2;
+
+for (let i of [1, 2, 3]) {
+    result = result ** i;
+}
+
+console.log(result);  // 64
+    </code></pre>
+</section>
+
+<section>
+    <h3>Циклы</h3>
+    <pre><code class="javascript" data-noescape>
+let result = 0;
+
+for (let field <mark>in</mark> {1: 'a', 2: 'b', 3: 'c'}) {
+    result = result + field;
+}
+
+console.log(result);
+    </code></pre>
+    <p class="explanation">
+        Цикл по полям объекта.
+    </p>
+</section>
+
+<section>
+    <h3>Циклы</h3>
+    <pre><code class="javascript" data-noescape>
+let result = 0;
+
+for (let field in {1: 'a', 2: 'b', 3: 'c'}) {
+    result = result + field;
+}
+
+console.log(result);  // ?
+    </code></pre>
+</section>
+
+<section>
+    <h3>Циклы</h3>
+    <pre><code class="javascript" data-noescape>
+let result = 0;
+
+for (let field in {1: 'a', 2: 'b', 3: 'c'}) {
+    result = result + field;
+}
+
+console.log(result);  // 0123
+    </code></pre>
+</section>
+
+<section>
+    <h3>Циклы</h3>
+    <pre><code class="javascript" data-noescape>
+let result = 2;
+
+while (result < 100) {
+    result = result * result;
+}
+
+console.log(result);
+    </code></pre>
+    <p class="explanation">
+        Цикл, который выполняется до тех пор, пока выполнено условие.
+    </p>
+</section>
+
+<section>
+    <h3>Циклы</h3>
+    <pre><code class="javascript" data-noescape>
+let result = 2;
+
+while (result < 100) {
+    result = result * result;
+}
+
+console.log(result);  // ?
+    </code></pre>
+</section>
+
+<section>
+    <h3>Циклы</h3>
+    <pre><code class="javascript" data-noescape>
+let result = 2;
+
+while (result < 100) {
+    result = result * result;
+}
+
+console.log(result);  // 256
+    </code></pre>
+</section>
+
+<section>
+    <h3>Условия</h3>
+    <pre><code class="javascript" data-noescape>
+let type = '...';
+
+if (type === 'string') {
+
+} else if (type === 'number') {
+
+} else {
+
+}
+    </code></pre>
+</section>
+
+<section>
+    <h3>Условия</h3>
+    <pre><code class="javascript" data-noescape>
+let type = '...';
+
+<mark>if</mark> (type === 'string') {
+    // Эта ветка будет выполнена
+    // Если type равен 'string'
+} else if (type === 'number') {
+
+} else {
+
+}
+    </code></pre>
+</section>
+
+<section>
+    <h3>Условия</h3>
+    <pre><code class="javascript" data-noescape>
+let type = '...';
+
+if (type === 'string') {
+
+} <mark>else if</mark> (type === 'number') {
+    // Иначе эта ветка
+    // Если type равен 'number'
+} else {
+
+}
+    </code></pre>
+</section>
+
+<section>
+    <h3>Условия</h3>
+    <pre><code class="javascript" data-noescape>
+let type = '...';
+
+if (type === 'string') {
+
+} else if (type === 'number') {
+
+} <mark>else</mark> {
+    // Эта ветка выполнится только
+    // Если не выполнились все предыдущие
+}
+    </code></pre>
+</section>
+
+<section>
+    <h3>Switch</h3>
+    <pre><code class="javascript" data-noescape>
+let type = '...';
+
+switch (type) {
+    case 'string':
+        break;
+
+    case 'number':
+        break;
+
+    default:
+        break;
+}
+    </code></pre>
+</section>
+
+<section>
+    <h3>Switch</h3>
+    <pre><code class="javascript" data-noescape>
+let type = '...';
+
+switch (type) {
+    <mark>case</mark> 'string':
+        // Эта ветка выполнится
+        // Если type равен 'string'
+        break;
+    case 'number':
+        break;
+
+    default:
+        break;
+}
+    </code></pre>
+</section>
+
+<section>
+    <h3>Switch</h3>
+    <pre><code class="javascript" data-noescape>
+let type = '...';
+
+switch (type) {
+    case 'string':
+        // Если убрать break
+        // То код продолжит выполняться
+
+    <mark>case</mark> 'number':
+        break;
+
+    default:
+        break;
+}
+    </code></pre>
+</section>
+
+<section>
+    <h3>Switch</h3>
+    <pre><code class="javascript" data-noescape>
+let type = '...';
+
+switch (type) {
+    case 'string':
+        break;
+
+    case 'number':
+        break;
+
+    <mark>default</mark>:
+        // Выполниться
+        // Если не было break
+        break;
+}
+    </code></pre>
+</section>
+
+<section>
+    <h3>Throw / Try / Catch</h3>
+    <pre><code class="javascript" data-noescape>
+try {
+    throw new Error('ALARM!');
+
+    console.log('Hello, Web!');  <span class="fragment">// Никогда не выполнится</span>
+} catch (error) {
+    console.log(error.message);  <span class="fragment">// ALARM!</span>
+}
+    </code></pre>
+</section>
+
+<section>
+    <h3>Утверждения</h3>
+    <p class="explanation" style="margin-top: 20px">
+        Описывают некоторую выполняемую операцию.<br>
+        Программа – последовательность утверждений.
+    </p>
+    <pre><code class="javascript" data-noescape>
+<span class="fragment">let x;          // declaration statement</span>
+
+<span class="fragment">x = 2 * 2;      // assignment statement</span>
+<span class="fragment">
+if (x === 0) {  // conditional statement
+    x = 123;
+}
+</span>
+    </code></pre>
+</section>
+
+<section>
+    <h3>Выражения</h3>
+    <p class="explanation" style="margin-top: 20px">
+        Выражения производят значения.
+    </p>
+    <pre class="fragment"><code class="javascript" data-noescape>
+let x;
+
+x = 2 * 2;
+
+if (x === 0) {
+    x = 123;
+}
+    </code></pre>
+</section>
+
+<section>
+    <h3>Выражения</h3>
+    <p class="explanation" style="margin-top: 20px">
+        Выражения производят значения.
+    </p>
+    <pre><code class="javascript" data-noescape>
+let x;
+
+x = <mark>2 * 2</mark>;
+
+if (x === 0) {
+    x = 123;
+}
+    </code></pre>
+</section>
+
+<section>
+    <h3>Выражения</h3>
+    <p class="explanation" style="margin-top: 20px">
+        Выражения производят значения.
+    </p>
+    <pre><code class="javascript" data-noescape>
+let x;
+
+x = 2 * 2;
+
+if (<mark>x === 0</mark>) {
+    x = 123;
+}
+    </code></pre>
+</section>
+
+<section>
+    <h3>Выражения</h3>
+    <p class="explanation" style="margin-top: 20px">
+        Выражения производят значения.
+    </p>
+    <pre><code class="javascript" data-noescape>
+let x;
+
+x = 2 * 2;
+
+if (x === 0) {
+    x = <mark>123</mark>;
+}
+    </code></pre>
+</section>
+
+<section class="center">
+    <h2>Перерыв?</h2>
+</section>
+
+<section>
+    <h3>Редакторы кода</h3>
+    <ul>
+        <li class="fragment"><a href="https://atom.io/">Atom</a></li>
+        <li class="fragment"><a href="http://www.sublimetext.com/">Sublime Text</a></li>
+        <li class="fragment"><a href="https://notepad-plus-plus.org/">Notepad++</a></li>
+    </ul>
+</section>
+
+<section>
+    <h3>Редакторы кода</h3>
+    <ul>
+        <li><a href="https://atom.io/"><del>Atom</del></a></li>
+        <li><a href="http://www.sublimetext.com/"><del>Sublime Text</del></a></li>
+        <li><a href="https://notepad-plus-plus.org/"><del>Notepad++</del></a></li>
+        <li><a href="https://code.visualstudio.com/">Visual Studio Code</a></li>
+        <li class="fragment"><a href="https://www.jetbrains.com/webstorm/">WebStorm</a></li>
+    </ul>
+</section>
+
+<section>
+    <h3>WebStorm</h3>
+    <ul style="font-size: 45px">
+        <li class="advantage fragment">Более мощные инструменты разработки</li>
+        <li class="advantage fragment">Все настроено и готово к работе</li>
+        <li class="advantage fragment">Много плагинов из коробки</li>
+        <li class="disadvantage fragment">Требователен к ресурсам компьютера</li>
+        <li class="disadvantage fragment">Трудно писать плагины</li>
+        <li class="disadvantage fragment">Платный $</li>
+    </ul>
+</section>
+
+<section class="center">
+    <img alt="RAM Usage" src="images/Снимок%20экрана%202019-10-08%20в%2017.55.54.png" />
+</section>
+
+<section>
+    <h3>VS Code</h3>
+    <ul style="font-size: 45px">
+        <li class="advantage fragment">Не требователен к ресурсам компьютера</li>
+        <li class="advantage fragment">Официальные плагины ко всем языкам</li>
+        <li class="advantage fragment">Очень легко писать плагины</li>
+        <li class="fragment">Нужно настраивать под себя</li>
+        <li class="disadvantage fragment">Менее качественные инструменты</li>
+    </ul>
+</section>
+
+<section>
+    <h3>Лицензия для WebStorm</h3>
+    <ul>
+        <li class="fragment">Завести <a href="https://https://account.jetbrains.com/login">JetBrains Account</a></li>
+        <li class="fragment"><a href="https://www.jetbrains.com/shop/eform/students">Подтвердить статус студента </a></li>
+        <li class="fragment">PROFIT!!!</li>
+    </ul>
+</section>
+
+<section class="center">
+    <h2>Система контроля версий</h2>
+</section>
+
+<section class="center">
+    <img style="height: 80vh" alt="Perfection VCS" src="images/vcs-meme.png"/>
+</section>
+
+<section>
+    <h3>Ссылки</h3>
+    <ul>
+        <li><a href="http://urfu-2015.github.io/webdev-slides/1-1-teamwork-git-github/">Гайд по git прошлых годов</a></li>
+        <li class="fragment"><a href="https://learngitbranching.js.org/">Интерактивный веб-гайд про git</a></li>
+        <li class="fragment"><a href="https://javascriptweekly.com/">JavaScript weekly</a></li>
+    </ul>
+</section>
+
+<section class="center">
+    <h2>Вопросы?</h2>
+</section>
+
+<section class="center">
+    <h2>Спасибо!</h2>
+</section>
+
+</div></div><script src="../../@lib/core.js"></script></body></html>

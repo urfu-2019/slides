@@ -1,0 +1,7 @@
+.force-black {
+    color: #000 !important;
+}
+
+.disable-keyword .hljs-keyword {
+    color: #000 !important;
+}

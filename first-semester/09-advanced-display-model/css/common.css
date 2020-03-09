@@ -1,0 +1,22 @@
+h2
+{
+    font-weight: bold !important;
+}
+
+.centered
+{
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+}
+
+.code-large
+{
+    font-size: 90px;
+}
+
+.code-medium
+{
+    font-size: 70px;
+}

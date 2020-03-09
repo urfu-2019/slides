@@ -1,0 +1,81 @@
+.hor-center
+{
+    text-align: center;
+}
+
+.reveal .left
+{
+    text-align: left;
+}
+
+.reveal table
+{
+    border-collapse: collapse;
+    margin: auto;
+}
+
+.reveal table tr:not(:last-child) td
+{
+    border-bottom: 1px solid;
+}
+
+.reveal table td:not(:last-child)
+{
+    border-right: 0;
+}
+
+.reveal table td sup
+{
+    vertical-align: top;
+
+    font-size: .5em;
+}
+
+.reveal .small
+{
+    font-size: 80%;
+}
+
+.reveal .very-small
+{
+    font-size: 70%;
+}
+
+.reveal blockquote
+{
+    display: block;
+    position: relative;
+    width: 55%;
+    margin: auto;
+    padding: 5px;
+    font-style: italic;
+}
+
+.reveal .table span
+{
+    color: #000;
+}
+
+.reveal div.row
+{
+    display: inline-block;
+    vertical-align: top;
+    width: 450px;
+}
+
+.reveal span.bold
+{
+    font-weight: 900;
+}
+
+.reveal .no-vertical-margin
+{
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.reveal .current-fragment.red-current,
+.white .reveal .slides .red
+{
+    color: #f00;
+}

@@ -1,0 +1,55 @@
+.metaheader
+{
+    --fsize: 0.6em;
+    font-size: var(--fsize);
+    color: #555;
+    position: absolute;
+    top: calc(var(--fsize) * 1.2 * -1);
+}
+
+.little
+{
+    --fsize: 0.8em;
+    font-size: var(--fsize);
+}
+
+.big
+{
+    --fsize: 1.2em;
+    font-size: var(--fsize);
+}
+
+.hint
+{
+    --hint-color: #333;
+    color: var(--hint-color);
+}
+
+.same
+{
+    height: 100%;
+}
+
+hr
+{
+    margin: 0;
+}
+
+h4,
+h5
+{
+    margin-bottom: .3em;
+}
+
+.post-mark
+{
+    width: 340px;
+    position: absolute;
+    right: 0;
+    box-shadow: 0 0 2px 4px rgb(185, 185, 185);
+    padding: .25em;
+    border-radius: 3px;
+    font-size: 32px !important;
+    background: rgb(185, 185, 185);
+    transform: rotate(-8deg);
+}

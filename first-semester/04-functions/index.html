@@ -1,0 +1,2224 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>04. Функции и контекст</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../../@lib/core.css">
+    <link rel="stylesheet" href="../../@lib/theme.css">
+    <link rel="stylesheet" href="index.css">
+    <link rel="shortcut icon" href="ya-favicon.png" type="image/x-icon">
+</head><body class="white"><div class="reveal"><div class="slides">
+
+<section class="center">
+    <h1>Функции и контекст</h1>
+    <br><p style=text-align:right><span style=color:red>Т</span>ощилин Сергей</p>
+</section>
+
+<section>
+    <h3 style=font-size:55px>План лекции</h3>
+
+    <ul style="font-size: 45px">
+        <li class="pre">Функции и их особенности</li>
+        <li class="pre">Аргументы и параметры</li>
+        <li class="pre">Область видимости</li>
+        <li class="pre">this</li>
+    </ul>
+</section>
+
+<section class="center">
+    <h2>Объявления функции</h2>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Объявления функции</h3>
+    <h4>1. Function Declaration</h4>
+    <pre><code class="javascript" data-noescape>
+function greet(name) {
+    return `Hello ${name}`;
+}
+
+greet('Sergey'); // Hello Sergey
+    </code></pre>
+    <div class="fragment little hint">Обычное объявление, можно вызвать до объявления</div>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Объявления функции</h3>
+    <h4>1. Function Declaration</h4>
+    <pre><code class="javascript" data-noescape>
+greet('Sergey'); // Hello Sergey
+
+function greet(name) {
+    return `Hello ${name}`;
+}
+    </code></pre>
+    <div class="little hint">Обычное объявление, можно вызвать до объявления</div>
+    <div class="post-mark fragment" style="bottom: 50%;">Всплытие (Hoisting)</div>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Объявления функции</h3>
+    <h4>2. Function expression</h4>
+    <pre><code class="javascript" data-noescape>
+const greet = function (name) {
+    return `Hello ${name}`;
+};
+
+greet('Sergey'); // Hello Sergey
+    </code></pre>
+    <div class="fragment little hint">Функция присваивается переменной, описывается без имени, нельзя вызвать до объявления</div>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Объявления функции</h3>
+    <h4>3. Named function expression</h4>
+    <pre><code class="javascript" data-noescape>
+const count = function step(number) {
+    if (number > 0) {
+        step(number - 1);
+    }
+};
+
+count(5);
+    </code></pre>
+    <div class="fragment little hint">Имя функции доступно только изнутри, имя переменной доступно везде</div>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Объявления функции</h3>
+    <h4>4. Стрелочные функции</h4>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+const greet = (name) => {
+    return `Hello ${name}`;
+};
+    </code></pre>
+    <pre class="fragment" style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+const greet = (name) => `Hello ${name}`;
+    </code></pre>
+    <pre class="fragment" style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+const greet = name => `Hello ${name}`;
+    </code></pre>
+</section>
+
+<section class="center">
+    <h2>Особенности функций</h2>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Особенности функций</h3>
+    <h4 class="little">1. Может возвращать или не возвращать значение (будет неявно возвращать undefined)</h4>
+    <pre class="fragment"><code class="javascript" data-noescape>
+function calcSum(a, b) {
+    const s = a + b;
+
+    return s;
+}
+
+calcSum(2, 3); // 5
+    </code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Особенности функций</h3>
+    <h4 class="little">1. Может возвращать или не возвращать значение (будет неявно возвращать undefined)</h4>
+    <pre><code class="javascript" data-noescape>
+function calcSum(a, b) {
+    const s = a + b;
+
+    return;
+}
+
+calcSum(2, 3); // undefined
+</code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Особенности функций</h3>
+    <h4 class="little">1. Может возвращать или не возвращать значение (будет неявно возвращать undefined)</h4>
+    <pre><code class="javascript" data-noescape>
+function calcSum(a, b) {
+    const s = a + b;
+}
+
+calcSum(2, 3); // undefined
+</code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Особенности функций</h3>
+    <h4 class="little">2. Являются объектами высшего порядка</h4>
+    <div style=font-style:italic;font-size:.9em;line-height:1.5;margin-top:100px>Могут быть переданы в другие функции в качестве аргумента, могут быть возвращены из других функций в качестве результата выполнения, а также могут иметь личные свойства, как и другие объекты</div>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Особенности функций</h3>
+    <h4 class="little">2. Являются объектами высшего порядка</h4>
+    <pre><code class="javascript" data-noescape>
+// Принимаем функцию в функции, как параметр
+function modifyItems(items, modify) {
+    return items.map(item => modify(item));
+}
+const numbers = [1, 2, 3, 4];
+
+const multiplyBy2 = item => item * 2;
+const doubleValues = modifyItems(numbers, multiplyBy2);
+// [2, 4, 6, 8]
+
+const squared = item => item ** 2;
+const squaredValues = modifyItems(numbers, squared);
+// [1, 4, 9, 16]
+    </code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Особенности функций</h3>
+    <h4 class="little">2. Являются объектами высшего порядка</h4>
+    <pre><code class="javascript" data-noescape>
+// Принимаем функцию в функции, как параметр
+function modifyItems(items, <mark>modify</mark>) {
+    return items.map(item => <mark>modify(item)</mark>);
+}
+const numbers = [1, 2, 3, 4];
+
+const multiplyBy2 = item => item * 2;
+const doubleValues = modifyItems(numbers, multiplyBy2);
+// [2, 4, 6, 8]
+
+const squared = item => item ** 2;
+const squaredValues = modifyItems(numbers, squared);
+// [1, 4, 9, 16]
+    </code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Особенности функций</h3>
+    <h4 class="little">2. Являются объектами высшего порядка</h4>
+    <pre><code class="javascript" data-noescape>
+// Принимаем функцию в функции, как параметр
+function modifyItems(items, modify) {
+    return items.map(item => modify(item));
+}
+const numbers = [1, 2, 3, 4];
+
+<mark>const multiplyBy2 = item => item * 2;</mark>
+const doubleValues = modifyItems(numbers, <mark>multiplyBy2</mark>);
+// [2, 4, 6, 8]
+
+const squared = item => item ** 2;
+const squaredValues = modifyItems(numbers, squared);
+// [1, 4, 9, 16]
+    </code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Особенности функций</h3>
+    <h4 class="little">2. Являются объектами высшего порядка</h4>
+    <pre><code class="javascript" data-noescape>
+// Принимаем функцию в функции, как параметр
+function modifyItems(items, modify) {
+    return items.map(<mark>modify</mark>); // .map(item => modify(item))
+}
+const numbers = [1, 2, 3, 4];
+
+const multiplyBy2 = item => item * 2;
+const doubleValues = modifyItems(numbers, multiplyBy2);
+// [2, 4, 6, 8]
+
+const squared = item => item ** 2;
+const squaredValues = modifyItems(numbers, squared);
+// [1, 4, 9, 16]
+    </code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Особенности функций</h3>
+    <h4 class="little">2. Являются объектами высшего порядка</h4>
+    <pre><code class="javascript" data-noescape>
+function getRaiser(pow) {
+    return function (num) {
+        return num ** pow;
+    }
+}
+
+const squared = getRaiser(2);
+squared(2); // 4
+squared(3); // 9
+
+const cube = getRaiser(3);
+cube(2); // 8
+cube(3); // 27
+    </code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Особенности функций</h3>
+    <h4 class="little">2. Являются объектами высшего порядка</h4>
+    <pre><code class="javascript" data-noescape>
+function getRaiser(pow) {
+    <mark>return function (num)</mark> {
+        return num ** pow;
+    }
+}
+
+const squared = getRaiser(2);
+squared(2); // 4
+squared(3); // 9
+
+const cube = getRaiser(3);
+cube(2); // 8
+cube(3); // 27
+    </code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Особенности функций</h3>
+    <h4 class="little">2. Являются объектами высшего порядка</h4>
+    <pre><code class="javascript" data-noescape>
+function getRaiser(pow) {
+    return function (num) {
+        return num ** pow;
+    }
+}
+
+const <mark>squared = getRaiser(2)</mark>;
+<mark>squared(2)</mark>; // 4
+squared(3); // 9
+
+const cube = getRaiser(3);
+cube(2); // 8
+cube(3); // 27
+    </code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Особенности функций</h3>
+    <h4 class="little">2. Являются объектами высшего порядка</h4>
+    <pre><code class="javascript" data-noescape>
+function getRaiser(pow) {
+    return function (num) {
+        return num ** pow;
+    }
+}
+
+getRaiser(2)(3); // 9
+
+getRaiser(3)(2); // 8
+    </code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Особенности функций</h3>
+    <h4 class="little">2. Являются объектами высшего порядка</h4>
+    <pre><code class="javascript" data-noescape>
+function createTimeExecutor() {
+    createTimeExecutor.ts = Date.now();
+
+    return function () {
+        return Date.now - createTimeExecutor.ts;
+    }
+}
+
+const executeTime = createTimeExecutor();
+
+executeTime(); // 0
+...
+executeTime(); // > 0
+    </code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Особенности функций</h3>
+    <h4 class="little">2. Являются объектами высшего порядка</h4>
+    <pre><code class="javascript" data-noescape>
+function createTimeExecutor() {
+    <mark>createTimeExecutor.ts = Date.now();</mark>
+
+    return function () {
+        return Date.now - createTimeExecutor.ts;
+    }
+}
+
+const executeTime = createTimeExecutor();
+
+executeTime(); // 0
+...
+executeTime(); // > 0
+    </code></pre>
+    <div class="fragment post-mark" style="bottom: 40%">Не делайте так</div>
+</section>
+
+<section class="center">
+    <h2>Аргументы и параметры</h2>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Аргументы и параметры</h3>
+    <h4 class="little"><i>Аргументы – то, что передаем в функцию при вызове, параметры – то, что описано в объявлении функции</i></h4>
+    <pre class="fragment big"><code class="javascript" data-noescape>
+function sum(a, b) { // Параметры
+    return a + b;
+}
+
+sum(2, 3); // Аргументы
+    </code></pre>
+    <div class="fragment post-mark" style="bottom: 30%;width:350px;">Аргументы – передаем<br />Параметры – принимаем</div>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Аргументы и параметры</h3>
+    <h4 class="little">Аргументы</h4>
+    <div class="little">1. В функцию можно передавать или не передавать аргументы</div>
+    <pre class="big"><code class="javascript" data-noescape>
+function sum(a, b) {
+    return a + b;
+}
+
+sum(2, 3); // 5
+sum(); // NaN
+    </code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Аргументы и параметры</h3>
+    <h4 class="little">Аргументы</h4>
+    <div class="little">2. Недостающие аргументы получают значение undefined</div>
+    <pre class="big"><code class="javascript" data-noescape>
+function sum(a, b) {
+    return a + b;
+}
+
+sum(1); // NaN (1 + undefined)
+    </code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Аргументы и параметры</h3>
+    <h4 class="little">Аргументы</h4>
+    <div class="little">3. Лишние аргументы игнорируются</div>
+    <pre class="big"><code class="javascript" data-noescape>
+function sumAll(a, b, c, d, e, f) {
+    return a + b + c + d + e + f;
+}
+
+sumAll(1, 2, 3, 4, 5, 6, 7, 8, 9); // 21
+    </code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Аргументы и параметры</h3>
+    <h4 class="little">Аргументы</h4>
+    <div class="little">3. Лишние аргументы игнорируются, но можно передать произвольное количество</div>
+    <pre class="big"><code style=padding:0+.5em  class="javascript" data-noescape>
+const numbers = [1, 2, 3, 4, 5];
+
+Math.max(numbers); // NaN
+
+Math.max(1, 2, 3, 4, 5); // 5
+
+// Spread operator
+Math.max(<mark>...</mark>numbers); // 5
+    </code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Аргументы и параметры</h3>
+    <h4 class="little">Параметры</h4>
+    <div class="little">1. Функция может принимать или не принимать параметры</div>
+    <pre class="big"><code class="javascript" data-noescape>
+function getFive() {
+    return 5;
+}
+
+getFive(); // 5
+    </code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Аргументы и параметры</h3>
+    <h4 class="little">Параметры</h4>
+    <div class="little">1. Функция может принимать или не принимать параметры</div>
+    <pre class="big"><code class="javascript" data-noescape>
+function getHex(dec) {
+    return dec.toString(16);
+}
+
+getHex(431); // '1af'
+    </code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Аргументы и параметры</h3>
+    <h4 class="little">Параметры</h4>
+    <div class="little">2. Можно указать значение параметра по умолчанию</div>
+    <pre><code style=padding:0+.5em class="javascript" data-noescape>
+function sum(a, b = 2) {
+    return a + b;
+}
+
+sum(1); // 3
+
+sum(1, undefined); // 3
+</code></pre>
+<pre class="fragment"><code style=padding:0+.5em class="javascript" data-noescape>
+sum(1, null); // ???
+
+sum(1, {}); // ???
+    </code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Аргументы и параметры</h3>
+    <h4 class="little">Параметры</h4>
+    <div class="little">2. Можно указать значение параметра по умолчанию</div>
+    <pre><code style=padding:0+.5em class="javascript" data-noescape>
+function sum(a, b = 2) {
+    return a + b;
+}
+
+sum(1); // 3
+
+sum(1, undefined); // 3
+</code></pre>
+<pre><code style=padding:0+.5em class="javascript" data-noescape>
+sum(1, null); // 1
+
+sum(1, {}); // '1[object Object]'
+    </code></pre>
+    <div class="fragment post-mark" style="bottom: 30%;">Только undefined, переданный в явном или неявном виде, заставляет функцию подставить значение по умолчанию</div>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Аргументы и параметры</h3>
+    <h4 class="little">Параметры</h4>
+    <div class="little" style="color: #000b">3. Можно принимать произвольное количество параметров: <span style=font-weight:900;color:#000>Rest Operator</span>, arguments</div>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+function sumAll(...numbers) {
+    let total = 0;
+    for (let number of numbers) {
+        total += number;
+    }
+    return total;
+}
+
+sumAll(1, 2, 3, 4, 5, 6, 7, 8, 9); // 45
+    </code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Аргументы и параметры</h3>
+    <h4 class="little">Параметры</h4>
+    <div class="little" style="color: #000b">3. Можно принимать произвольное количество параметров: <span style=font-weight:900;color:#000>Rest Operator</span>, arguments</div>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+function sumAll(first, second, <mark>...</mark>numbers) {
+    let total = first + second;
+    for (let number of numbers) {
+        total += number;
+    }
+    return total;
+}
+
+sumAll(1, 2, 3, 4, 5, 6, 7, 8, 9); // 45
+    </code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Аргументы и параметры</h3>
+    <h4 class="little">Параметры</h4>
+    <div class="little" style="color: #000b">3. Можно принимать произвольное количество параметров: Rest Operator, <span style=font-weight:900;color:#000>arguments</span></div>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+function sumAll() {
+    let total = 0;
+    for (let number of arguments) {
+        total += number;
+    }
+    return total;
+}
+
+sumAll(1, 2, 3, 4, 5, 6, 7, 8, 9); // 45
+    </code></pre>
+    <div class="post-mark fragment" style="bottom: 45%;">arguments использовался в ES5, сейчас не нужен</div>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Аргументы и параметры</h3>
+    <h4 class="little">Аргументы передаются по значению или по ссылке</h4>
+    <ul style="font-size: 45px; margin-top: 0;">
+        <li class="pre"><b>По значению</b> передаются примитивы: число, строка, etc. В этом случае все, что происходило с ним внутри функции, остается внутри функции</li>
+        <li class="pre"><b>По ссылке</b> передаются сложные типы данных: массив, объект, функция, etc. В этом случае все изменения с этими данными изменяют передаваемый аргумент, работая непосредственно с ним</li>
+    </ul>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Аргументы и параметры</h3>
+    <h4 class="little">Аргументы передаются <b>по значению</b> или по ссылке</h4>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+// По значению
+function increment(num) {
+    num = num + 1;
+
+    return num;
+}
+
+let a = 5;
+
+increment(a); // 6
+console.log(a); // 5, исходное значение НЕ изменилось
+    </code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Аргументы и параметры</h3>
+    <h4 class="little">Аргументы передаются по значению или <b>по ссылке</b></h4>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+// По ссылке
+function incrementAll(array) {
+    for (let i = 0; i < array.length; ++i) {
+        array[i] = array[i] + 1;
+    }
+
+    return array;
+}
+
+let b = [1, 2, 3, 4];
+
+incrementAll(b); // [2, 3, 4, 5]
+console.log(b); // [2, 3, 4, 5], исходное значение изменилось
+    </code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Аргументы и параметры</h3>
+    <h4 class="little">Аргументы передаются по значению или <b>по ссылке</b></h4>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+// По ссылке
+function incrementAll(array) {
+    array = array.map(num => num + 1);
+
+    return array;
+}
+
+let b = [1, 2, 3, 4];
+
+incrementAll(b); // [2, 3, 4, 5]
+console.log(b); // [1, 2, 3, 4]
+    </code></pre>
+    <div class="post-mark fragment" style="bottom: 30%;">Исходное значение не изменится, если полностью перезаписать объект</div>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Аргументы и параметры</h3>
+    <h4 class="little">Именованные аргументы (ES5): объявление</h4>
+    <pre class="big" style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+function formatString(params) {
+    if (params.needCapitalized) {
+        ...
+    }
+
+    if (params.hasMarkdown) {
+        ...
+    }
+};
+    </code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Аргументы и параметры</h3>
+    <h4 class="little">Именованные аргументы (ES5): объявление</h4>
+    <pre class="big" style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+<span style=opacity:.3>function formatString</span>(params)<span style=opacity:.3> {
+    if (</span>params.needCapitalized<span style=opacity:.3>) {
+        ...
+    }
+
+    if (</span>params.hasMarkdown<span style=opacity:.3>) {
+        ...
+    }
+};
+    </span></code></pre>
+    <div class="post-mark fragment" style="bottom: 30%;">Паттерн, который предполгает заворачивание аргументов в объект</div>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Аргументы и параметры</h3>
+    <h4 class="little">Именованные аргументы (ES5): вызов функции</h4>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+formatString({
+    needCapitalized: false,
+    hasMarkdown: true,
+    text: 'А _роза_ упала **на лапу** Азора'
+});
+formatString({
+    text: 'А _роза_ упала **на лапу** Азора',
+    hasMarkdown: true,
+    needCapitalized: false
+});
+formatString({
+    text: 'А _роза_ упала **на лапу** Азора',
+    hasMarkdown: true
+});
+    </code></pre>
+    <div class="post-mark fragment" style="bottom: 30%;">Все три вызова предполгают одинаковый результат</div>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Аргументы и параметры</h3>
+    <h4 class="little">Именованные аргументы (ES5): Достоинства</h4>
+    <ul style="font-size: 45px; margin-top: 0;">
+        <li class="fragment pre">Удобно, если несколько необязательных аргументов</li>
+        <li class="fragment pre">Неважен порядок аргументов</li>
+        <li class="fragment pre">Неограниченное число аргументов</li>
+        <li class="fragment pre">Легко рефакторить код</li>
+    </ul>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Аргументы и параметры</h3>
+    <h4 class="little">Именованные аргументы (ES5): Недостатки</h4>
+    <ul style="font-size: 45px; margin-top: 0;">
+        <li class="fragment pre">Неявный интерфейс</li>
+        <li class="fragment pre">Неудобно работать с аргументами внутри функции</li>
+    </ul>
+    <div class="post-mark fragment" style="bottom: 30%;font-size: 36px;">О нас уже позаботились!</div>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Offtop</h3>
+    <h4 class="little">Destructuring Operator</h4>
+    <pre style=margin:0;font-size:70px;><code style=padding:0+.5em class="javascript" data-noescape>
+const obj = {
+    a: 5,
+    b: 8
+};
+
+const { a, b } = obj;
+
+console.log(a, b) // 5 8
+    </code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Offtop</h3>
+    <h4 class="little">Destructuring Operator</h4>
+    <pre style=margin:0;font-size:70px;><code style=padding:0+.5em class="javascript" data-noescape>
+const obj = {
+    a: 5,
+    b: 8
+};
+
+const <mark>{ a, b }</mark> = obj;
+
+console.log(a, b) // 5 8
+    </code></pre>
+    <div class="post-mark fragment" style="bottom: 57%;font-size: 36px;">Деструктуризация</div>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Аргументы и параметры</h3>
+    <h4 class="little">Именованные аргументы (ES6)</h4>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+// Destructuring Operator
+function formatString1({ needCapitalized, hasMarkdown }) {
+    return needCapitalized && hasMarkdown;
+};
+
+// Default Named Arguments
+function formatString2({
+    needCapitalized = false,
+    hasMarkdown = false
+}) {
+    return needCapitalized && hasMarkdown;
+};
+    </code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Аргументы и параметры</h3>
+    <h4 class="little">Именованные аргументы (ES6)</h4>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+// Destructuring Operator
+<span style=opacity:.3>function formatString1</span>({ needCapitalized, hasMarkdown })<span style=opacity:.3> {
+    </span>return needCapitalized && hasMarkdown;<span style=opacity:.3>
+};
+
+// Default Named Arguments
+function formatString2({
+    needCapitalized = false,
+    hasMarkdown = false
+}) {
+    return needCapitalized && hasMarkdown;
+};
+    </span></code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Аргументы и параметры</h3>
+    <h4 class="little">Именованные аргументы (ES6)</h4>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+<span style=opacity:.3>// Destructuring Operator
+function formatString1({ needCapitalized, hasMarkdown }) {
+    return needCapitalized && hasMarkdown;
+};
+
+</span>// Default Named Arguments
+<span style=opacity:.3>function formatString2</span>({
+    needCapitalized = false,
+    hasMarkdown = false
+})<span style=opacity:.3> {
+    </span>return needCapitalized && hasMarkdown;<span style=opacity:.3>
+};
+    </code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Аргументы и параметры</h3>
+    <h4 class="little">Именованные аргументы (ES6)</h4>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+function formatString2({
+    needCapitalized = false,
+    hasMarkdown = false
+}) {
+    return needCapitalized && hasMarkdown;
+};
+
+formatString2();
+// Uncaught TypeError:
+// Cannot destructure property of 'undefined' or 'null'.
+    </code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Аргументы и параметры</h3>
+    <h4 class="little">Именованные аргументы (ES6)</h4>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+<span style=opacity:.3>function formatString2(</span>{
+    needCapitalized = false,
+    hasMarkdown = false
+}<span style=opacity:.3>) {
+    return needCapitalized && hasMarkdown;
+};
+
+</span>formatString2(undefined);<span style=opacity:.3>
+// Uncaught TypeError:
+// Cannot destructure property of 'undefined' or 'null'.
+    </span></code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Аргументы и параметры</h3>
+    <h4 class="little">Именованные аргументы (ES6)</h4>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+function formatString3({
+    needCapitalized = false,
+    hasMarkdown = false
+} = {
+    needCapitalized: false,
+    hasMarkdown: false
+}) {
+    return needCapitalized && hasMarkdown;
+};
+
+formatString3(); // false
+    </code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Аргументы и параметры</h3>
+    <h4 class="little">Именованные аргументы (ES6)</h4>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+<span style=opacity:.3>function formatString3({
+    needCapitalized = false,
+    hasMarkdown = false
+}</span> = {
+    needCapitalized: false,
+    hasMarkdown: false
+}<span style=opacity:.3>) {
+    return needCapitalized && hasMarkdown;
+};
+
+</span>formatString3()<span style=opacity:.3>; // false
+    </span></code></pre>
+    <div class="post-mark fragment" style="bottom: 30%;font-size: 36px;">Уже не так все плохо!</div>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Аргументы и параметры</h3>
+    <h4 class="little">Именованные аргументы (ES6)</h4>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+function formatString4({
+    needCapitalized = false,
+    hasMarkdown = false
+} = {}) {
+    return needCapitalized && hasMarkdown;
+};
+
+formatString4(); // false
+    </code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Аргументы и параметры</h3>
+    <h4 class="little">Именованные аргументы (ES6)</h4>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+<span style=opacity:.3>function formatString4({
+    needCapitalized</span> = false,<span style=opacity:.3>
+    hasMarkdown</span> = false<span style=opacity:.3>
+}</span> = {}<span style=opacity:.3>) {
+    return needCapitalized && hasMarkdown;
+};
+
+</span>formatString4();<span style=opacity:.3> // false
+    </span></code></pre>
+</section>
+
+<section class="center">
+    <h2>Область видимости</h2>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Область видимости</h3>
+    <div style=font-style:italic;font-size:.9em;line-height:1.5;margin-top:100px>Область видимости – для конкретной переменной, участок кода, на котором она является <b>корректной</b></div>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Область видимости</h3>
+    <h4 class="little">Пример 1</h4>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+const phone = '(902)890-18-92';
+
+function getPhoneString() {
+    return `+7${phone}`;
+}
+
+getPhoneString(); // '+7(902)890-18-92'
+    </span></code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Область видимости</h3>
+    <h4 class="little">Пример 2</h4>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+function getPhoneString() {
+    return `+7${phone}`;
+}
+
+const phone = '(902)890-18-92';
+
+getPhoneString(); // '+7(902)890-18-92'
+    </span></code></pre>
+</section>
+
+<section class="center same">
+    <h3 class="metaheader">Область видимости</h3>
+    <h4 class="little">Пример 3</h4>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+function getPhoneString() {
+    return `+7${phone}`;
+}
+
+getPhoneString();
+
+const phone = '(902)890-18-92';
+// Uncaught ReferenceError:
+// Cannot access 'phone' before initialization
+    </span></code></pre>
+    <div class="post-mark fragment" style="bottom: 45%;">Почему так?</div>
+</section>
+
+<section>
+    <h3 class="metaheader">Область видимости</h3>
+    <h3>Какие бывают области видимости?</h3>
+
+    <ul style="font-size: 45px">
+        <li class="fragment pre">Статическая (лексическая) (определяется в момент парсинга кода, и о ней пойдет речь сейчас)</li>
+        <li class="fragment pre">Контекст исполнения (поговорим позже)</li>
+    </ul>
+</section>
+
+<section>
+    <h3 class="metaheader">Лексическая область видимости</h3>
+    <h3>Бывает трех видов:</h3>
+    <ul style="font-size: 45px">
+        <li class="fragment pre">Локальная (в нее помещаются все переменные, объявленные в функции, и аргументы, переданные в функцию)</li>
+        <li class="fragment pre">Глобальная (переменная или функция объявлена в глобальной области видимости, если она объявлена не в теле другой функции)</li>
+        <li class="fragment pre">Блочная (ES6)</li>
+    </ul>
+</section>
+
+<section>
+    <h3 class="metaheader">Локальная область видимости</h3>
+    <h3 class="little">В нее помещаются все переменные, объявленные в функции, и аргументы, переданные в функцию</h3>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+function getPhoneString<mark>(countryCode) {
+    const phone = '(902)890-18-92';
+
+    return `${countryCode}${phone}`;
+}</mark>
+
+getPhoneString('+7');  // '+7(902)890-18-92'
+    </code></pre>
+</section>
+
+<section>
+    <h3 class="metaheader">Локальная область видимости</h3>
+    <h3 class="little"><span style=opacity:.3>В нее помещаются все переменные, объявленные в функции, и </span>аргументы<span style=opacity:.3>, переданные в функцию</span></h3>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+<span style=opacity:.3>function getPhoneString(</span>countryCode<span style=opacity:.3>) {
+    const phone = '(902)890-18-92';
+
+    return </span>`${countryCode}<span style=opacity:.3>${phone}`;
+}
+
+getPhoneString('+7');  // '+7(902)890-18-92'
+    </span></code></pre>
+</section>
+
+<section>
+    <h3 class="metaheader">Локальная область видимости</h3>
+    <h3 class="little"><span style=opacity:.3>В нее помещаются все </span>переменные<span style=opacity:.3>, объявленные в функции, и аргументы, переданные в функцию</span></h3>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+<span style=opacity:.3>function getPhoneString(countryCode) {
+    </span>const phone<span style=opacity:.3> = '(902)890-18-92';
+
+    return `${countryCode}</span>${phone}`<span style=opacity:.3>;
+}
+
+getPhoneString('+7');  // '+7(902)890-18-92'
+    </span></code></pre>
+</section>
+
+<section>
+    <h3 class="metaheader">Локальная область видимости</h3>
+    <h3 class="little">Внутри функции создается область видимости, которая имеет доступ к более широким областям видимости.</h3>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+const phone = '(902)890-18-92';
+
+function getPhoneString(countryCode) {
+    return `${countryCode}${phone}`;
+}
+
+getPhoneString('+7');  // '+7(902)890-18-92'
+    </code></pre>
+</section>
+
+<section>
+    <h3 class="metaheader">Локальная область видимости</h3>
+    <h3 class="little">Внутри функции создается область видимости<span style=opacity:.3>, которая имеет доступ к более широким областям видимости.</span></h3>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+const phone = '(902)890-18-92';
+
+function getPhoneString<mark>(countryCode) {
+    return `${countryCode}${phone}`;
+}</mark>
+
+getPhoneString('+7');  // '+7(902)890-18-92'
+    </code></pre>
+</section>
+
+<section>
+    <h3 class="metaheader">Локальная область видимости</h3>
+    <h3 class="little"><span style=opacity:.3>Внутри функции создается область видимости, которая </span>имеет доступ к более широким областям видимости.</h3>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+<mark>const phone</mark> = '(902)890-18-92';
+
+function getPhoneString(countryCode) {
+    return `${countryCode}<mark>${phone}</mark>`;
+}
+
+getPhoneString('+7');  // '+7(902)890-18-92'
+    </code></pre>
+</section>
+
+<section>
+    <h3 class="metaheader">Локальная область видимости</h3>
+    <h3 class="little">Если попытаться обратиться на чтение к переменной, которая задекларирована в области видимости, к которой мы не имеем доступа в данный момент</h3>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+function getPhoneString() {
+    const phone = '(902)890-18-92';
+
+    return `+7${phone}`;
+}
+
+console.log(phone);
+// Uncaught ReferenceError: phone is not defined
+    </code></pre>
+</section>
+
+<section>
+    <h3 class="metaheader">Локальная область видимости</h3>
+    <h3 class="little">Если попытаться обратиться на чтение к переменной, которая задекларирована в области видимости, к которой мы не имеем доступа в данный момент</h3>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+<span style=opacity:.3>function getPhoneString() </span>{
+    const phone<span style=opacity:.3> = '(902)890-18-92';
+
+    return `+7${phone}`;
+</span>}
+
+console.log(phone);
+// Uncaught ReferenceError: phone is not defined
+    </code></pre>
+</section>
+
+<section>
+    <h3 class="metaheader">Локальная область видимости</h3>
+    <h4 class="little">Где задекларирована функция, к таким переменным она имеет доступ</h4>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+function createPhoneGetter() {
+    const phone = '(902)890-18-92';
+
+    return function () {
+        return `+7${phone}`; // '+7(902)890-18-92'
+    }
+}
+
+const getPhoneString = createPhoneGetter();
+
+getPhoneString();
+    </code></pre>
+</section>
+
+<section>
+    <h3 class="metaheader">Локальная область видимости</h3>
+    <h4 class="little">Где задекларирована функция, к таким переменным она имеет доступ</h4>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+<span style=opacity:.3>function createPhoneGetter() </span><mark><span style=opacity:.3>{
+    </span>const phone<span style=opacity:.3> = '(902)890-18-92';
+
+    return </span>function () {
+        return `+7${phone}`; // '+7(902)890-18-92'
+    }<span style=opacity:.3>
+}</span></mark>
+
+const getPhoneString = createPhoneGetter();
+
+getPhoneString();
+    </span></code></pre>
+</section>
+
+<section>
+    <h3 class="metaheader">Локальная область видимости</h3>
+    <h4 class="little">Где задекларирована функция, к таким переменным она имеет доступ</h4>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+function formatter() {
+    return `+7${phone}`;
+    // Uncaught ReferenceError: phone is not defined
+}
+function createPhoneGetter() {
+    const phone = '(902)890-18-92';
+
+    return formatter;
+}
+
+const getPhoneString = createPhoneGetter();
+getPhoneString();
+    </code></pre>
+</section>
+
+<section>
+    <h3 class="metaheader">Локальная область видимости</h3>
+    <h4 class="little">Где задекларирована функция, к таким переменным она имеет доступ</h4>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+function formatter<mark>() {
+    return `+7${phone}`;
+    // Uncaught ReferenceError: phone is not defined
+}</mark>
+<span style=opacity:.3>function createPhoneGetter() {
+    const phone = '(902)890-18-92';
+
+    </span>return formatter<span style=opacity:.3>;
+}
+
+</span>const getPhoneString = createPhoneGetter();
+getPhoneString();
+    </code></pre>
+</section>
+
+<section>
+    <h3 class="metaheader">Локальная область видимости</h3>
+    <h4 class="little"></h4>
+    <img src="./google-translate-without-iife.png">
+</section>
+
+<section>
+    <h3 class="metaheader">Локальная область видимости</h3>
+    <h4 class="little">При использовании паттерна "модуль" создается область видимости, и переменные внутри имеют уникальные имена</h4>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+(() => {
+    const cherry = 2;
+    const raspberry = 3;
+
+    const berryCount = cherry + raspberry; // berryCount = 5
+})();
+
+const berryCount = cherry + raspberry; // berryCount = NaN
+    </code></pre>
+</section>
+
+<section>
+    <h3 class="metaheader">Локальная область видимости</h3>
+    <h4 class="little"><span style=opacity:.3>При использовании </span>паттерна "модуль"<span style=opacity:.3> создается область видимости, и переменные внутри имеют уникальные имена</span></h4>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+(() => {
+    <span style=opacity:.3>const cherry = 2;
+    const raspberry = 3;
+
+    const berryCount = cherry + raspberry; // berryCount = 5</span>
+})();
+
+<span style=opacity:.3>const berryCount = cherry + raspberry; // berryCount = NaN</span>
+    </code></pre>
+    <div class="fragment post-mark" style="bottom: 30%;">IIFE (immediately-invoked function expression)</div>
+</section>
+
+
+<section>
+    <h3 class="metaheader">Локальная область видимости</h3>
+    <h4 class="little"></h4>
+    <img src="./google-translate-with-iife.png">
+</section>
+
+<section>
+    <h3 class="metaheader">Глобальная область видимости</h3>
+    <h4 class="little">Переменная или функция объявлена в глобальной области видимости, если она объявлена не в теле другой функции</h4>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+const phone = '(902)890-18-92';
+
+function getPhoneString(countryCode) {
+    const contact = 'Иваныч';
+
+    return `${countryCode}${phone} (${contact})`;
+}
+
+const result = getPhoneString('+7');
+</code></pre>
+</section>
+
+<section>
+    <h3 class="metaheader">Глобальная область видимости</h3>
+    <h4 class="little">Переменная или функция <span style=opacity:.3>объявлена в глобальной области видимости, если она объявлена не в теле другой функции</span></h4>
+    <pre style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+const <mark>phone</mark> = '(902)890-18-92';
+
+function <mark>getPhoneString</mark>(countryCode) {
+    const contact = 'Иваныч';
+
+    return `${countryCode}${phone} (${contact})`;
+}
+
+const <mark>result</mark> = getPhoneString('+7');
+</code></pre>
+</section>
+
+<section>
+    <h3 class="metaheader">Блочная область видимости</h3>
+    <h4 class="little">Появилась в ES6</h4>
+    <pre class="little" style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+let x = 10;
+var y = 10;
+{
+    let x = 5;
+    var y = 5;
+    {
+        let x = 2;
+        var y = 2;
+        console.log(x);
+        console.log(y);
+    }
+    console.log(x);
+    console.log(y);
+}
+console.log(x);
+console.log(y);
+    </code></pre>
+</section>
+
+<section>
+    <h3 class="metaheader">Блочная область видимости</h3>
+    <h4 class="little">Появилась в ES6</h4>
+    <pre class="little" style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+let x = 10;
+var y = 10;
+{
+    let x = 5;
+    var y = 5;
+    {
+        let x = 2;
+        var y = 2;
+        <mark>console.log(x); // 2</mark>
+        <mark>console.log(y); // 2</mark>
+    }
+    console.log(x);
+    console.log(y);
+}
+console.log(x);
+console.log(y);
+    </code></pre>
+</section>
+
+<section>
+    <h3 class="metaheader">Блочная область видимости</h3>
+    <h4 class="little">Появилась в ES6</h4>
+    <pre class="little" style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+let x = 10;
+var y = 10;
+{
+    let x = 5;
+    var y = 5;
+    {
+        let x = 2;
+        var y = 2;
+        console.log(x); // 2
+        console.log(y); // 2
+    }
+    <mark>console.log(x); // 5</mark>
+    <mark>console.log(y); // 2</mark>
+}
+console.log(x);
+console.log(y);
+    </code></pre>
+</section>
+
+<section>
+    <h3 class="metaheader">Блочная область видимости</h3>
+    <h4 class="little">Появилась в ES6</h4>
+    <pre class="little" style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+let x = 10;
+var y = 10;
+{
+    let x = 5;
+    var y = 5;
+    {
+        let x = 2;
+        var y = 2;
+        console.log(x); // 2
+        console.log(y); // 2
+    }
+    console.log(x); // 5
+    console.log(y); // 2
+}
+<mark>console.log(x); // 10</mark>
+<mark>console.log(y); // 2</mark>
+    </code></pre>
+    <div class="post-mark fragment" style="bottom: 50%;">Всплытие (Hoisting)</div>
+</section>
+
+
+<section class="center">
+    <h2>Затенениe</h2>
+</section>
+
+<section>
+    <h3 class="metaheader">Затенениe</h3>
+    <h5 class="little" style=margin-top:1em;font-size:.7em>Если внутри одной функции объявляется переменная с идентификатором, который уже существовует в родительской, то на время работы дочерней функции эта переменная принимает значение из ближайшей области видимости</h5>
+    <pre class="little" style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+const pi = Math.PI;
+
+function getCircleArea(r) {
+    return pi * Math.pow(r, 2);
+}
+
+function getCircleAreaInArmy(r) {
+    const pi = 3;
+    return pi * Math.pow(r, 2);
+}
+
+getCircleArea(5); // 78.53981633974483
+
+getCircleAreaInArmy(5); // 75
+</code></pre>
+</section>
+
+<section>
+    <h3 class="metaheader">Затенениe</h3>
+    <h5 class="little" style=margin-top:1em;font-size:.7em>Если внутри одной функции объявляется переменная с идентификатором, который уже существовует в родительской, то на время работы дочерней функции эта переменная принимает значение из ближайшей области видимости</h5>
+    <pre class="little" style=margin:0><code style=padding:0+.5em class="javascript" data-noescape>
+const pi = Math.PI;<span style=opacity:.3>
+
+function getCircleArea(r) {
+    </span>return pi * Math.pow(r, 2); // pi = Math.PI<span style=opacity:.3>
+}
+
+function getCircleAreaInArmy(r) {
+    </span>const pi = 3; // Shadowed-name
+    return pi * Math.pow(r, 2); // pi = 3<span style=opacity:.3>
+}
+
+getCircleArea(5); // 78.53981633974483
+
+getCircleAreaInArmy(5); // 75
+</span></code></pre>
+<div class="fragment post-mark" style="bottom: 30%;">Благодаря этому механизму испортить переменные внутри функции нельзя</div>
+</section>
+
+<section style="height: 100%;">
+    <h2>Замыкание</h2>
+    <h3 style=text-align:center;font-weight:100>Замыкание – функция со всеми внешними переменными, к которым она имеет доступ</h3>
+    <div class="fragment post-mark" style="bottom: 25%;">Замыкание позволяет скрывать ваши данные от доступа снаружи</div>
+</section>
+
+<section>
+        <h3 class="metaheader">Замыкание</h3>
+        <h4 class="little">Механизм "счетчик ссылок"</h4>
+        <div class="code-two-columns">
+            <div>
+                <p class="size-S">Код:</p>
+                <pre><code class="js">
+function greet() {
+    const text = 'Привет';
+}
+
+greet();
+            </code></pre>
+            </div>
+            <div class="fragment">
+                <p class="size-S">Счётчик ссылок:</p>
+                <pre><code class="js">
+
+{ text: 1 }
+
+
+</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h3 class="metaheader">Замыкание</h3>
+        <h4 class="little">Механизм "счетчик ссылок"</h4>
+        <div class="code-two-columns">
+            <div>
+                <p class="size-S">Код:</p>
+                <pre><code class="js">
+function greet() {
+    const text = 'Привет';
+}
+
+greet();
+            </code></pre>
+            </div>
+            <div>
+                <p class="size-S">Счётчик ссылок:</p>
+                <pre><code class="js">
+
+
+
+
+{ text: 0 }
+</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h3 class="metaheader">Замыкание</h3>
+        <h4 class="little">Механизм "счетчик ссылок"</h4>
+        <div class="code-two-columns">
+            <div>
+                <p class="size-S">Код:</p>
+                <pre><code class="js">
+function makeCounter() {
+    let currentCount = 0;
+
+    return function () {
+        return currentCount++;
+    }
+}
+
+const counter = makeCounter();
+            </code></pre>
+            </div>
+            <div>
+                <p class="size-S">Счётчик ссылок:</p>
+                <pre><code class="js">
+
+{ currentCount: 1 }
+
+
+
+</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h3 class="metaheader">Замыкание</h3>
+        <h4 class="little">Механизм "счетчик ссылок"</h4>
+        <div class="code-two-columns">
+            <div>
+                <p class="size-S">Код:</p>
+                <pre><code class="js">
+function makeCounter() {
+    let currentCount = 0;
+
+    return function () {
+        return currentCount++;
+    }
+}
+
+const counter = makeCounter();
+            </code></pre>
+            </div>
+            <div>
+                <p class="size-S">Счётчик ссылок:</p>
+                <pre><code class="js">
+
+
+
+
+
+
+
+
+{ currentCount: 1 }
+</code></pre>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h3 class="metaheader">Замыкание</h3>
+        <h4 class="little">Замыкание</h4>
+        <div class="code-two-columns">
+            <div>
+                <p class="size-S">Код:</p>
+                <pre><code class="js">
+function makeCounter() {
+    let currentCount = 0;
+
+    return function () {
+        return currentCount++;
+    }
+}
+            </code></pre>
+            </div>
+            <div>
+                <p class="size-S">Область видимости:</p>
+                <pre><code class="js">
+┌{ makeCounter }
+├─┬{ currentCount }
+│ │
+│ │
+│ ├─┬{ }
+│ │ │
+│ │
+│
+</code></pre>
+            </div>
+        </div>
+        <div class="fragment post-mark" style="bottom: 5%; right: 10%">Паттерн "фабрика" (Factory)</div>
+        <div class="fragment post-mark" style="bottom: 23%; right: 10%">Внутри любой функции можно объявлять другую функцию, которая образовывает свою область видимости</div>
+    </section>
+
+    <section>
+        <h3 class="metaheader">Замыкание</h3>
+        <h4 class="little">Замыкание</h4>
+        <pre><code class="js">
+const counter = makeCounter();
+counter(); // 0
+counter(); // 1
+counter(); // 2
+
+const yetAnother = makeCounter();
+yetAnother(); // 0
+        </code></pre>
+        <div class="fragment post-mark" style="bottom: 25%;">Функция вызывается в другом месте кода, но имеет доступ к currentCount, которая <b>задекларирована</b> в области видимости</div>
+    </section>
+
+    <section>
+        <h3 class="metaheader">Замыкание</h3>
+        <h4 class="little">Замыкание</h4>
+        <pre><code class="js">
+function greet(name) {
+    return function () {
+        return `Привет, ${name}`;
+    }
+}
+
+let helloWorld = greet('мир!');
+        </code></pre>
+        <div class="fragment post-mark" style="bottom: 55%;">На этапе парсинга мы знаем, что factory возвращает ссылку на функцию</div>
+        <pre class="fragment"><code class="js">
+helloWorld(); // "Привет, мир!"
+        </code></pre>
+        <div class="fragment post-mark" style="bottom: 5%;">Создается функция, создается область видимости внутри и привязывается область видимости, которая находится <b>в месте декларации</b></div>
+    </section>
+
+<section style="height: 100%;">
+    <h2>Замыкание</h2>
+    <h3 style=text-align:center;font-weight:100>Функция имеет доступ к переменным, которые были доступны ей <b>в месте ее декларации, а не вызова</b></h3>
+</section>
+
+<section class="center">
+    <h2>Перерыв</h2>
+</section>
+
+<section class="center">
+    <h2>this</h2>
+    <h2 style="opacity: 0;">Контекст исполнения</h2>
+</section>
+
+<section class="center">
+    <h2 style=text-decoration:line-through>this</h2>
+    <h2>Контекст исполнения</h2>
+</section>
+
+<section style="height: 100%;">
+    <h2>Контекст исполнения</h2>
+    <h3 style=text-align:center;font-weight:100>Контекст исполнения тесно связан с областью видимости и содержит ее.</h3>
+    <h3 style=text-align:center;font-weight:100>Кроме нее, содержит еще и ключевое слово <mark>this</mark></h3>
+</section>
+
+<section>
+    <h3 class="metaheader">Контекст исполнения</h3>
+    <h4>Внутри любой функции мы имеем доступ к:</h4>
+    <ul style="font-size: 45px">
+        <li class="fragment pre">набору аргументов, которые передали</li>
+        <li class="fragment pre">arguments</li>
+        <li class="fragment pre">this</li>
+    </ul>
+    <div class="fragment post-mark" style="bottom: 5%;">Контекст исполнения формируется на этапе выполнения кода</div>
+</section>
+
+<section class="center">
+    <h2>this</h2>
+</section>
+
+<section>
+    <h3 class="metaheader">this</h3>
+    <h4>Ключевое слово</h4>
+    <div class="fragment">
+        <h4 class="little">Особенности:</h4>
+        <ul style="font-size: 45px">
+            <li class="pre">нельзя перезаписать</li>
+            <li class="fragment pre">указывает на текущий объект</li>
+            <li class="fragment pre">можно использовать за пределами объекта</li>
+            <li class="fragment pre">опредяляется в момент интерпретации участка кода (в функции в момент вызова)</li>
+        </ul>
+    </div>
+</section>
+
+<section>
+    <h3 class="metaheader">this</h3>
+    <h4>Значение this зависит от:</h4>
+    <ol style="font-size: 45px">
+        <li class="fragment pre">Типа участка кода</li>
+        <li class="fragment pre">Как мы попали на этот участок</li>
+        <li class="fragment pre">Режима работы интерпретатора</li>
+    </ol>
+</section>
+
+<section>
+    <h3 class="metaheader">this</h3>
+    <h4>Значение this зависит от:</h4>
+    <ol style="font-size: 45px">
+        <li class="pre"><span style=opacity:1>Типа участка кода</span></li>
+        <li class="pre"><span style=opacity:.3>Как мы попали на этот участок</span></li>
+        <li class="pre"><span style=opacity:.3>Режима работы интерпретатора</span></li>
+    </ol>
+</section>
+
+<section>
+    <h3 class="metaheader">this</h3>
+    <h4>1. Тип участка кода</h4>
+    <ol style="font-size: 45px">
+        <li class="pre">Глобальный</li>
+        <li class="pre">Node.js модуль</li>
+    </ol>
+</section>
+
+<section>
+    <h3 class="metaheader">this</h3>
+    <h4>1. Тип участка кода</h4>
+    <ol style="font-size: 45px">
+        <li class="pre">Глобальный</li>
+        <li class="pre" style="text-decoration: line-through;">Node.js модуль</li>
+    </ol>
+</section>
+
+<section>
+    <h3 class="metaheader">this. Тип участка кода.</h3>
+    <h4>1.1. Глобальный в браузере</h4>
+    <pre><code class="js">
+this.innerWidth; // 1440
+    </code></pre>
+    <pre class="fragment"><code class="js">
+window.innerWidth; // 1440
+    </code></pre>
+    <pre class="fragment"><code class="js">
+innerWidth; // 1440
+    </code></pre>
+    <div class="fragment post-mark" style="bottom: 5%;">В браузере в глобальной области видимости this ссылается на <b>window</b></div>
+</section>
+
+<section>
+    <h3 class="metaheader">this. Тип участка кода.</h3>
+    <h4>1.1. Глобальный в Node.js</h4>
+    <pre><code class="js">
+this.process.version; // 'v10.16.0'
+    </code></pre>
+    <pre class="fragment"><code class="js">
+global.process.version; // 'v10.16.0'
+    </code></pre>
+    <pre class="fragment"><code class="js">
+process.version; // 'v10.16.0'
+    </code></pre>
+    <div class="fragment post-mark" style="bottom: 5%;">В Node.js в глобальной области видимости this ссылается на <b>global</b></div>
+</section>
+
+<section>
+    <h3 class="metaheader">this. Тип участка кода.</h3>
+    <h4>1.1. Глобальный</h4>
+    <pre><code class="js">
+console.log('Hello!');
+    </code></pre>
+    <pre class="fragment"><code class="js">
+global.console.log('Hello!');
+    </code></pre>
+    <pre class="fragment"><code class="js">
+this.console.log('Hello!');
+    </code></pre>
+    <div class="fragment post-mark" style="bottom: 5%;">console.log(); также вызывается у глобального объекта, работает <b>аналогично: this.console.log();</b></div>
+</section>
+
+<section>
+    <h3 class="metaheader">this</h3>
+    <h4>Значение this зависит от:</h4>
+    <ol style="font-size: 45px">
+        <li class="pre"><span style=opacity:.3>Типа участка кода</span></li>
+        <li class="pre"><span style=opacity:1>Как мы попали на этот участок</span></li>
+        <li class="pre"><span style=opacity:.3>Режима работы интерпретатора</span></li>
+    </ol>
+</section>
+
+<section>
+    <h3 class="metaheader">this</h3>
+    <h4>2. Как мы попали на этот участок кода</h4>
+    <ol style="font-size: 36px">
+        <li class="pre">Функция объявлена в глобальной области видимости</li>
+        <li class="pre">Функция описана в модуле Node.js</li>
+        <li class="pre">Функция вызвана в качестве значения поля объекта</li>
+        <li class="pre">Функция вызвана в качестве значения поля прототипа объекта</li>
+        <li class="pre">Функция кладется в память в качестве значения некоторой переменной</li>
+        <li class="pre">Функция была передана в качестве callback</li>
+    </ol>
+</section>
+
+<section>
+    <h3 class="metaheader">this</h3>
+    <h4>2. Как мы попали на этот участок кода</h4>
+    <ol style="font-size: 36px">
+        <li class="pre" style=text-decoration:line-through>Функция объявлена в глобальной области видимости</li>
+        <li class="pre" style=text-decoration:line-through>Функция описана в модуле Node.js</li>
+        <li class="pre">Функция вызвана в качестве значения поля объекта</li>
+        <li class="pre">Функция вызвана в качестве значения поля прототипа объекта</li>
+        <li class="pre">Функция кладется в память в качестве значения некоторой переменной</li>
+        <li class="pre">Функция была передана в качестве callback</li>
+    </ol>
+</section>
+
+<section>
+    <h3 class="metaheader">this</h3>
+    <h4>2. Как мы попали на этот участок кода</h4>
+    <ol style="font-size: 36px">
+        <li class="pre" style=text-decoration:line-through>Функция объявлена в глобальной области видимости</li>
+        <li class="pre" style=text-decoration:line-through>Функция описана в модуле Node.js</li>
+        <li class="pre">Функция вызвана в качестве значения поля объекта</li>
+        <li class="pre" style=text-decoration:line-through>Функция вызвана в качестве значения поля прототипа объекта</li>
+        <li class="pre">Функция кладется в память в качестве значения некоторой переменной</li>
+        <li class="pre">Функция была передана в качестве callback</li>
+    </ol>
+</section>
+
+<section>
+    <h3 class="metaheader">this. Как мы попали на этот участок кода.</h3>
+    <h4>2.3. Функция вызвана в качестве значения поля объекта</h4>
+    <div class="code-two-columns">
+        <div>
+            <pre><code class="js">
+const block = {
+    innerHeight: 200,
+
+    getHeight: function () {
+        return this.innerHeight;
+    }
+}
+            </code></pre>
+        </div>
+        <div class="fragment">
+            <pre><code class="js">
+
+
+
+
+// ???.innerHeight;
+            </code></pre>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h3 class="metaheader">this. Как мы попали на этот участок кода.</h3>
+    <h4>2.3. Функция вызвана в качестве значения поля объекта</h4>
+    <div class="code-two-columns">
+        <div>
+            <pre><code class="js" data-noescape>
+const block = {
+    innerHeight: 200,
+
+    getHeight: function () {
+        return this.innerHeight;
+    }
+}
+
+<mark>block</mark>.getHeight(); // 200
+            </code></pre>
+        </div>
+        <div>
+            <pre><code class="js" data-noescape>
+
+
+
+
+// <mark>block</mark>.innerHeight;
+            </code></pre>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h3 class="metaheader">this. Как мы попали на этот участок кода.</h3>
+    <h4>2.5. Функция кладется в память в качестве значения некоторой переменной</h4>
+    <div class="code-two-columns">
+        <div>
+            <pre><code class="js">
+const block = {
+    innerHeight: 200,
+
+    getHeight: function () {
+        return this.innerHeight;
+    }
+}
+
+const getHeight = block.getHeight;
+            </code></pre>
+        </div>
+        <div>
+            <pre><code class="js">
+
+
+
+
+// ???.innerHeight;
+            </code></pre>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h3 class="metaheader">this. Как мы попали на этот участок кода.</h3>
+    <h4>2.5. Функция кладется в память в качестве значения некоторой переменной</h4>
+    <div class="code-two-columns">
+        <div>
+            <pre><code class="js">
+const block = {
+    innerHeight: 200,
+
+    getHeight: function () {
+        return this.innerHeight;
+    }
+}
+
+const getHeight = block.getHeight;
+getHeight();
+            </code></pre>
+        </div>
+        <div>
+            <pre><code class="js">
+
+
+
+
+// window.innerHeight;
+            </code></pre>
+        </div>
+    </div>
+    <div class="fragment post-mark" style="bottom: 45%;">this будет ссылаться на глобальный объект, при том <b>не важно, где была определена функция</b></div>
+    <div class="fragment post-mark" style="bottom: 15%;">Такое поведение называется <b>"заимствование метода"</b></div>
+</section>
+
+<section>
+    <h3 class="metaheader">this. Как мы попали на этот участок кода.</h3>
+    <h4>2.6. Функция была передана в качестве callback</h4>
+
+    <div class="code-two-columns little">
+        <pre class="js code"><code>const person = {
+    name: 'Jack',
+    items: ['keys', 'phone', 'banana'],
+
+    showItems: function () {
+        return this.items.map(function (item) {
+            return `${this.name} has ${item}`;
+        });
+    }
+}
+
+
+</code></pre>
+            <pre class="js this fragment"><code>
+
+
+
+
+// ???.items
+// ???.name
+
+
+
+
+        </code></pre>
+    </div>
+</section>
+
+<section>
+    <h3 class="metaheader">this. Как мы попали на этот участок кода.</h3>
+    <h4>2.6. Функция была передана в качестве callback</h4>
+
+    <div class="code-two-columns little">
+    <pre class="js code"><code>const person = {
+    name: 'Jack',
+    items: ['keys', 'phone', 'banana'],
+
+    showItems: function () {
+        return this.items.map(function (item) {
+            return `${this.name} has ${item}`;
+        });
+    }
+}
+
+person.showItems();
+</code></pre>
+        <pre class="js this"><code>
+
+
+
+
+// person.items
+// ???.name
+
+
+
+
+    </code></pre>
+    </div>
+</section>
+
+<section>
+    <h3 class="metaheader">this. Как мы попали на этот участок кода.</h3>
+    <h4>2.6. Функция была передана в качестве callback</h4>
+
+    <div class="code-two-columns little">
+    <pre class="js code"><code>const person = {
+    name: 'Jack',
+    items: ['keys', 'phone', 'banana'],
+
+    showItems: function () {
+        return this.items.map(function (item) {
+            return `${this.name} has ${item}`;
+        });
+    }
+}
+
+person.showItems();
+</code></pre>
+        <pre class="js this"><code>
+
+
+
+
+// person.items
+// global.name
+
+
+
+
+    </code></pre>
+    </div>
+</section>
+
+<section>
+    <h3 class="metaheader">this. Как мы попали на этот участок кода.</h3>
+    <h4>2.6. Функция была передана в качестве callback</h4>
+    <pre class="js"><code data-trim>
+'undefined has keys'
+'undefined has phone'
+'undefined has banana'
+    </code></pre>
+</section>
+
+<section>
+    <h3 class="metaheader">this. Как мы попали на этот участок кода.</h3>
+    <h4>2.6. Функция была передана в качестве callback</h4>
+    <h4 class="little">Проблема: в callback контекст как бы явно не задан и в качестве this подставляется global</h4>
+</section>
+
+<section>
+    <h3 class="metaheader">this. Как мы попали на этот участок кода.</h3>
+    <h4>2.6. Функция была передана в качестве callback</h4>
+    <h4 class="little">Решениe:</h4>
+    <ul style="font-size: 36px">
+        <li class="pre">В языке предусмотрена передача контекста исполнения callback'a вторым аргументом</li>
+    </ul>
+</section>
+
+<section>
+    <h3 class="metaheader">this. Как мы попали на этот участок кода.</h3>
+    <h4>2.6. Функция была передана в качестве callback</h4>
+
+    <div class="code-two-columns little">
+    <pre class="js code"><code data-noescape>const person = {
+    name: 'Jack',
+    items: ['keys', 'phone', 'banana'],
+
+    showItems: function () {
+        return this.items.map(function (item) {
+            return `${this.name} has ${item}`;
+        }, <mark>this</mark>);
+    }
+}
+
+person.showItems();
+</code></pre>
+        <pre class="js this"><code>
+
+
+
+
+// person.items
+// person.name
+
+
+
+
+    </code></pre>
+    </div>
+</section>
+
+
+<section>
+    <h3 class="metaheader">this. Как мы попали на этот участок кода.</h3>
+    <h4>2.6. Функция была передана в качестве callback</h4>
+    <h4 class="little">Проблема: Не все функции, работающие с callback, принимают контекст выполнения вторым аргументом</h4>
+</section>
+
+<section>
+    <h3 class="metaheader">this. Как мы попали на этот участок кода.</h3>
+    <h4>2.6. Функция была передана в качестве callback</h4>
+    <h4 class="little">Решения:</h4>
+    <ul style="font-size: 36px">
+        <li class="pre" style="color: #999">В языке предусмотрена передача контекста исполнения callback'a вторым аргументом</li>
+        <li class="pre">Сохранить контекст в переменную: const self = this;</li>
+        <li class="pre">Стрелочные функции</li>
+    </ul>
+</section>
+
+<section>
+    <h3 class="metaheader">this. Как мы попали на этот участок кода.</h3>
+    <h4>2.6. Функция была передана в качестве callback</h4>
+
+    <div class="code-two-columns little">
+    <pre class="js code"><code data-noescape>const person = {
+    name: 'Jack',
+    items: ['keys', 'phone', 'banana'],
+
+    showItems: function () {
+        return this.items.map(function (item) {
+            return `${<mark>self.name</mark>} has ${item}`;
+        });
+    }
+}
+
+<mark>const self = person;</mark>
+person.showItems();
+</code></pre>
+        <pre class="js this"><code>
+
+
+
+
+// person.items
+// person.name
+
+
+
+
+    </code></pre>
+    </div>
+</section>
+
+<section>
+    <h3 class="metaheader">this. Как мы попали на этот участок кода.</h3>
+    <h4>2.6. Функция была передана в качестве callback</h4>
+
+    <div class="code-two-columns little">
+    <pre class="js code"><code data-noescape>const person = {
+    name: 'Jack',
+    items: ['keys', 'phone', 'banana'],
+
+    showItems: function () {
+        return this.items.map(<mark>item => {</mark>
+            return `${this.name} has ${item}`;
+        });
+    }
+}
+
+person.showItems();
+</code></pre>
+        <pre class="js this"><code>
+
+
+
+
+// person.items
+// person.name
+
+
+
+
+    </code></pre>
+    </div>
+</section>
+
+<section>
+    <h3 class="metaheader">this</h3>
+    <h4>Методы привязки контекста</h4>
+    <ol style="font-size: 46px">
+        <li class="pre">.call()</li>
+        <li class="pre">.apply()</li>
+        <li class="pre">.bind()</li>
+    </ol>
+</section>
+
+<section>
+    <h3 class="metaheader">this. Методы привязки контекста</h3>
+    <h4>.call()</h4>
+    <h4 class="little">Метод call() вызывает функцию с указанным значением this и индивидуально предоставленными аргументами.</h4>
+    <pre><code class="js">
+func.call(thisArg, arg1, arg2, ...);
+    </code></pre>
+</section>
+
+<section>
+    <h3 class="metaheader">this. Методы привязки контекста</h3>
+    <h4>.apply()</h4>
+    <h4 class="little">Метод apply() вызывает функцию с указанным значением this и аргументами, предоставленными в виде массива.</h4>
+    <pre class="js"><code data-trim>
+func.apply(thisArg, [arg1, arg2]);
+    </code></pre>
+</section>
+
+<section>
+    <h3 class="metaheader">this. Методы привязки контекста</h3>
+    <h4>.bind()</h4>
+    <h4 class="little">Метод .bind() создаёт новую функцию, которая при вызове устанавливает в качестве контекста выполнения this предоставленное значение</h4>
+    <pre class="js"><code data-trim>
+            func.bind(thisArg, arg1, arg2, ...);
+    </code></pre>
+</section>
+
+<section>
+    <h3 class="metaheader">this. Методы привязки контекста</h3>
+    <h4>.bind()</h4>
+    <h4 class="little">Также .bind() позволяет использовать "частичное применение"</h4>
+    <pre class="js"><code data-trim data-noescape>
+Math.pow(2, 3);  // 8
+Math.pow(2, 10); // 1024
+
+const binPow = Math.pow.bind(Math, 2);
+
+binPow(3);  // 8
+binPow(10); // 1024
+    </code></pre>
+</section>
+
+<section>
+    <h3 class="metaheader">this. Методы привязки контекста</h3>
+    <h4>.bind()</h4>
+    <h4 class="little">Также .bind() позволяет использовать "частичное применение"</h4>
+    <pre class="js"><code data-trim data-noescape>
+Math.pow(2, 3);  // 8
+Math.pow(2, 10); // 1024
+
+const binPow = Math.pow.bind(<mark>null</mark>, 2);
+
+binPow(3);  // 8
+binPow(10); // 1024
+    </code></pre>
+    <div class="post-mark fragment" style="bottom: 10%;">Каррирование (Currying)</div>
+</section>
+
+<section>
+    <h3 class="metaheader">this</h3>
+    <h4>Значение this зависит от:</h4>
+    <ol style="font-size: 45px">
+        <li class="pre"><span style=opacity:.3>Типа участка кода</span></li>
+        <li class="pre"><span style=opacity:.3>Как мы попали на этот участок</span></li>
+        <li class="pre"><span style=opacity:1>Режима работы интерпретатора</span></li>
+    </ol>
+</section>
+
+<section>
+    <h3 class="metaheader">this</h3>
+    <h4>3. Режим работы интерпретатора</h4>
+    <ol style="font-size: 36px">
+        <li class="pre">Режим обратной совместимости</li>
+        <li class="pre">Строгий режим</li>
+    </ol>
+</section>
+
+<section>
+    <h3 class="metaheader">this. Режим работы интерпретатора.</h3>
+    <h4>3.1. Режим обратной совместимости</h4>
+    <pre class="js"><code data-trim>
+function getSelf() {
+    return this;
+}
+
+getSelf(); // global
+    </code></pre>
+    <div class="post-mark fragment" style="bottom: 10%;">this совпадает с контекстом, в котором была вызвана функция</div>
+</section>
+
+<section>
+    <h3 class="metaheader">this. Режим работы интерпретатора.</h3>
+    <h4>3.2. Строгий режим</h4>
+
+    <pre class="js"><code data-trim>
+function getSelf() {
+    'use strict';
+
+    return this;
+}
+
+getSelf(); // undefined
+    </code></pre>
+    <div class="post-mark fragment" style="bottom: 10%;">Для функции, вызванной в global значение this – undefined</div>
+</section>
+
+<section>
+    <h3>Ссылки</h3>
+    <ul>
+        <li><a href="https://learn.javascript.ru/function-basics">Функции на learn.javascript.ru</a></li>
+        <li><a href="http://urfu-2015.github.io/webdev-slides/1-1-teamwork-git-github/">Функции в JavaScript (MDN)</a></li>
+        <li><a href="https://learn.javascript.ru/function-expressions-arrows">Function Expression и функции-стрелки</a></li>
+    </ul>
+</section>
+
+<section class="center">
+    <h2>Вопросы?</h2>
+</section>
+
+<section class="center">
+    <h2>Спасибо!</h2>
+</section>
+
+</div></div><script src="../../@lib/core.js"></script></body></html>
