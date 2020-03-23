@@ -32,3 +32,4 @@
 5. [Клиент-сервер](https://urfu-2019.github.io/slides/second-semester/05-client-server/) ([pdf](https://urfu-2019.github.io/slides/second-semester/05-client-server/index.pdf))
 6. [DOM API](https://urfu-2019.github.io/slides/second-semester/06-dom-api/) ([pdf](https://urfu-2019.github.io/slides/second-semester/06-dom-api/index.pdf))
 7. [Web API](https://urfu-2019.github.io/slides/second-semester/07-web-api/)
+8. [Безопасность](https://urfu-2019.github.io/slides/second-semester/08-security/) ([pdf](https://urfu-2019.github.io/slides/second-semester/08-security/index.pdf))
