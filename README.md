@@ -33,6 +33,6 @@
 6. [DOM API](https://urfu-2019.github.io/slides/second-semester/06-dom-api/) ([pdf](https://urfu-2019.github.io/slides/second-semester/06-dom-api/index.pdf))
 7. [Web API](https://urfu-2019.github.io/slides/second-semester/07-web-api/)
 8. [Безопасность](https://urfu-2019.github.io/slides/second-semester/08-security/) ([pdf](https://urfu-2019.github.io/slides/second-semester/08-security/index.pdf))
-9. [React I](https://urfu-2019.github.io/slides/second-semester/09-react-1/) ([pdf](https://urfu-2019.github.io/slides/second-semester/09-react-1/index.pdf))
+9. [React I](https://urfu-2019.github.io/slides/second-semester/09-react-1/)
 10. [React II](https://urfu-2019.github.io/slides/second-semester/10-react-2/) ([pdf](https://urfu-2019.github.io/slides/second-semester/10-react-2/index.pdf))
 11. [State managment](https://frontend-ifmo-2019.now.sh/webdev/13-react-3/index.html#/) ([video](https://yadi.sk/i/0SzJbSiB5XF8TQ))
