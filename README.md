@@ -33,6 +33,34 @@
 6. [DOM API](https://urfu-2019.github.io/slides/second-semester/06-dom-api/) ([pdf](https://urfu-2019.github.io/slides/second-semester/06-dom-api/index.pdf))
 7. [Web API](https://urfu-2019.github.io/slides/second-semester/07-web-api/)
 8. [Безопасность](https://urfu-2019.github.io/slides/second-semester/08-security/) ([pdf](https://urfu-2019.github.io/slides/second-semester/08-security/index.pdf))
-9. [React I](https://urfu-2019.github.io/slides/second-semester/09-react-1/)
-10. [React II](https://urfu-2019.github.io/slides/second-semester/10-react-2/) ([pdf](https://urfu-2019.github.io/slides/second-semester/10-react-2/index.pdf))
-11. [State managment](https://frontend-ifmo-2019.now.sh/webdev/13-react-3/index.html#/) ([video](https://yadi.sk/i/0SzJbSiB5XF8TQ))
+9. [React](https://urfu-2019.github.io/slides/second-semester/09-react/) ([pdf](https://urfu-2019.github.io/slides/second-semester/09-react/index.pdf))
+10. [State managment](https://frontend-ifmo-2019.now.sh/webdev/13-react-3/index.html#/) ([video](https://yadi.sk/i/0SzJbSiB5XF8TQ))
+11. React Hooks ([video](https://yadi.sk/i/p27C92WCfrqBrA))
+
+## Дополнительные материалы
+
+### Познакомиться на примере
+
+- [Приложение Notes теперь React](https://github.com/urfu-2019/notes-app-example/tree/react)
+- [Что понадобилось изменить, что перевезти Notes на React](https://github.com/urfu-2019/notes-app-example/commit/9658a276f797715ec8251b9384e8ea3d56891fd8)
+
+### Установить инструменты
+
+- [React Developer Tools](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=ru)
+
+### Почитать
+
+- [Что такое JSX?](https://kentcdodds.com/blog/what-is-jsx)
+- [Введение в хуки](https://ru.reactjs.org/docs/hooks-intro.html)
+- [Сравнение управляемых и неуправляемых компонентов](https://goshakkk.name/controlled-vs-uncontrolled-inputs-react/)
+
+### Посмотреть
+
+- [The beginner's guide to react](https://egghead.io/courses/the-beginner-s-guide-to-react)
+- [Start learning React](https://egghead.io/courses/start-learning-react)
+- [Advanced React](https://courses.reacttraining.com/p/advanced-react-free)
+
+### Ознакомиться с документацией
+
+- [React](https://ru.reactjs.org/docs/getting-started.html)
+- [Next.js](https://nextjs.org/docs)

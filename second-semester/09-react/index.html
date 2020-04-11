@@ -1,0 +1,1938 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <title>React</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../../@lib/core.css">
+    <link rel="stylesheet" href="../../@lib/theme.css">
+    <link rel="icon" href="./images/favicon.ico" />
+    <style>
+        .reveal .object-fit-fill.slide-background[data-background-size=contain] video {
+            object-fit: fill !important;
+        }
+
+        .slide-flex {
+            display: flex !important;
+        }
+    </style>
+</head>
+<body class="white"><div class="reveal"><div class="slides">
+
+<!-- Slide 1 -->
+<section class="center">
+    <h1 style="font-family: 'Ubuntu Mono', sourcesanspro-light, sans-serif; display: flex; align-items: center; justify-content: center;">
+        <img src="./images/react-logo.svg" width="200" style="margin-left: -240px">
+        <span style="margin-left: 40px;">React</span>
+    </h1>
+</section>
+
+<!-- Slide 2 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Немного истории</h2>
+    <h2 class="grey" style="font-size: 35px;">Эволюция задач перед JS</h2>
+</section>
+
+<!-- Slide 3 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Простые задачи</h2>
+    <div style="display: flex; justify-content: center; align-items: center;">
+        <img src="./images/simple-javascript.gif" width="600">
+    </div>
+</section>
+
+<!-- Slide 4 -->
+<section class="center">
+    <h2 style="font-weight: bold; font-size: 35px;">Любые изменения на странице чаще всего вызывали полную перезагрузку страницы</h2>
+    <div style="margin-top: 50px; display: flex; align-items: center; justify-content: center;">
+        <img src="images/multi-page-app-4.png" width="1000">
+    </div>
+</section>
+
+<!-- Slide 5 -->
+<section class="object-fit-fill" data-background-video="./images/notes-app.mp4" data-background-size="contain" data-background-video-loop data-background-position="top" data-background-color="#f6f5f3">
+    <h2 style="margin-top: 50px; font-weight: bold;">Более сложные задачи</h2>
+</section>
+
+<!-- Slide 6 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">Single
+        Page Application
+        &nbsp;<span class="grey" style="font-size: 35px;">(SPA)</span></h2>
+    <p>Веб-приложение или сайт, который загружает только одну страницу и все последующие запросы
+        обрабатываются без полной перезагрузки страницы</p>
+</section>
+
+<!-- Slide 7 -->
+<section class="center">
+    <h2 style="font-weight: bold; font-size: 35px;">В SPA сервер отвечает только данными, а все изменения верстки происходят из клиентского JavaScript</h2>
+    <div style="margin-top: 50px; display: flex; align-items: center; justify-content: center;">
+        <img src="images/single-page-app-4.png" width="1000">
+    </div>
+</section>
+
+<!-- Slide 8 -->
+<section class="center">
+    <h1 style="font-family: 'Ubuntu Mono', sourcesanspro-light, sans-serif; display: flex; align-items: center; justify-content: center;">
+        <img src="./images/react-logo.svg" width="200" style="margin-left: -240px">
+        <span style="margin-left: 40px;">React</span>
+    </h1>
+</section>
+
+<!-- Slide 9 -->
+<section class="center">
+    <p> <strong style="font-weight: bold;">React</strong> &mdash; JavaScript-библиотека для создания пользовательских интерфейсов, которая позволяет довольно просто реализовывать и SPA в том числе</p>
+</section>
+
+<!-- Slide 10 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Концепции React</h2>
+    <div style="display: flex; justify-content: center; font-size: 40px; align-items: center;">
+        <ol style="list-style: none">
+            <li>Компонентный подход</li>
+            <li>Эффективная абстракция над DOM</li>
+            <li>Реактивный рендеринг</li>
+        </ol>
+    </div>
+</section>
+
+<!-- Slide 11 -->
+<section data-background-image="./images/first-component.png" data-background-size="50%" data-background-color="#f6f5f3" data-background-position="50% 80%">
+    <h2 style="font-weight: bold;">Как пользоваться?</h2>
+</section>
+
+<!-- Slide 12 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Как пользоваться?</h2>
+    <pre><code data-trim data-noescape class="javascript" style="font-size: 16px">
+        // Импортируем необходимые библиотеки
+        import React from 'react';
+        import ReactDOM from 'react-dom';
+
+        // Выбираем элемент, внутри которого мы хотим нарисовать форму
+        const root = document.getElementById('root');
+
+        // Создаем элемент формы
+        const form = React.createElement(
+            'div',
+            { className: 'editor' },
+            // Элемент состоит из 3ех частей: имя тега, атрибуты, дочерние элементы
+            // HTML эквивалент: &lt;input placeholder="Ключ заметки" /&gt;
+            React.createElement('input', { placeholder: 'Ключ заметки' }),
+            React.createElement('textarea', { placeholder: 'Текст заметки' }),
+            React.createElement('button', null, 'Отменить'),
+            // HTML эквивалент: &lt;button&gt;Сохранить&lt;/button&gt;
+            React.createElement('button', null, 'Сохранить')
+        );
+
+        // Отображаем форму на экране
+        ReactDOM.render(form, root);
+    </code></pre>
+</section>
+
+<!-- Slide 13 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Как пользоваться?</h2>
+    <pre><code data-trim data-noescape class="javascript" style="font-size: 16px">
+        // Импортируем необходимые библиотеки
+        import React from 'react';
+        import ReactDOM from 'react-dom';<span style="opacity: .2">
+
+        // Выбираем элемент, внутри которого мы хотим нарисовать форму
+        const root = document.getElementById('root');
+
+        // Создаем элемент формы
+        const form = React.createElement(
+            'div',
+            { className: 'editor' },
+            // Элемент состоит из 3ех частей: имя тега, атрибуты, дочерние элементы
+            // HTML эквивалент: &lt;input placeholder="Ключ заметки" /&gt;
+            React.createElement('input', { placeholder: 'Ключ заметки' }),
+            React.createElement('textarea', { placeholder: 'Текст заметки' }),
+            React.createElement('button', null, 'Отменить'),
+            // HTML эквивалент: &lt;button&gt;Сохранить&lt;/button&gt;
+            React.createElement('button', null, 'Сохранить')
+        );
+
+        // Отображаем форму на экране
+        ReactDOM.render(form, root);</span>
+    </code></pre>
+</section>
+
+<!-- Slide 14 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Как пользоваться?</h2>
+    <pre><code data-trim data-noescape class="javascript" style="font-size: 16px">
+        <span style="opacity: .2">// Импортируем необходимые библиотеки
+        import React from 'react';
+        import ReactDOM from 'react-dom';</span>
+
+        // Выбираем элемент, внутри которого мы хотим нарисовать форму
+        const root = document.getElementById('root');<span style="opacity: .2">
+
+        // Создаем элемент формы
+        const form = React.createElement(
+            'div',
+            { className: 'editor' },
+            // Элемент состоит из 3ех частей: имя тега, атрибуты, дочерние элементы
+            // HTML эквивалент: &lt;input placeholder="Ключ заметки" /&gt;
+            React.createElement('input', { placeholder: 'Ключ заметки' }),
+            React.createElement('textarea', { placeholder: 'Текст заметки' }),
+            React.createElement('button', null, 'Отменить'),
+            // HTML эквивалент: &lt;button&gt;Сохранить&lt;/button&gt;
+            React.createElement('button', null, 'Сохранить')
+        );
+
+        // Отображаем форму на экране
+        ReactDOM.render(form, root);</span>
+    </code></pre>
+</section>
+
+<!-- Slide 15 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Как пользоваться?</h2>
+    <pre><code data-trim data-noescape class="javascript" style="font-size: 16px">
+        <span style="opacity: .2">// Импортируем необходимые библиотеки
+        import React from 'react';
+        import ReactDOM from 'react-dom';
+
+        // Выбираем элемент, внутри которого мы хотим нарисовать форму
+        const root = document.getElementById('root');
+
+        // Создаем элемент формы целиком
+        const form = React.createElement(
+            'div',
+            { className: 'editor' },</span>
+            // Элемент состоит из 3ех частей: имя тега, атрибуты, дочерние элементы
+            // HTML эквивалент: &lt;input placeholder="Ключ заметки" /&gt;
+            React.createElement('input', { placeholder: 'Ключ заметки' }),<span style="opacity: .2">
+            React.createElement('textarea', { placeholder: 'Текст заметки' }),
+            React.createElement('button', null, 'Отменить'),</span>
+            // HTML эквивалент: &lt;button&gt;Сохранить&lt;/button&gt;
+            React.createElement('button', null, 'Сохранить')<span style="opacity: .2">
+        );
+
+        // Отображаем форму на экране
+        ReactDOM.render(form, root);</span>
+    </code></pre>
+</section>
+
+<!-- Slide 16 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Как пользоваться?</h2>
+    <pre><code data-trim data-noescape class="javascript" style="font-size: 16px">
+        <span style="opacity: .2">// Импортируем необходимые библиотеки
+        import React from 'react';
+        import ReactDOM from 'react-dom';
+
+        // Выбираем элемент, внутри которого мы хотим нарисовать форму
+        const root = document.getElementById('root');</span>
+
+        // Создаем элемент формы
+        const form = React.createElement(
+            'div',
+            { className: 'editor' },
+            // Элемент состоит из 3ех частей: имя тега, атрибуты, дочерние элементы
+            // HTML эквивалент: &lt;input placeholder="Ключ заметки" /&gt;
+            React.createElement('input', { placeholder: 'Ключ заметки' }),
+            React.createElement('textarea', { placeholder: 'Текст заметки' }),
+            React.createElement('button', null, 'Отменить'),
+            // HTML эквивалент: &lt;button&gt;Сохранить&lt;/button&gt;
+            React.createElement('button', null, 'Сохранить')
+        );<span style="opacity: .2">
+
+        // Отображаем форму на экране
+        ReactDOM.render(form, root);</span>
+    </code></pre>
+</section>
+
+<!-- Slide 17 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Как пользоваться?</h2>
+    <pre><code data-trim data-noescape class="javascript" style="font-size: 16px">
+        <span style="opacity: .2">// Импортируем необходимые библиотеки
+        import React from 'react';
+        import ReactDOM from 'react-dom';
+
+        // Выбираем элемент, внутри которого мы хотим нарисовать форму
+        const root = document.getElementById('root');
+
+        // Создаем элемент формы
+        const form = React.createElement(
+            'div',
+            { className: 'editor' },
+            // Элемент состоит из 3ех частей: имя тега, атрибуты, дочерние элементы
+            // HTML эквивалент: &lt;input placeholder="Ключ заметки" /&gt;
+            React.createElement('input', { placeholder: 'Ключ заметки' }),
+            React.createElement('textarea', { placeholder: 'Текст заметки' }),
+            React.createElement('button', null, 'Отменить'),
+            // HTML эквивалент: &lt;button&gt;Сохранить&lt;/button&gt;
+            React.createElement('button', null, 'Сохранить')
+        );</span>
+
+        // Отображаем форму на экране
+        ReactDOM.render(form, root);</span>
+    </code></pre>
+</section>
+
+<!-- Slide 18 -->
+<section class="slide-flex object-fit-fill" data-background-video="./images/vdom.mp4" data-background-video-loop data-background-size="contain" data-background-position="right" data-background-color="#f6f5f3" style="height: 100%; display: flex; align-items: flex-end;">
+    <h2 style="font-weight: bold; width: 100%; text-align: center; margin-bottom: 50px;">При изменениях React перерисовывает только нужные части интерфейса</h2>
+</section>
+
+<!-- Slide 19 -->
+<section class="center">
+    <div style="display: flex; justify-content: center; flex-direction: column;">
+        <pre><code data-trim class="javascript" style="font-size: 40px; overflow: visible;">
+            const element = <h1>Что такое JSX?</h1>;
+        </code></pre>
+        <p class="fragment">JSX — это расширение языка JavaScript, которое поддерживается в TypeScript</p>
+        <p class="fragment">JSX позволяет создавать React-элементы более просто и наглядно</p>
+    </div>
+</section>
+
+<!-- Slide 20 -->
+<section class="center">
+    <h3 class="grey" style="text-align: center; font-weight: bold; margin: 0">JSX</h3>
+    <pre><code data-trim class="html" style="font-size: 18px;">
+        &lt;select multiple>
+            &lt;option value="Пункт 1">Пункт 1&lt;/option>
+            &lt;option selected value="Пункт 2">Пункт 2&lt;/option>
+        &lt;/select>
+    </code></pre>
+    <h3 class="grey" style="text-align: center; font-weight: bold; margin: 0">JS</h3>
+    <pre><code data-trim style="font-size: 18px" class="javascript">
+        React.createElement(
+            'select',
+            { multiple: true },
+            React.createElement(
+                'option',
+                { value: 'Пункт 1' },
+                'Пункт 1'
+            ),
+            React.createElement(
+                'option',
+                { selected: true, value: 'Пункт 2' },
+                'Пункт 2'
+            )
+        );
+    </code></pre>
+</section>
+
+<!-- Slide 21 -->
+<section class="slide-flex object-fit-fill" data-background-video="./images/jsx-live-editor.mp4" data-background-video-loop data-background-size="contain" style="height: 100%; display: flex; align-items: flex-end;">
+    <a style="font-weight: bold; width: 100%; text-align: center; margin-bottom: 50px;" href="https://jsx-live.now.sh/" target="_blank">JSX Live Editor</a>
+</section>
+
+<!-- Slide 22 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Отличия JSX от HTML</h2>
+</section>
+
+<!-- Slide 23 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Все <strong>html</strong> атрибуты именуются <br /> в
+        <strong>camelCase</strong> стиле</h2>
+    <div class="grey" style="font-size: 30px; text-align: center; font-weight: bold;">HTML</div>
+    <pre><code class="html" data-trim style="font-size: 23px;">
+        &lt;input
+            class="name"
+            tabindex="2"
+            onchange="console.log('changed!');"
+        />
+    </code></pre>
+    <div class="grey" style="font-size: 30px; text-align: center; font-weight: bold;">JSX</div>
+    <pre><code class="language-typescript" data-trim data-noescape style="font-size: 23px;">
+        &lt;<span class="hljs-name">input</span>
+            <span class="hljs-attr">className</span>="name"
+            <span class="hljs-attr">tabIndex</span>="2"
+            <span class="hljs-attr">onChange</span>={event => console.log('changed!')}
+        />
+    </code></pre>
+</section>
+
+<!-- Slide 24 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Все элементы должны быть <strong>закрыты</strong></h2>
+    <div class="grey" style="font-size: 30px; text-align: center; font-weight: bold;">HTML</div>
+    <pre><code class="html" data-trim>
+        &lt;div>
+            &lt;span>Введите ваше имя:&lt;/span>&lt;br>
+            &lt;input type="text">
+        &lt;/div>
+    </code></pre>
+    <div class="grey" style="font-size: 30px; text-align: center; font-weight: bold;">JSX</div>
+    <pre><code class="html" data-trim>
+        &lt;div>
+            &lt;span>Введите ваше имя:&lt;/span>&lt;br />
+            &lt;input type="text" />
+        &lt;/div>
+    </code></pre>
+</section>
+
+<!-- Slide 25 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Имена пользовательских компонентов должны начинаться с <strong>заглавной</strong>
+        буквы</h2>
+    <table>
+        <tr>
+            <td>
+                <pre><code data-trim>
+                    &lt;Article />
+                </code></pre>
+            </td>
+            <td>
+                <pre><code class="javascript">React.createElement(Article, null);</code></pre>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <pre><code data-trim>
+                    &lt;article />
+                </code></pre>
+            </td>
+            <td>
+                <pre><code class="javascript">React.createElement("article", null);</code></pre>
+            </td>
+        </tr>
+    </table>
+</section>
+
+<!-- Slide 26 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Может быть только <strong>один</strong> корневой элемент</h2>
+    <div style="display: flex; justify-content: center;">
+        <pre><code class="html" data-trim data-noescape>
+            &lt;p>Первый абзац&lt;/p>
+            &lt;p>Второй абзац&lt;/p>
+        </code></pre>
+    </div>
+    <div style="font-size: 30px; text-align: center; font-weight: bold;">
+        <strong class="red">
+            SyntaxError: Adjacent JSX elements must be wrapped in an enclosing tag
+        </strong>
+    </div>
+</section>
+
+<!-- Slide 27 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Может быть только <strong>один</strong> корневой элемент</h2>
+    <div style="display: flex; justify-content: center; flex-direction: column">
+        <div style="display: flex; justify-content: center;">
+                <pre><code class="html" data-trim>
+                        &lt;div>
+                            &lt;p>Первый абзац&lt;/p>
+                            &lt;p>Второй абзац&lt;/p>
+                        &lt;/div>
+                    </code></pre></div>
+        <div style="display: flex; justify-content: center;">
+                <pre><code class="html" data-trim>
+                        &lt;React.Fragment>
+                            &lt;p>Первый абзац&lt;/p>
+                            &lt;p>Второй абзац&lt;/p>
+                        &lt;/React.Fragment>
+                    </code></pre></div>
+    </div>
+</section>
+
+<!-- Slide 28 -->
+<section class="center">
+    <p>Так как JSX превратится в <strong>валидный JavaScript</strong>, то в нем можно использовать любые JavaScript выражения</p>
+</section>
+
+<!-- Slide 29 -->
+<section class="center">
+    <h2 style="font-weight: bold;"><strong>JavaScript</strong> выражения должны быть заключены в <strong>{ }</strong></h2>
+    <pre><code class="javascript" data-trim>
+        const user = { name: 'Студент' };
+
+        const element = &lt;div>Привет, {user.name}&lt;/div>;
+    </code></pre>
+</section>
+
+<!-- Slide 30 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Всё содержимое JSX экранируется</h2>
+    <pre><code class="javascript" data-trim>
+        const html = '&lt;strong>Мир&lt;/strong>';
+
+        const element = &lt;div>Привет, {html}&lt;/div>;
+    </code></pre>
+    <p class="fragment">Привет, &lt;strong&gt;Мир&lt;/strong&gt;</p>
+</section>
+
+<!-- Slide 31 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Однако, есть выход</h2>
+    <pre><code class="language-typescript" data-trim data-noescape>
+        const html = 'Привет, &lt;strong>Мир&lt;/strong>!';
+
+        const element = (
+            &lt;<span class="hljs-name">div</span> <span class="hljs-attr">dangerouslySetInnerHTML</span>={{ __html: html }} />
+        );
+    </code></pre>
+    <p class="fragment">Привет, <span style="font-weight: bold;">Мир</span>!</p>
+</section>
+
+<!-- Slide 32 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Компоненты</h2>
+    <h2 class="grey" style="font-size: 35px; font-weight: bold;">Components</h2>
+</section>
+
+<!-- Slide 33 -->
+<section class="center">
+    <p>Компоненты предоставляют механизм разбиения интерфейса на небольшие независимые части, которые реализуются по отдельности</p>
+</section>
+
+<!-- Slide 34 -->
+<section class="center">
+    <p style="font-weight: bold; font-size: 40px;">Рассмотрим создание компонента на этом примере</p>
+    <pre><code style="overflow: visible;" data-trim data-noescape class="typescript">
+        import React from 'react';
+        import ReactDOM from 'react-dom';
+
+        const root = document.getElementById('root');
+
+        ReactDOM.render(
+            // Весь код, отвечающий за форму, можно вынести в компонент
+            &lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>="editor">
+                &lt;<span class="hljs-name">input</span> <span class="hljs-attr">placeholder</span>="Ключ заметки" />
+                &lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">placeholder</span>="Текст заметки" />
+                &lt;<span class="hljs-name">button</span>>Отменить&lt;/<span class="hljs-name">button</span>>
+                &lt;<span class="hljs-name">button</span>>Сохранить&lt;/<span class="hljs-name">button</span>>
+            &lt;/<span class="hljs-name">div</span>>,
+            root
+        );
+    </code></pre>
+</section>
+
+<!-- Slide 35 -->
+<section class="center">
+    <p style="font-weight: bold; font-size: 40px;">Рассмотрим создание компонента на этом примере</p>
+    <pre><code style="overflow: visible;" data-trim data-noescape class="typescript">
+        <span style="opacity: .2;">import React from 'react';
+        import ReactDOM from 'react-dom';
+
+        const root = document.getElementById('root');
+
+        ReactDOM.render(</span>
+            // Весь код, отвечающий за форму, можно вынести в компонент
+            &lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>="editor">
+                &lt;<span class="hljs-name">input</span> <span class="hljs-attr">placeholder</span>="Ключ заметки" />
+                &lt;<span class="hljs-name">textarea</span> <span class="hljs-attr">placeholder</span>="Текст заметки" />
+                &lt;<span class="hljs-name">button</span>>Отменить&lt;/<span class="hljs-name">button</span>>
+                &lt;<span class="hljs-name">button</span>>Сохранить&lt;/<span class="hljs-name">button</span>>
+            &lt;/<span class="hljs-name">div</span>><span style="opacity: .2;">,
+            root
+        );</span>
+    </code></pre>
+</section>
+
+<!-- Slide 36 -->
+<section class="center">
+    <p>В React компоненты бывают двух типов: <br /> <strong style="font-weight: bold;">Функциональные</strong> и <strong style="font-weight: bold;">Классовые</strong></p>
+</section>
+
+<!-- Slide 37 -->
+<section class="center">
+    <h2 style="font-weight: bold; position: relative;">
+        1. Функциональный компонент <br> (Function component)
+    </h2>
+    <pre><code data-trim data-noescape class="javascript" style="font-size: 25px;">
+        import React from 'react';
+
+        function Editor() {
+            return (
+                &lt;<span class="hljs-name">div</span> <span
+            class="hljs-attr">className</span>=<span class="hljs-string">"editor"</span>>
+                    &lt;<span class="hljs-name">input</span> <span
+            class="hljs-attr">placeholder</span>=<span class="hljs-string">"Ключ заметки"</span> />
+                    &lt;<span class="hljs-name">textarea</span> <span
+            class="hljs-attr">placeholder</span>=<span class="hljs-string">"Текст заметки"</span> />
+                    &lt;<span class="hljs-name">button</span>>Отменить&lt;/<span
+            class="hljs-name">button</span>>
+                    &lt;<span class="hljs-name">button</span>>Сохранить&lt;/<span
+            class="hljs-name">button</span>>
+                &lt;/<span class="hljs-name">div</span>>
+            );
+        }
+    </code></pre>
+</section>
+
+<!-- Slide 38 -->
+<section class="center">
+    <h2 style="font-weight: bold; position: relative;">
+        2. Классовый компонент <br> (Class component)
+    </h2>
+    <pre><code data-trim data-noescape class="javascript" style="font-size: 23px;">
+        import React, { Component } from 'react';
+
+        class Editor extends Component {
+            render() {
+                return (
+                    &lt;<span class="hljs-name">div</span> <span
+            class="hljs-attr">className</span>=<span class="hljs-string">"editor"</span>>
+                        &lt;<span class="hljs-name">input</span> <span
+            class="hljs-attr">placeholder</span>=<span class="hljs-string">"Ключ заметки"</span> />
+                        &lt;<span class="hljs-name">textarea</span> <span
+            class="hljs-attr">placeholder</span>=<span class="hljs-string">"Текст заметки"</span> />
+                        &lt;<span class="hljs-name">button</span>>Отменить&lt;/<span
+            class="hljs-name">button</span>>
+                        &lt;<span class="hljs-name">button</span>>Сохранить&lt;/<span
+            class="hljs-name">button</span>>
+                    &lt;/<span class="hljs-name">div</span>>
+                );
+            }
+        }
+    </code></pre>
+</section>
+
+<!-- Slide 39 -->
+<section class="center">
+    <p>Почти всё в приложении, написанном на React, будет <strong>компонентом</strong>. Неважно что это &mdash; форма, компонент заметки или целая страница</p>
+</section>
+
+<!-- Slide 40 -->
+<section class="center">
+    <p>Это становится возможным благодаря механизму <strong>композиции или объединения компонентов</strong>. Любой компонент в своей реализации может использовать любой другой компонент</p>
+</section>
+
+<!-- Slide 41 -->
+<section data-background-image="./images/composite-components.png" data-background-size="50%" data-background-color="#f6f5f3" data-background-position="50% 80%">
+    <h2 style="font-weight: bold;">Объединение компонентов</h2>
+</section>
+
+<!-- Slide 42 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Объединение компонентов</h2>
+    <pre><code class="javascript" data-trim data-noescape>
+        import Editor from './Editor';
+        import Notes from './Notes';
+
+        function NotesApp() {
+            return (
+                &lt;div className="notes-app">
+                    &lt;Editor />
+                    &lt;Notes />
+                &lt;/div>
+            );
+        }
+    </code></pre>
+</section>
+
+<!-- Slide 43 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Атрибуты</h2>
+    <h2 class="grey" style="font-size: 35px; font-weight: bold;">Props</h2>
+</section>
+
+<!-- Slide 44 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">Атрибуты&nbsp;<span
+        class="grey" style="font-size: 40px;">(Props)</span></h2>
+    <p>Любой компонент может получать на вход <strong style="font-weight: bold;">пропсы</strong>, подобно тому как функции принимают аргументы, а html-элементы атрибуты</p>
+    <p class="fragment">Именно просы позволяют делать компоненты универсальными</p>
+</section>
+
+<!-- Slide 45 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">Атрибуты&nbsp;<span
+            class="grey" style="font-size: 40px;">(Props)</span></h2>
+    <div style="display: flex; justify-content: center">
+        <pre><code class="language-javascript" data-trim data-noescape>
+            function Notes() {
+                return (
+                    &lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span
+                class="hljs-string">"notes"</span>>
+                        &lt;<span class="hljs-name">Note</span> <span class="hljs-attr">name</span>=<span
+                class="hljs-string">"Books"</span> <span
+                class="hljs-attr">text</span>=<span class="hljs-string">"Books to read"</span> />
+                        &lt;<span class="hljs-name">Note</span> <span class="hljs-attr">name</span>=<span
+                class="hljs-string">"Music"</span> <span
+                class="hljs-attr">text</span>=<span class="hljs-string">"Music to listen"</span> />
+                        &lt;<span class="hljs-name">Note</span> <span class="hljs-attr">name</span>=<span
+                class="hljs-string">"Films"</span> <span
+                class="hljs-attr">text</span>=<span class="hljs-string">"Films to watch"</span> />
+                    &lt;/<span class="hljs-name">div</span>>
+                );
+            }
+        </code></pre>
+    </div>
+</section>
+
+<!-- Slide 46 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">Атрибуты&nbsp;<span
+        class="grey" style="font-size: 40px;">(Props)</span></h2>
+    <p>В функциональных компонентах пропсы доступны в <strong>объекте</strong>, который будет передан в <strong>первый аргумент</strong> функции-компонента</p>
+</section>
+
+<!-- Slide 47 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">Атрибуты&nbsp;<span
+            class="grey" style="font-size: 40px;">(Props)</span></h2>
+    <pre><code class="typescript" data-trim data-noescape>
+        interface NoteProps {
+            name: string;
+            text: string;
+        }
+
+        function Note(props: NoteProps) {
+            return (
+                &lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>="note">
+                    &lt;<span class="hljs-name">h1</span>>{props.name}&lt;/<span class="hljs-name">h1</span>>
+                    &lt;<span class="hljs-name">p</span>>{props.text}&lt;/<span class="hljs-name">p</span>>
+                &lt;/<span class="hljs-name">div</span>>
+            );
+        }
+    </code></pre>
+</section>
+
+<!-- Slide 48 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">Атрибуты&nbsp;<span
+        class="grey" style="font-size: 40px;">(Props)</span></h2>
+    <p>В классовых компонентах пропсы доступны в любом методе класса через объект <strong>this.props</strong></p>
+</section>
+
+<!-- Slide 49 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">Атрибуты&nbsp;<span
+            class="grey" style="font-size: 40px;">(Props)</span></h2>
+    <pre><code class="typescript" data-trim data-noescape style="font-size: 22px">
+        import React, { Component } from 'react';
+
+        interface NoteProps {
+            name: string;
+            text: string;
+        }
+
+        class Note extends Component&lt;NoteProps> {
+            render() {
+                return (
+                    &lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>="note">
+                        &lt;<span class="hljs-name">h1</span>>{<span class="hljs-keyword">this</span>.props.name}&lt;/<span class="hljs-name">h1</span>>
+                        &lt;<span class="hljs-name">p</span>>{<span class="hljs-keyword">this</span>.props.text}&lt;/<span class="hljs-name">p</span>>
+                    &lt;/<span class="hljs-name">div</span>>
+                );
+            }
+        }
+    </code></pre>
+</section>
+
+<!-- Slide 50 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Потомки</h2>
+    <h2 class="grey" style="font-size: 35px; font-weight: bold;">Children</h2>
+</section>
+
+<!-- Slide 51 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
+        Потомки&nbsp;<span class="grey" style="font-size: 40px;">(Children)</span>
+    </h2>
+    <p><strong>children</strong> - это зарезервированное название одного из пропсов</p>
+    <p>Этот механизм позволяет передавать дочернии элементы более наглядно и явно, подобно тому как это делается в HTML</p>
+</section>
+
+<!-- Slide 52 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
+        Потомки&nbsp;<span class="grey" style="font-size: 40px;">(Children)</span>
+    </h2>
+    <pre><code class="language-javascript" style="font-size: 23px;" data-trim data-noescape>
+        function Notes() {
+            return (
+                &lt;div className="notes">
+                    &lt;Note name="Books">
+                        Books to read
+                    &lt;/Note>
+
+                    &lt;Note name="Films">
+                        &lt;p>Films to read&lt;/p>
+                        &lt;button>Like&lt;/button>
+                    &lt;/Note>
+
+                    ...
+                &lt;/div>
+            );
+        }
+    </code></pre>
+</section>
+
+<!-- Slide 53 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
+        Потомки&nbsp;<span class="grey" style="font-size: 40px;">(Children)</span>
+    </h2>
+    <pre><code class="language-typescript" style="font-size: 19px;" data-trim data-noescape>
+        import React, { ReactNode } from 'react';
+
+        interface NoteProps {
+            // ReactNode &mdash; тип, который описывает всё что может отрендерить React
+            children: ReactNode;
+            name: string;
+        }
+
+        function Note(props: NoteProps) {
+            return (
+                &lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>="note">
+                    &lt;<span class="hljs-name">h1</span> <span class="hljs-attr">className</span>="note__title">
+                        {props.name}
+                    &lt;/<span class="hljs-name">h1</span>>
+                    &lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"note__content"</span>>
+                        {props.children}
+                    &lt;/<span class="hljs-name">div</span>>
+                &lt;/<span class="hljs-name">div</span>>
+            );
+        }
+    </code></pre>
+</section>
+
+<!-- Slide 54 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
+        Потомки&nbsp;<span class="grey" style="font-size: 40px;">(Children)</span>
+    </h2>
+    <pre><code class="language-typescript" style="font-size: 19px;" data-trim data-noescape>
+        <span style="opacity: .3">import React, { ReactNode } from 'react';
+
+        interface NoteProps {</span>
+            // ReactNode &mdash; тип, который описывает всё что может отрендерить React
+            children: ReactNode;<span style="opacity: .3">
+            name: string;
+        }
+
+        function Note(props: NoteProps) {
+            return (
+                &lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>="note">
+                    &lt;<span class="hljs-name">h1</span> <span class="hljs-attr">className</span>="note__title">
+                        {props.name}
+                    &lt;/<span class="hljs-name">h1</span>></span>
+                    &lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>=<span class="hljs-string">"note__content"</span>>
+                        {props.children}
+                    &lt;/<span class="hljs-name">div</span>><span style="opacity: .3">
+                &lt;/<span class="hljs-name">div</span>>
+            );
+        }</span>
+    </code></pre>
+</section>
+
+<!-- Slide 55 -->
+<section data-background-image="./images/warning-note.png" data-background-size="contain" data-background-position="center 20px" data-background-color="#f6f5f3">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
+        Условный рендеринг
+    </h2>
+</section>
+
+<!-- Slide 56 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
+        Условный рендеринг
+    </h2>
+    <p>Так как JSX позволяет использовать произвольные JavaScript выражения, то проблемы необходимости рендеринга в зависимости от тех или иных условий решаются стандартными средствами языка</p>
+</section>
+
+<!-- Slide 57 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
+        Условный рендеринг
+    </h2>
+    <pre><code class="language-typescript" data-trim data-noescape>
+        function Note(props: NoteProps) {
+            return (
+                &lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>="note">
+                    &lt;<span class="hljs-name">h2</span> <span class="hljs-attr">className</span>="note__title">
+                        {props.type === 'warning'
+                            ? 'Warning'
+                            : props.name
+                        }
+                    &lt;/<span class="hljs-name">h2</span>>
+                    ...
+                &lt;/<span class="hljs-name">div</span>>
+            );
+        }
+    </code></pre>
+</section>
+
+<!-- Slide 58 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
+        Условный рендеринг
+    </h2>
+    <pre><code class="language-typescript" data-trim data-noescape>
+        <span style="opacity: .3">function Note(props: NoteProps) {
+            return (
+                &lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>="note"></span>
+                    &lt;<span class="hljs-name">h2</span> <span class="hljs-attr">className</span>="note__title">
+                        {props.type === 'warning'
+                            ? 'Warning'
+                            : props.name
+                        }
+                    &lt;/<span class="hljs-name">h2</span>><span style="opacity: .3">
+                    ...
+                &lt;/<span class="hljs-name">div</span>>
+            );
+        }</span>
+    </code></pre>
+</section>
+
+<!-- Slide 59 -->
+<section data-background-image="./images/warning-note.png" data-background-size="contain" data-background-position="center 20px" data-background-color="#f6f5f3">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
+        Работа со списками
+    </h2>
+</section>
+
+<!-- Slide 60 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
+        Работа со списками
+    </h2>
+    <p>Проблемы со списками однотипных элементов решаются аналогично</p>
+</section>
+
+<!-- Slide 61 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
+        Работа со списками
+    </h2>
+    <pre><code class="language-typescript" data-trim data-noescape>
+        function NotesList() {
+            return (
+                &lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>="notes-list">
+                    &lt;<span class="hljs-name">Note</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"Books"</span> <span class="hljs-attr">text</span>=<span class="hljs-strng">"Books to read"</span> />
+                    &lt;<span class="hljs-name">Note</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"Films"</span> <span class="hljs-attr">text</span>=<span class="hljs-strng">"Films to watch"</span> />
+                    &lt;<span class="hljs-name">Note</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"Music"</span> <span class="hljs-attr">text</span>=<span class="hljs-strng">"Music to listen"</span> />
+                &lt;/<span class="hljs-name">div</span>>
+            );
+        }
+    </code></pre>
+</section>
+
+<!-- Slide 62 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
+        Работа со списками
+    </h2>
+    <pre><code class="language-typescript" data-trim data-noescape>
+        function NotesList({ notes }: NotesListProps) {
+            return (
+                &lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>="notes-list">
+                    {notes.map(note => (
+                        &lt;<span class="hljs-name">Note</span> <span class="hljs-attr">name</span>={note.name} <span class="hljs-attr">text</span>={note.text} />
+                    ))}
+                &lt;/<span class="hljs-name">div</span>>
+            );
+        }
+    </code></pre>
+    <p class="fragment" style="font-size: 30px;" data-fragment-index="1">Однако, при рендеринге, нас ожидает ошибка в консоли браузера</p>
+    <p class="red fragment" data-fragment-index="1" style="font-size: 30px;">
+        Each child in an array or iterator should have a unique "key" prop.<br>
+        Check the render method of <span style="font-weight: bold;">NotesList</span>. See https://fb.me/react-warning-keys for more information.
+    </p>
+</section>
+
+<!-- Slide 63 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
+        Работа со списками
+    </h2>
+    <pre><code class="language-typescript" data-trim data-noescape style="font-size: 23px;">
+        function NotesList({ notes }: NotesListProps) {
+            return (
+                &lt;<span class="hljs-name">div</span> <span class="hljs-attr">className</span>="notes-list">
+                    {notes.map(note => (
+                        &lt;<span class="hljs-name">Note</span>
+                            <span class="hljs-attr">name</span>={note.name}
+                            <span class="hljs-attr">text</span>={note.text}
+                            <span class="hljs-attr">key</span>={note.id} // Избавляемся от ошибки
+                        />
+                    ))}
+                &lt;/<span class="hljs-name">div</span>>
+            );
+        }
+    </code></pre>
+    <p style="font-size: 28px; ">Чтобы её исправить достаточно добавить уникальный пропс <strong style="font-weight: bold;">key</strong> к каждому из элементов списка</p>
+</section>
+
+<!-- Slide 64 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
+        Работа со списками
+    </h2>
+    <p>Ключи (keys) помогают React определять, какие элементы были изменены, добавлены или удалены. Их необходимо указывать, чтобы React мог сопоставлять элементы массива с течением времени</p>
+</section>
+
+<!-- Slide 65 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
+        Работа со списками
+    </h2>
+    <div style="display: flex; align-items: center; justify-content: center; font-size: 40px;">
+        <ul style="list-style: none">
+            <li>Key должен однозначно определять элемент списка и быть стабильным</li>
+            <li>Повторяющиеся key в рамках одного списка недопустимы</li>
+            <li>Использовать индекс элемента в массиве лучше только тогда, когда другого выхода нет</li>
+        </ul>
+    </div>
+    <div style="text-align: center;">
+        <a style="font-size: 35px;" href="https://medium.com/@robinpokorny/index-as-a-key-is-an-anti-pattern-e0349aece318">Почему использовать индекс в качестве key это плохо</a>
+    </div>
+</section>
+
+<!-- Slide 66 -->
+<section data-background-video="./images/set-state-example.mp4" data-background-size="contain" data-background-position="center" data-background-video-loop data-background-color="#f6f5f3">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
+        Состояние компонента&nbsp;<span class="grey" style="font-size: 40px;">(State)</span>
+    </h2>
+</section>
+
+<!-- Slide 67 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
+        Состояние компонента&nbsp;<span class="grey" style="font-size: 40px;">(State)</span>
+    </h2>
+    <p>Состояние компонента &mdash; это механизм, который позволяет сделать его «живым»</p>
+    <p>Основное отличие состояния от пропсов в том, что состояние доступно только самому компоненту</p>
+</section>
+
+<!-- Slide 68 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
+        Состояние компонента&nbsp;<span class="grey" style="font-size: 40px;">(State)</span></h2>
+    <p>Любой компонент автоматически отреагирует на все изменения собственного состояния и будет перерисован</p>
+</section>
+
+<!-- Slide 69 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
+        Состояние компонента&nbsp;<span class="grey" style="font-size: 40px;">(State)</span></h2>
+    <p>Чтобы компонент узнал о том, что состояние изменилось, делать это следует только через <strong>специальный метод</strong></p>
+</section>
+
+<!-- Slide 70 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
+        Состояние компонента&nbsp;<span class="grey" style="font-size: 40px;">(State)</span></h2>
+    <p>До недавнего времени использование состояния было возможно только в классовых компонентах</p>
+    <p style="font-size: 35px;">Однако, сейчас есть механизм и для функциональных компонентов &mdash; Хуки (Hooks)</>
+    <p>Мы же сейчас рассмотрим только классовые компоненты</p>
+</section>
+
+<!-- Slide 71 -->
+<section data-background-video="./images/set-state-example.mp4" data-background-size="contain" data-background-position="center" data-background-video-loop data-background-color="#f6f5f3">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
+        Состояние компонента&nbsp;<span class="grey" style="font-size: 40px;">(State)</span>
+    </h2>
+</section>
+
+<!-- Slide 72 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
+        Состояние компонента&nbsp;<span class="grey" style="font-size: 40px;">(State)</span>
+    </h2>
+    <pre><code class="language-typescript" data-trim data-noescape style="font-size: 20px">
+        // Определяем интерфейс состояния компонента
+        interface NoteState {
+            isReadMoreClicked: boolean;
+        }
+
+        class Note extends Component&lt;NoteProps, NoteState> {
+            // Определяем начальное состояние компонента
+            state: NoteState = { isReadMoreClicked: false }
+
+            // Создаем обработчик клика по кнопке «Read more»
+            handleReadMoreClick = () => {
+                // Изменяем состояние через метод this.setState()
+                this.setState({ isReadMoreClicked: true });
+            }
+
+            ...
+        }
+    </code></pre>
+</section>
+
+<!-- Slide 73 -->
+<section class="center">
+        <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
+            Состояние компонента&nbsp;<span class="grey" style="font-size: 40px;">(State)</span>
+        </h2>
+        <pre><code class="language-typescript" data-trim data-noescape style="font-size: 20px">
+            // Определяем интерфейс состояния компонента
+            interface NoteState {
+                isReadMoreClicked: boolean;
+            }
+
+            <span style="opacity: .3;">class Note extends Component</span>&lt;NoteProps, NoteState><span style="opacity: .3;"> {
+                // Определяем начальное состояние компонента
+                state: NoteState = { isReadMoreClicked: false }
+
+                // Создаем обработчик клика по кнопке «Read more»
+                handleReadMoreClick = () => {
+                    // Изменяем состояние через метод this.setState()
+                    this.setState({ isReadMoreClicked: true });
+                }
+
+                ...
+            }</span>
+        </code></pre>
+</section>
+
+<!-- Slide 74 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
+        Состояние компонента&nbsp;<span class="grey" style="font-size: 40px;">(State)</span>
+    </h2>
+    <pre><code class="language-typescript" data-trim data-noescape style="font-size: 20px">
+        <span style="opacity: .3">// Определяем интерфейс состояния компонента
+        interface NoteState {
+            isReadMoreClicked: boolean;
+        }</span>
+
+        <span style="opacity: .3;">class Note extends Component&lt;NoteProps, NoteState> {</span>
+            // Определяем начальное состояние компонента
+            state: NoteState = { isReadMoreClicked: false }<span style="opacity: .3;">
+
+            // Создаем обработчик клика по кнопке «Read more»
+            handleReadMoreClick = () => {
+                // Изменяем состояние через метод this.setState()
+                this.setState({ isReadMoreClicked: true });
+            }
+
+            ...
+        }</span>
+    </code></pre>
+</section>
+
+<!-- Slide 75 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
+        Состояние компонента&nbsp;<span class="grey" style="font-size: 40px;">(State)</span>
+    </h2>
+    <pre><code class="language-typescript" data-trim data-noescape style="font-size: 20px">
+        <span style="opacity: .3">// Определяем начальное состояние компонента
+        interface NoteState {
+            isReadMoreClicked: boolean;
+        }</span>
+
+        <span style="opacity: .3;">class Note extends Component&lt;NoteProps, NoteState> {
+            // Определяем начальное состояние компонента
+            state: NoteState = { isReadMoreClicked: false }</span>
+
+            // Создаем обработчик клика по кнопке «Read more»
+            handleReadMoreClick = () => {
+                // Изменяем состояние через метод this.setState()
+                this.setState({ isReadMoreClicked: true });
+            }<span style="opacity: .3;">
+
+            ...
+        }</span>
+    </code></pre>
+</section>
+
+<!-- Slide 76 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
+        Состояние компонента&nbsp;<span class="grey" style="font-size: 40px;">(State)</span>
+    </h2>
+    <pre><code class="javascript" style="font-size: 18px;" data-trim data-noescape>
+        class Note extends Component&lt;NoteProps, NoteState> {
+            ...
+
+            render() {
+                return (
+                    &lt;div className="note">
+                        &lt;div className="note__name">Books&lt;/div>
+                        &lt;div className="note__text">Books to read&lt;/div>
+                        <span class="hljs-comment">// Доступ к текущему состоянию можно получить через this.state</span>
+                        {<span class="hljs-keyword">this</span>.state.isReadMoreClicked
+                            ? &lt;div className="note__additional-text">Additional text&lt;/div>
+                            : &lt;button onClick={this.handleReadMoreClick}>Read more&lt;/button>
+                        }
+                    &lt;/div>
+                );
+            }
+        }
+    </code></pre>
+</section>
+
+<!-- Slide 77 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
+        Состояние компонента&nbsp;<span class="grey" style="font-size: 40px;">(State)</span>
+    </h2>
+    <pre><code class="javascript" style="font-size: 18px;" data-trim data-noescape>
+    <span style="opacity: .3">class Note extends Component&lt;NoteProps, NoteState> {
+        ...
+
+        render() {
+            return (
+                &lt;div className="note">
+                    &lt;div className="note__name">Books&lt;/div>
+                    &lt;div className="note__text">Books to read&lt;/div></span>
+                    <span class="hljs-comment">// Доступ к текущему состоянию можно получить через this.state</span>
+                    {<span class="hljs-keyword">this</span>.state.isReadMoreClicked
+                        ? &lt;div className="note__additional-text">Additional text&lt;/div>
+                        : &lt;button onClick={this.handleReadMoreClick}>Read more&lt;/button>
+                    }<span style="opacity: .3">
+                &lt;/div>
+            );
+        }
+    }
+    </code></pre>
+</section>
+
+<!-- Slide 78 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Правила работы с состоянием</h2>
+</section>
+
+<!-- Slide 79 -->
+<section class="center">
+    <h2 style="font-weight: bold;">
+        1. Не изменяйте состояние напрямую
+    </h2>
+    <pre><code class="javascript" data-trim data-noescape>
+        /**
+         * Неправильно, так как React не сможет узнать о том,
+         * что состояние было изменено
+         */
+        this.state.isReadMoreClicked = true;
+
+        // Правильно
+        this.setState({ isReadMoreClicked: true });
+    </code></pre>
+</section>
+
+<!-- Slide 80 -->
+<section class="center">
+    <h2 style="font-weight: bold; font-size: 48px;">
+        2. Для повышения производительности React может групировать обновления состояния
+    </h2>
+    <pre><code class="javascript" data-trim data-noescape style="font-size: 20px;">
+        /**
+         * Неправильно, так как обновления будут сгруппированы и каждое
+         * из них обратится к старому значению this.state.counter.
+         * Как результат значение counter увеличится на 1, вместо 2
+         */
+        this.setState({ counter: this.state.counter + 1 });
+        this.setState({ counter: this.state.counter + 1 });
+
+        /**
+         * Правильно. Передавая функцию в качестве аргумента, мы делаем
+         * изменения атомарными. Каждое из них получит актуальное значение состояния
+         */
+        this.setState(state => ({ counter: state.counter + 1 }));
+        this.setState(state => ({ counter: state.counter + 1 }));
+    </code></pre>
+</section>
+
+<!-- Slide 81 -->
+<section class="center">
+    <h2 style="font-weight: bold;">
+        3. Можно обновлять не все состояние целиком
+    </h2>
+    <pre><code class="typescript" data-trim data-noescape style="font-size: 22px;">
+        interface State {
+            notes: Note[];
+            isReadMoreClicked: boolean;
+        }
+
+        /**
+         * Если в вашем состоянии больше одного поля, то обновлять можно только
+         * то, что действительно изменилось. Все остальные значения React
+         * оставит без изменения
+         */
+        this.setState({ isReadMoreClicked: true });
+    </code></pre>
+</section>
+
+<!-- Slide 82 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Жизненный цикл компонента</h2>
+    <h2 class="grey" style="font-size: 35px; font-weight: bold;">Component life-cycle</h2>
+</section>
+
+<!-- Slide 83 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center; font-size: 40px;">
+        Жизненный цикл компонента&nbsp;<span class="grey" style="font-size: 35px;">(Component life-cycle)</span>
+    </h2>
+    <p>React предоставляет нам возможность вызывать различные методы в разные моменты жизни компонента</p>
+    <p class="fragment">Методы жизненного цикла доступны <br> <strong>только в классовых компонентах</strong></p>
+</section>
+
+<!-- Slide 84 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Этапы жизненного цикла</h2>
+    <div style="display: flex; justify-content: center; font-size: 40px">
+        <ol>
+            <li>Монтирование компонента <span style="font-size: 40px;" class="grey">(Mounting)</span>
+            </li>
+            <li>Изменение пропсов или состояния <span style="font-size: 40px;"
+                                                        class="grey">(Updating)</span></li>
+            <li>Удаление компонента <span style="font-size: 40px;" class="grey">(Unmounting)</span></li>
+        </ol>
+    </div>
+</section>
+
+<!-- Slide 85 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Монтирование <span class="grey" style="font-size: 40px">(Mounting)</span></h2>
+    <p style="font-size: 48px;">Монтированием называется первоначальный рендеринг компонента в DOM</p>
+</section>
+
+<!-- Slide 86 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Монтирование <span class="grey"
+                                                      style="font-size: 40px">(Mounting)</span></h2>
+    <h2 style="font-weight: bold; font-size: 40px;">Порядок вызова методов</h2>
+    <pre><code class="bash" data-trim data-noescape style="text-align: center;">
+        constructor
+        ↓
+        <span style="position: absolute; transform: translateX(-100%)" class="grey">(static)</span> getDerivedStateFromProps
+        ↓
+        render
+        ↓
+        componentDidMount
+    </code></pre>
+</section>
+
+<!-- Slide 87 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Обновление компонента <span class="grey" style="font-size: 40px">(Updating)</span></h2>
+    <p style="font-size: 48px;">Обновление компонента это самая долгая стадия жизни компонента. На этом этап могут происходить изменения пропсов или состояния компонента</p>
+</section>
+
+
+<!-- Slide 88 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Изменение пропсов <span class="grey" style="font-size: 40px">(Updating)</span>
+    </h2>
+    <h2 style="font-weight: bold; font-size: 40px;">Порядок вызова методов</h2>
+    <pre><code class="bash" data-trim data-noescape style="text-align: center;">
+        <span style="position: absolute; transform: translateX(-100%)" class="grey">(static)</span> getDerivedStateFromProps
+        ↓
+        shouldComponentUpdate
+        ↓
+        render
+        ↓
+        componentDidUpdate
+    </code></pre>
+</section>
+
+<!-- Slide 89 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Изменение состояния <span class="grey" style="font-size: 40px">(Updating)</span>
+    </h2>
+    <h2 style="font-weight: bold; font-size: 40px;">Порядок вызова методов</h2>
+    <pre><code class="bash" data-trim style="text-align: center;">
+        shouldComponentUpdate
+        ↓
+        render
+        ↓
+        componentDidUpdate
+    </code></pre>
+</section>
+
+<!-- Slide 90 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Удаление компонента <span class="grey" style="font-size: 40px">(Unmounting)</span></h2>
+    <p style="font-size: 48px;">Удалением или «размонтированием» компонента называется удаление соответствующего ему узла в DOM дереве</p>
+</section>
+
+<!-- Slide 91 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Удаление компонента&nbsp;<span class="grey" style="font-size: 40px">(Unmounting)</span>
+    </h2>
+    <h2 style="font-weight: bold; font-size: 40px;">Порядок вызова методов</h2>
+    <pre><code class="bash" data-trim style="text-align: center;">
+        componentWillUnmount
+    </code></pre>
+</section>
+
+<!-- Slide 92 -->
+<section data-background-image="./images/component-lifecycle.png" data-background-size="90%" data-background-position="center"></section>
+
+<!-- Slide 93 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Рассмотрим использование методов жизненого цикла на примере</h2>
+    <p>Реализуем кнопку «Вернуться наверх страницы», которая появляется если пользователь прокрутил страницу более чем на 300 пикселей</p>
+</section>
+
+<!-- Slide 94 -->
+<section class="object-fit-fill" data-background-video="./images/back-to-top.mp4" data-background-video-loop data-background-size="contain" data-background-position="right" data-background-color="#f6f5f3"></section>
+
+<!-- Slide 95 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center; font-size: 40px;">
+        Жизненный цикл компонента&nbsp;<span class="grey" style="font-size: 35px;">(Component life-cycle)</span>
+    </h2>
+    <pre><code class="language-javascript" data-trim data-noescape style="font-size: 14px;">
+        class Notes extends Component&lt;NotesProps, NotesState> {
+            // В состоянии компонента храним признак, говорящий о том нужно ли показывать кнопку
+            state: NotesState = { backToTop: false }
+
+            // После монтирования компонента мы можем работать с DOM
+            // Поэтому здесь будет безопасно подписаться на событие scroll
+            componentDidMount() {
+                window.addEventListener('scroll', this.handleScroll);
+            }
+
+            // Перед тем как компонент будет удален, нам необходимо отписаться
+            // Это позволит нам подчистить за собой и избежать утечек памяти
+            componentWillUnmount() {
+                window.removeEventListener('scroll', this.handleScroll);
+            }
+
+            handleScroll = () => {
+                // Если кнопка еще не показана, и пользователь достаточно прокрутил страницу
+                // Показываем кнопку «Наверх»
+                if (!this.state.backToTop && document.documentElement.scrollTop > 300) {
+                    this.setState({ backToTop: true });
+                }
+
+                ...
+            }
+
+            ...
+        }
+    </code></pre>
+</section>
+
+<!-- Slide 96 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center; font-size: 40px;">
+        Жизненный цикл компонента&nbsp;<span class="grey" style="font-size: 35px;">(Component life-cycle)</span>
+    </h2>
+    <pre><code class="language-javascript" data-trim data-noescape style="font-size: 14px;">
+        <span style="opacity: .3">class Notes extends Component&lt;NotesProps, NotesState> {</span>
+            // В состоянии компонента храним признак, говорящий о том нужно ли показывать кнопку
+            state: NotesState = { backToTop: false }
+
+            <span style="opacity: .3">// После монтирования компонента мы можем работать с DOM
+            // Поэтому здесь будет безопасно подписаться на событие scroll
+            componentDidMount() {
+                window.addEventListener('scroll', this.handleScroll);
+            }
+
+            // Перед тем как компонент будет удален, нам необходимо отписаться
+            // Это позволит нам подчистить за собой и избежать утечек памяти
+            componentWillUnmount() {
+                window.removeEventListener('scroll', this.handleScroll);
+            }</span>
+
+            handleScroll = () => {
+                // Если кнопка еще не показана, и пользователь достаточно прокрутил страницу
+                // Показываем кнопку «Наверх»
+                if (!this.state.backToTop && document.documentElement.scrollTop > 300) {
+                    this.setState({ backToTop: true });
+                }
+
+                ...
+            }<span style="opacity: .3">
+
+            ...
+        }</span>
+    </code></pre>
+</section>
+
+<!-- Slide 97 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center; font-size: 40px;">
+        Жизненный цикл компонента&nbsp;<span class="grey" style="font-size: 35px;">(Component life-cycle)</span>
+    </h2>
+    <pre><code class="language-javascript" data-trim data-noescape style="font-size: 14px;">
+        <span style="opacity: .3">class Notes extends Component&lt;NotesProps, NotesState> {
+            // В состоянии компонента храним признак, говорящий о том нужно ли показывать кнопку
+            state: NotesState = { backToTop: false }</span>
+
+            // После монтирования компонента мы можем работать с DOM
+            // Поэтому здесь будет безопасно подписаться на событие scroll
+            componentDidMount() {
+                window.addEventListener('scroll', this.handleScroll);
+            }
+
+            // Перед тем как компонент будет удален, нам необходимо отписаться
+            // Это позволит нам подчистить за собой и избежать утечек памяти
+            componentWillUnmount() {
+                window.removeEventListener('scroll', this.handleScroll);
+            }<span style="opacity: .3">
+
+            handleScroll = () => {
+                // Если кнопка еще не показана, и пользователь достаточно прокрутил страницу
+                // Показываем кнопку «Наверх»
+                if (!this.state.backToTop && document.documentElement.scrollTop > 300) {
+                    this.setState({ backToTop: true });
+                }
+
+                ...
+            }
+
+            ...
+        }</span>
+    </code></pre>
+</section>
+
+<!-- Slide 98 -->
+<section data-background-video="./images/notes-editor.mp4" data-background-size="contain" data-background-position="center" data-background-video-loop data-background-color="#f6f5f3">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
+        Работа с формами
+    </h2>
+</section>
+
+<!-- Slide 99 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; align-items: center; justify-content: center;">
+        Работа с формами
+    </h2>
+    <div style="display: flex; align-items: center; justify-content: center; font-size: 40px;">
+        <ul style="list-style: none; margin-left: 0; padding: 0;">
+            <li>Как получить данные из формы?</li>
+            <li>Как обрабатывать события?</li>
+        </ul>
+    </div>
+</section>
+
+<!-- Slide 100 -->
+<section class="center">
+    <p>Компоненты в React можно разделить на два вида, по способу взаимодействия:</p>
+    <div style="display: flex; align-items: center; justify-content: center; font-size: 40px;">
+        <table>
+            <tr>
+                <td>1. Неуправляемые</td>
+                <td style="color: #aaa">(Uncontrolled)</td>
+            </tr>
+            <tr>
+                <td>2. Управляемые</td>
+                <td style="color: #aaa">(Controlled)</td>
+            </tr>
+        </table>
+    </div>
+</section>
+
+<!-- Slide 101 -->
+<section class="center">
+    <h2 style="display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: bold;">
+        1. Неуправляемые компоненты
+        <br>
+        <span class="grey" style="font-size: 40px;">(Uncontrolled components)</span></h2>
+    <p style="font-size: 40px;"><strong>DOM</strong> управляет текущим состоянием компонента</p>
+</section>
+
+<!-- Slide 102 -->
+<section class="center">
+    <h2 style="display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: bold;">
+        1. Неуправляемые компоненты
+        <br>
+        <span class="grey" style="font-size: 40px;">(Uncontrolled components)</span></h2>
+    <p>Так как в неуправляемых компонентах текущим состоянием управляет <strong>DOM</strong>, а не React, то при отправке формы необходимо получить текущее значение из DOM</p>
+    <p class="fragment">Помочь в этом могут <strong>ссылки на DOM элементы</strong> (Refs)</p>
+</section>
+
+<!-- Slide 103 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; justify-content: center; align-items: center;">
+        Ссылка на DOM элемент&nbsp;<span class="grey" style="font-size: 40px;">(Ref)</span>
+    </h2>
+    <pre><code class="language-typescript" data-noescape data-trim style="font-size: 16px;">
+        import React, { Component, createRef } from 'react';
+
+        class UncontrolledForm extends Component {
+            // Создаем контейнер для будущей ссылки на DOM элемент &lt;input /&gt;
+            inputRef = createRef&lt;HTMLInputElement>()
+
+            handleSubmit = () => {
+                if (this.inputRef.current) {
+                    // Отправляем текущее значение введенное в поле ввода
+                    this.makeSomeApiRequest(this.inputRef.current.value);
+                }
+            }
+
+            render() {
+                return (
+                    &lt;<span class="hljs-name">div</span>>
+                        // Назначаем ссылку нужному элементу. После того как элемент появится в DOM
+                        // this.inputRef.current будет ссылаться на этот элемент
+                        &lt;<span class="hljs-name">input</span> <span class="hljs-attr">ref</span>={this.inputRef} />
+                        &lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>={this.handleSubmit}>Отправить&lt;/<span class="hljs-name">button</span>>
+                    &lt;/<span class="hljs-name">div</span>>
+                );
+            }
+        }
+    </code></pre>
+</section>
+
+<!-- Slide 104 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; justify-content: center; align-items: center;">
+        Ссылка на DOM элемент&nbsp;<span class="grey" style="font-size: 40px;">(Ref)</span>
+    </h2>
+    <pre><code class="language-typescript" data-noescape data-trim style="font-size: 16px;">
+        import React, { Component, createRef } from 'react';<span style="opacity: .3">
+
+        class UncontrolledForm extends Component {</span>
+            // Создаем контейнер для будущей ссылки на DOM элемент &lt;input /&gt;
+            inputRef = createRef&lt;HTMLInputElement>()<span style="opacity: .3">
+
+            handleSubmit = () => {
+                if (this.inputRef.current) {
+                    // Отправляем текущее значение введенное в поле ввода
+                    this.makeSomeApiRequest(this.inputRef.current.value);
+                }
+            }
+
+            render() {
+                return (
+                    &lt;<span class="hljs-name">div</span>>
+                        // Назначаем ссылку нужному элементу. После того как элемент появится в DOM
+                        // this.inputRef.current будет ссылаться на этот элемент
+                        &lt;<span class="hljs-name">input</span> <span class="hljs-attr">ref</span>={this.inputRef} />
+                        &lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>={this.handleSubmit}>Отправить&lt;/<span class="hljs-name">button</span>>
+                    &lt;/<span class="hljs-name">div</span>>
+                );
+            }
+        }</span>
+    </code></pre>
+</section>
+
+<!-- Slide 105 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; justify-content: center; align-items: center;">
+        Ссылка на DOM элемент&nbsp;<span class="grey" style="font-size: 40px;">(Ref)</span>
+    </h2>
+    <pre><code class="language-typescript" data-noescape data-trim style="font-size: 16px;">
+        <span style="opacity: .3">import React, { Component, createRef } from 'react';
+
+        class UncontrolledForm extends Component {
+            // Создаем контейнер для будущей ссылки на DOM элемент &lt;input /&gt;
+            inputRef = createRef&lt;HTMLInputElement>()
+
+            handleSubmit = () => {
+                if (this.inputRef.current) {
+                    // Отправляем текущее значение введенное в поле ввода
+                    this.makeSomeApiRequest(this.inputRef.current.value);
+                }
+            }
+
+            render() {</span>
+                return (
+                    &lt;<span class="hljs-name">div</span>>
+                        // Назначаем ссылку нужному элементу. После того как элемент появится в DOM
+                        // this.inputRef.current будет ссылаться на этот элемент
+                        &lt;<span class="hljs-name">input</span> <span class="hljs-attr">ref</span>={this.inputRef} /><span style="opacity: .3">
+                        &lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>={this.handleSubmit}>Отправить&lt;/<span class="hljs-name">button</span>></span>
+                    &lt;/<span class="hljs-name">div</span>>
+                );<span style="opacity: .3">
+            }
+        }</span>
+    </code></pre>
+</section>
+
+<!-- Slide 106 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; justify-content: center; align-items: center;">
+        Ссылка на DOM элемент&nbsp;<span class="grey" style="font-size: 40px;">(Ref)</span>
+    </h2>
+    <pre><code class="language-typescript" data-noescape data-trim style="font-size: 16px;">
+        <span style="opacity: .3">import React, { Component, createRef } from 'react';
+
+        class UncontrolledForm extends Component {
+            // Создаем контейнер для будущей ссылки на DOM элемент &lt;input /&gt;
+            inputRef = createRef&lt;HTMLInputElement>()</span>
+
+            handleSubmit = () => {
+                if (this.inputRef.current) {
+                    // Отправляем текущее значение введенное в поле ввода
+                    this.makeSomeApiRequest(this.inputRef.current.value);
+                }
+            }<span style="opacity: .3">
+
+            render() {</span>
+                return (
+                    &lt;<span class="hljs-name">div</span>><span style="opacity: .3">
+                        // Назначаем ссылку нужному элементу. После того как элемент появится в DOM
+                        // this.inputRef.current будет ссылаться на этот элемент
+                        &lt;<span class="hljs-name">input</span> <span class="hljs-attr">ref</span>={this.inputRef} /></span>
+                        &lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>={this.handleSubmit}>Отправить&lt;/<span class="hljs-name">button</span>>
+                    &lt;/<span class="hljs-name">div</span>>
+                );<span style="opacity: .3">
+            }
+        }</span>
+    </code></pre>
+</section>
+
+<!-- Slide 107 -->
+<section class="center">
+    <h2 style="display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: bold;">
+        1. Неуправляемые компоненты
+        <br>
+        <span class="grey" style="font-size: 40px;">(Uncontrolled components)</span></h2>
+    <div style="display: flex; align-items: center; justify-content: center; font-size: 35px;">
+        <ul style="list-style: none">
+            <li class="green"><span style="font-weight: bold; font-family: monospace;">+</span> Простота</li>
+            <li class="green"><span style="font-weight: bold; font-family: monospace;">+</span> Один обработчик на всю форму</li>
+            <li class="red"><span style="font-weight: bold; font-family: monospace;">-</span> Недостаточный контроль из кода</li>
+        </ul>
+    </div>
+</section>
+
+<!-- Slide 108 -->
+<section class="center">
+    <h2 style="display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: bold;">
+        2. Управляемые компоненты
+        <br>
+        <span class="grey" style="font-size: 40px;">(Controlled components)</span></h2>
+    <p style="font-size: 40px;"><strong>React</strong> управляет текущим состоянием компонента</p>
+</section>
+
+<!-- Slide 109 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; justify-content: center; align-items: center;">
+        2. Управляемые компоненты
+    </h2>
+    <pre><code class="language-typescript" data-noescape data-trim style="font-size: 16px;">
+        import React, { Component, FormEvent } from 'react';
+
+        class ControlledForm extends Component&lt;ControlledFormProps, ControlledFormState> {
+            // Храним текущее состояние поля ввода в локальном состоянии компонента
+            state: ControlledFormState = { value: '' }
+
+            // И измененяем его вручную, не опираясь на DOM
+            handleChange = (event: FormEvent&lt;HTMLInputElement>) => {
+                this.setState({ value: event.target.value });
+            }
+
+            // Отправлем текущее состояние, полученное из локального состояния компонента
+            handleSubmit = () => this.makeSomeApiRequest(this.state.value)
+
+            render() {
+                return (
+                    &lt;<span class="hljs-name">div</span>>
+                        // Сами задаем текущее значение поля ввода, а так же обработчик события change
+                        &lt;<span class="hljs-name">input</span> <span class="hljs-attr">value</span>={this.state.value} <span class="hljs-attr">onChange</span>={this.handleChange} />
+                        &lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>={this.handleSubmit}>Отправить&lt;/<span class="hljs-name">button</span>>
+                    &lt;/<span class="hljs-name">div</span>>
+                );
+            }
+        }
+    </code></pre>
+</section>
+
+<!-- Slide 110 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; justify-content: center; align-items: center;">
+        2. Управляемые компоненты
+    </h2>
+    <pre><code class="language-typescript" data-noescape data-trim style="font-size: 16px;">
+        import React, { Component, FormEvent } from 'react';<span style="opacity: .3">
+
+        class ControlledForm extends Component&lt;ControlledFormProps, ControlledFormState> {</span>
+            // Храним текущее состояние поля ввода в локальном состоянии компонента
+            state: ControlledFormState = { value: '' }
+
+            // И измененяем его вручную, не опираясь на DOM
+            handleChange = (event: FormEvent&lt;HTMLInputElement>) => {
+                this.setState({ value: event.target.value });
+            }<span style="opacity: .3">
+
+            // Отправлем текущее состояние, полученное из локального состояния компонента
+            handleSubmit = () => this.makeSomeApiRequest(this.state.value)
+
+            render() {
+                return (
+                    &lt;<span class="hljs-name">div</span>></span>
+                        // Сами задаем текущее значение поля ввода, а так же обработчик события change
+                        &lt;<span class="hljs-name">input</span> <span class="hljs-attr">value</span>={this.state.value} <span class="hljs-attr">onChange</span>={this.handleChange} /><span style="opacity: .3">
+                        &lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>={this.handleSubmit}>Отправить&lt;/<span class="hljs-name">button</span>></span><span style="opacity: .3">
+                    &lt;/<span class="hljs-name">div</span>>
+                );
+            }
+        }</span>
+    </code></pre>
+</section>
+
+<!-- Slide 111 -->
+<section class="center">
+    <h2 style="font-weight: bold; display: flex; justify-content: center; align-items: center;">
+        2. Управляемые компоненты
+    </h2>
+    <pre><code class="language-javascript" data-noescape data-trim style="font-size: 16px;">
+        <span style="opacity: .3">import React, { Component, FormEvent } from 'react';
+
+        class ControlledForm extends Component&lt;ControlledFormProps, ControlledFormState> {
+            // Храним текущее состояние поля ввода в локальном состоянии компонента
+            state: ControlledFormState = { value: '' }
+
+            // И измененяем его вручную, не опираясь на DOM
+            handleChange = (event: FormEvent&lt;HTMLInputElement>) => {
+                this.setState({ value: event.target.value });
+            }</span>
+
+            // Отправлем текущее состояние, полученное из локального состояния компонента
+            handleSubmit = () => this.makeSomeApiRequest(this.state.value)<span style="opacity: .3">
+
+            render() {
+                return (
+                    &lt;<span class="hljs-name">div</span>>
+                        // Сами задаем текущее значение поля ввода, а так же обработчик события change
+                        &lt;<span class="hljs-name">input</span> <span class="hljs-attr">value</span>={this.state.value} <span class="hljs-attr">onChange</span>={this.handleChange} /></span>
+                        &lt;<span class="hljs-name">button</span> <span class="hljs-attr">onClick</span>={this.handleSubmit}>Отправить&lt;/<span class="hljs-name">button</span>><span style="opacity: .3">
+                    &lt;/<span class="hljs-name">div</span>>
+                );
+            }
+        }</span>
+    </code></pre>
+</section>
+
+<!-- Slide 112 -->
+<section class="center">
+    <h2 style="display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: bold;">
+        2. Управляемые компоненты
+        <br>
+        <span class="grey" style="font-size: 40px;">(Controlled components)</span></h2>
+    <div style="display: flex; align-items: center; justify-content: center; font-size: 35px;">
+        <ul style="list-style: none">
+            <li class="green"><span style="font-weight: bold; font-family: monospace;">+</span> Состояние управляется через интерфейс</li>
+            <li class="green"><span style="font-weight: bold; font-family: monospace;">+</span> Полный контроль над изменениями</li>
+            <li class="red"><span style="font-weight: bold; font-family: monospace;">-</span> Более сложное взаимодействие</li>
+        </ul>
+    </div>
+</section>
+
+<!-- Slide 113 -->
+<section class="center">
+    <h2 style="display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: bold;">
+        Как начать работать с React ?
+    </h2>
+</section>
+
+<!-- Slide 114 -->
+<section class="center">
+    <h2 style="font-weight: bold;">Способ 1 &mdash; create-react-app</h2>
+    <pre><code class="bash" data-trim data-noescape style="font-size: 18px;">
+        # Устанавливаем утилиту для генерации проекта
+        <span class="red">$</span> npm install -g create-react-app
+
+        <span class="fragment" data-fragment-index="1"># Создаем проект notes-app с использованием TypeScript</span>
+        <span class="fragment" data-fragment-index="1"><span class="red">$</span> create-react-app notes-app --typescript</span>
+
+        <span class="fragment" data-fragment-index="2"># Переходим в папку с проектом</span>
+        <span class="fragment" data-fragment-index="2"><span class="red">$</span> cd notes-app</span>
+
+        <span class="fragment" data-fragment-index="3"># Запускаем проект</span>
+        <span class="fragment" data-fragment-index="3"><span class="red">$</span> npm run start
+        <span class="grey" style="font-size: 18px;">
+        Compiled successfully!
+
+        You can now view <span style="font-weight: bold;">notes-app</span> in the browser.
+            <span style="font-weight: bold;">Local</span>:            http://localhost:<span
+                style="font-weight: bold;">3000</span>/
+
+        Note that the development build is not optimized.
+        To create a production build, use <span class="green">npm run build.</span></span></span>
+    </code></pre>
+</section>
+
+<!-- Slide 115 -->
+<section class="center">
+    <h2 style="font-weight: bold;">create-react-app</h2>
+    <div style="display: flex; align-items: center; justify-content: center; font-size: 35px;">
+        <ul style="list-style: none">
+            <li class="green"><span style="font-weight: bold; font-family: monospace;">+</span> Очень быстрый старт</li>
+            <li class="green"><span style="font-weight: bold; font-family: monospace;">+</span> Активное развитие и поддержка от разработчиков React</li>
+            <li class="green"><span style="font-weight: bold; font-family: monospace;">+</span> TypeScript «из коробки»</li>
+            <li class="red"><span style="font-weight: bold; font-family: monospace;">-</span> Сложности при интеграции с собственным сервером</li>
+        </ul>
+    </div>
+</section>
+
+<!-- Slide 116 -->
+<section data-background-image="./images/nextjs.png" data-background-size="800px">
+    <h2 style="font-weight: bold;">Способ 2 &mdash; next.js</h2>
+</section>
+
+<!-- Slide 117 -->
+<section class="center">
+    <h2 style="font-weight: bold;">next.js</h2>
+    <pre style="margin: 0;"><code class="bash" data-trim data-noescape style="font-size: 18px;">
+        # Создаем папку для проекта и переходим в неё
+        <span class="red">$</span> mkdir notes-app && cd notes-app
+    </code></pre>
+    <pre class="fragment" data-fragment-index="2" style="margin: 0;"><code data-trim data-noescape style="font-size: 18px;">
+        <span class="grey"># Создаем package.json</span>
+        {
+          "scripts": {
+            "dev": "next",
+            "build": "next build",
+            "start": "next start"
+          }
+        }
+    </code></pre>
+    <pre style="margin: 0;"><code class="bash" data-trim data-noescape style="font-size: 18px;">
+        <span class="fragment" data-fragment-index="3"># Устанавливаем необходимые зависимости</span>
+        <span class="fragment" data-fragment-index="3"><span class="red">$</span> npm install --save next react react-dom</span>
+    </code></pre>
+    <pre class="fragment" data-fragment-index="4" style="margin: 0;"><code data-trim data-noescape style="font-size: 18px;">
+        <span class="grey"># Создаем файл ./pages/index.js, который будет отвечать за главную страницу</span>
+        export default () => &lt;div>Welcome to next.js!&lt;/div>
+    </code></pre>
+    <pre class="fragment" data-fragment-index="5" style="margin: 0;"><code class="bash" data-trim data-noescape
+                                                   style="font-size: 20px;">
+        # Запускаем проект в режиме разработки
+        <span class="red">$</span> npm run dev
+        <span style="opacity: .5; font-size: 15px;"><span style="background-color: #63a35c;">DONE</span>  <span
+                style="color: #63a35c;">Compiled successfully span 1773ms</span>
+         > Ready on http://localhost:3000</span>
+    </code></pre>
+</section>
+
+<!-- Slide 118 -->
+<section class="center">
+    <h2 style="font-weight: bold;">next.js</h2>
+    <div style="display: flex; align-items: center; justify-content: center; font-size: 35px;">
+        <ul style="list-style: none">
+            <li class="green"> <span style="font-weight: bold; font-family: monospace;">+</span> Очень быстрый старт</li>
+            <li class="green"> <span style="font-weight: bold; font-family: monospace;">+</span> Активное развитие и поддержка</li>
+            <li class="green"> <span style="font-weight: bold; font-family: monospace;">+</span> Множество точек для расширения и кастомизации</li>
+        </ul>
+    </div>
+</section>
+
+<!-- Slide 119 -->
+<section class="center">
+    <h2 style="font-weight: bold;">next.js&nbsp;<span class="grey">Свой сервер</span></h2>
+    <pre><code class="javascript" data-trim data-noescape style="font-size: 16px;">
+        // Импортируем нужные зависимости
+        const { parse } = require('url');
+
+        const next = require('next');
+        const server = require('express')();
+
+        <span class="fragment" data-fragment-index="1">// Создаем next.js приложение
+        const app = next({ dev: process.env.NODE_ENV !== 'production' });</span>
+
+        <span class="fragment" data-fragment-index="3">// Чтобы отрисовать страницу вызываем метод next.js приложения - app.render()
+        const render = pageName => (req, res) => app.render(req, res, `/${pageName}`);
+        const handleRequest = (req, res) =>
+            app.getRequestHandler()(req, res, parse(req.url, true));</span>
+
+        <span class="fragment" data-fragment-index="2">// Запускаем next.js приложение
+        app.prepare().then(() => {
+            <span class="fragment" data-fragment-index="3">// После того как next.js приложение запущено можно создать сервер
+            server
+                .get('/notes', render('index'))
+                .get('/notes/:note', render('note'))
+                .get('*', handleRequest)
+                .listen(3000, () => console.log('Listening on http://localhost:3000'));</span>
+        });</span>
+    </code></pre>
+</section>
+
+</div></div>
+
+<script src="../../@lib/core.js"></script>
+</body>
+</html>
